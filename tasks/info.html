@@ -1,0 +1,17 @@
+<table class="table table-striped">
+
+		<tr>
+			<th>Total tasks</th>
+			<td>{{ tasks.length }}</td>
+		</tr>
+		<tr>
+			<th>Remaining tasks</th>
+			<td>{{remainingTasks()}}</td>
+		</tr>
+		<tr>
+			<th>Completed tasks</th>
+			<td>{{tasks.length - remainingTasks()}}</td>
+
+		</tr>
+
+</table>

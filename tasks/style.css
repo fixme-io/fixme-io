@@ -1,0 +1,18 @@
+.task-completed {
+	text-decoration: line-through;
+}
+
+.navbar-header {
+	background-color: #250225;
+	padding-left: 15px;
+}
+
+li {
+	background-color: #060606;
+}
+
+.table {
+	border-radius: 5px;
+	width: 50%;
+	float: none;
+}

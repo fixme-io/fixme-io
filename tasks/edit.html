@@ -1,0 +1,14 @@
+<form name="myForm"  class="form-horizontal">
+
+	<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
+		<div class="col-xs-4">
+			<input class="form-control" name="title" type="text" ng-model="title" required> <span
+				ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
+		</div>
+	</div>
+
+	<a href="#/">
+		<button type="button" class="btn btn-warning" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
+	</a>
+	
+</form>
