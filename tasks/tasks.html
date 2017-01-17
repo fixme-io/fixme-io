@@ -9,14 +9,32 @@
 	</div>
 
 </form>
+<br />
 
-<table class="table table-striped">
+<ul ng-show="tasks.length != 0" class="nav nav-pills">
+	<li ng-class="tasksId == 'all' ? 'active' : ''"><a href="#/all">All tasks</a></li>
+	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks</a></li>
+	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks</a></li>
+</ul>
 
-	<tr ng-repeat="x in tasks track by $index">
-		<td>{{ $index + 1 }}</td>
-		<td><input type="checkbox" ng-model="x.completed" /> <span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
-		<td><a href="#edit/{{$index}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
-		</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove($index)"></i></a></td>
-	</tr>
+<div ng-show="tasksId == 'all'">
 
-</table>
+	<table class="table table-striped">
+
+		<tr ng-repeat="x in tasks track by $index">
+			<td>{{ $index + 1 }}</td>
+			<td><input type="checkbox" ng-model="x.completed" /> <span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
+			<td><a href="#edit/{{$index}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
+			</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove($index)"></i></a></td>
+		</tr>
+
+	</table>
+</div>
+
+<div ng-show="tasksId != 'all'">
+	<table class="table table-striped">
+		<tr ng-repeat="x in tasks | filter : tasksId == 'completed'">
+			<td>{{x.title}}</td>
+		</tr>
+	</table>
+</div>

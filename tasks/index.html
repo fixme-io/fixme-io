@@ -1,5 +1,6 @@
 <html>
 <head>
+
 <title>Tasks</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 <link href="style.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
 
@@ -21,13 +23,13 @@
 					aria-expanded="false">
 					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Tasks</a>
+				<a class="navbar-brand" href="#/all">Tasks</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="#info">Overview</a></li>
+					<li><a href="#info" id="info">Overview</a></li>
 
 				</ul>
 			</div>
@@ -35,7 +37,7 @@
 		</div>
 
 	</nav>
-	
+
 	<div class="container">
 		<div ng-app="myApp" ng-controller="MainCtrl">
 			<div ng-view></div>

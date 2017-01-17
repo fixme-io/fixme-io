@@ -7,7 +7,7 @@
 	padding-left: 15px;
 }
 
-li {
+#info {
 	background-color: #060606;
 }
 
@@ -16,3 +16,4 @@ li {
 	width: 50%;
 	float: none;
 }
+

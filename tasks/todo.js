@@ -6,7 +6,8 @@ app.controller('MainCtrl', function($scope) {
 
 });
 
-app.controller('TasksCtrl', function($scope) {
+app.controller('TasksCtrl', function($scope, $routeParams) {
+	$scope.tasksId = $routeParams.ID;
 
 	$scope.add = function() {
 		$scope.tasks.push({
@@ -14,6 +15,7 @@ app.controller('TasksCtrl', function($scope) {
 			completed : false
 		});
 		$scope.task = '';
+
 	}
 
 	$scope.remainingTasks = function() {
@@ -36,7 +38,7 @@ app.controller('TasksCtrl', function($scope) {
 });
 
 app.config(function($routeProvider) {
-	$routeProvider.when("/", {
+	$routeProvider.when("/:ID", {
 		templateUrl : "tasks.html",
 		controller : "TasksCtrl"
 	}).when("/edit/:ID", {
@@ -56,3 +58,4 @@ app.controller("EditCtrl", function($scope, $routeParams) {
 		$scope.tasks[$scope.index].title = $scope.title;
 	}
 });
+
