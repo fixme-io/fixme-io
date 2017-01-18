@@ -38,7 +38,7 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 });
 
 app.config(function($routeProvider) {
-	$routeProvider.when("/:ID", {
+	$routeProvider.when("/", {
 		templateUrl : "tasks.html",
 		controller : "TasksCtrl"
 	}).when("/edit/:ID", {
@@ -46,6 +46,9 @@ app.config(function($routeProvider) {
 		controller : "EditCtrl"
 	}).when("/info", {
 		templateUrl : "info.html",
+		controller : "TasksCtrl"
+	}).when("/:ID", {
+		templateUrl : "tasks.html",
 		controller : "TasksCtrl"
 	});
 });
