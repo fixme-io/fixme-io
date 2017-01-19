@@ -12,7 +12,8 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 	$scope.add = function() {
 		$scope.tasks.push({
 			title : $scope.task,
-			completed : false
+			completed : false,
+			date: null
 		});
 		$scope.task = '';
 
@@ -56,9 +57,10 @@ app.config(function($routeProvider) {
 app.controller("EditCtrl", function($scope, $routeParams) {
 	$scope.index = $routeParams.ID;
 	$scope.title = $scope.tasks[$scope.index].title;
+	$scope.dueDate= $scope.tasks[$scope.index].dueDate;
 
 	$scope.update = function() {
 		$scope.tasks[$scope.index].title = $scope.title;
+		$scope.tasks[$scope.index].dueDate = $scope.dueDate;
 	}
 });
-

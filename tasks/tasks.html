@@ -20,6 +20,7 @@
 	<table class="table table-striped">
 		<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '')">
 			<td>{{ $index + 1 }}</td>
+			<td>{{x.dueDate | date: "yyyy-MM-dd"}}</td>
 			<td><input type="checkbox" ng-model="x.completed" /> <span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 			<td><a href="#edit/{{tasks.indexOf(x)}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
 			</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove(tasks.indexOf(x))"></i></a></td>

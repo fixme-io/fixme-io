@@ -1,4 +1,4 @@
-<form name="myForm"  class="form-horizontal">
+<form name="myForm" class="form-horizontal">
 
 	<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
 		<div class="col-xs-4">
@@ -7,8 +7,14 @@
 		</div>
 	</div>
 
-	<a href="#/">
+	<div class="input-group col-xs-2">
+		<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+		</span> <input class="form-control" placeholder=" MM/DD/YYY" type="date" ng-model="dueDate">
+	</div>
+
+	<br /> <a href="#/">
 		<button type="button" class="btn btn-warning" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
 	</a>
 	
 </form>
+
