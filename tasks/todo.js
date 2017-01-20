@@ -13,7 +13,8 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 		$scope.tasks.push({
 			title : $scope.task,
 			completed : false,
-			date: null
+			dueDate: null,
+			comments:[]
 		});
 		$scope.task = '';
 
@@ -61,6 +62,10 @@ app.controller("EditCtrl", function($scope, $routeParams) {
 
 	$scope.update = function() {
 		$scope.tasks[$scope.index].title = $scope.title;
+		
 		$scope.tasks[$scope.index].dueDate = $scope.dueDate;
+		
+		$scope.tasks[$scope.index].comments.push($scope.comment);
+		$scope.comment = '';
 	}
 });

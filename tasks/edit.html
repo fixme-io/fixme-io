@@ -12,9 +12,23 @@
 		</span> <input class="form-control" placeholder=" MM/DD/YYY" type="date" ng-model="dueDate">
 	</div>
 
+	<br />
+	<div ng-class="myForm.comment.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
+		<div class="col-xs-3">
+			<label>Add comment</label>
+			<textarea class="form-control" rows="3" name="comment" ng-model="comment" required></textarea>
+		</div>
+	</div>
+
 	<br /> <a href="#/">
 		<button type="button" class="btn btn-warning" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
-	</a>
+	</a> <br />
 	
 </form>
 
+<table class="table table-striped">
+	<thead>Comments:</thead>
+	<tr ng-repeat="innerItem in tasks[index].comments">
+		<td>{{ innerItem }}</td>
+	</tr>
+</table>
