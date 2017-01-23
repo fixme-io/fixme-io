@@ -17,13 +17,28 @@
 	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks</a></li>
 </ul>
 
-<table class="table table-striped">
+<table class="table table-striped" ng-show="tasks.length != 0">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>
+			<th>Status</th>
+			<th>Priority</th>
+			<th>Due date</th>
+		</tr>
+	</thead>
 	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '')">
 		<td>{{ $index + 1 }}</td>
+		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
+		<td><input type="checkbox" ng-model="x.completed" /></td>
+		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="selectedPriority"
+			ng-change="priority(tasks.indexOf(x), selectedPriority)">
+				<option value="">{{x.priority}}</option>
+				<option>High</option>
+				<option>Low</option>
+		</select></td>
 		<td>{{x.dueDate | date: "yyyy-MM-dd"}}</td>
-		<td><input type="checkbox" ng-model="x.completed" /> <span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><a href="#edit/{{tasks.indexOf(x)}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
 		</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove(tasks.indexOf(x))"></i></a></td>
 	</tr>
 </table>
-

@@ -13,11 +13,11 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 		$scope.tasks.push({
 			title : $scope.task,
 			completed : false,
-			dueDate: null,
-			comments:[]
+			dueDate : null,
+			comments : [],
+			priority : "Medium"
 		});
 		$scope.task = '';
-
 	}
 
 	$scope.remainingTasks = function() {
@@ -33,8 +33,11 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 	}
 
 	$scope.remove = function(index) {
-		console.log(index);
 		$scope.tasks.splice(index, 1);
+	}
+
+	$scope.priority = function(index, selectedPriority) {
+		$scope.tasks[index].priority = selectedPriority;
 	}
 
 });
@@ -58,13 +61,13 @@ app.config(function($routeProvider) {
 app.controller("EditCtrl", function($scope, $routeParams) {
 	$scope.index = $routeParams.ID;
 	$scope.title = $scope.tasks[$scope.index].title;
-	$scope.dueDate= $scope.tasks[$scope.index].dueDate;
+	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
 	$scope.update = function() {
 		$scope.tasks[$scope.index].title = $scope.title;
-		
+
 		$scope.tasks[$scope.index].dueDate = $scope.dueDate;
-		
+
 		$scope.tasks[$scope.index].comments.push($scope.comment);
 		$scope.comment = '';
 	}
