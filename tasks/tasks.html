@@ -31,10 +31,9 @@
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><input type="checkbox" ng-model="x.completed" /></td>
-		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="selectedPriority"
-			ng-change="priority(tasks.indexOf(x), selectedPriority)">
-				<option value="">{{x.priority}}</option>
+		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority">
 				<option>High</option>
+				<option>Medium</option>
 				<option>Low</option>
 		</select></td>
 		<td>{{x.dueDate | date: "yyyy-MM-dd"}}</td>

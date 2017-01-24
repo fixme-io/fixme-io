@@ -36,10 +36,6 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 		$scope.tasks.splice(index, 1);
 	}
 
-	$scope.priority = function(index, selectedPriority) {
-		$scope.tasks[index].priority = selectedPriority;
-	}
-
 });
 
 app.config(function($routeProvider) {
