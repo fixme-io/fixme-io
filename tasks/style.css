@@ -11,9 +11,39 @@
 	background-color: #060606;
 }
 
-.table {
+#tableInfo {
 	border-radius: 5px;
 	width: 50%;
 	float: none;
 }
 
+#comments {
+	margin-top: 200px;
+}
+
+#save {
+	float: right;
+}
+
+#btnCircle {
+	margin-bottom: 20px;
+}
+
+#myFormEdit {
+	width: 50%;
+	background-color: #e6e6e6;
+}
+
+.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.428571429;
+	border-radius: 15px;
+}
+
+#addComment {
+	float: right;
+}
