@@ -64,10 +64,13 @@ app.controller("EditCtrl", function($scope, $routeParams) {
 		$scope.tasks[$scope.index].title = $scope.title;
 
 		$scope.tasks[$scope.index].dueDate = $scope.dueDate;
+		
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({comment:$scope.comment, date:new Date().toLocaleTimeString() + ', ' +
 new Date().toLocaleDateString()});
 		}
 		$scope.comment = '';
+		
+		$scope.tasks[$scope.index].lastChangedOn = new Date().toLocaleDateString() + '(' + new Date().toLocaleTimeString() + ')'; 
 	}
 });
