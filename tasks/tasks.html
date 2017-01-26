@@ -23,7 +23,8 @@
 			<th>#</th>
 			<th>Title</th>
 			<th>Status</th>
-			<th>Priority</th>
+            <th>Priority</th>
+            <th>Created on</th>
 			<th>Due date</th>
 		</tr>
 	</thead>
@@ -36,7 +37,8 @@
 				<option>Medium</option>
 				<option>Low</option>
 		</select></td>
-		<td>{{x.dueDate | date: "yyyy-MM-dd"}}</td>
+        <td>{{x.createdOn}}</td>
+        <td>{{x.dueDate | date: "yyyy-MM-dd"}}</td>
 		<td><a href="#edit/{{tasks.indexOf(x)}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
 		</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove(tasks.indexOf(x))"></i></a></td>
 	</tr>

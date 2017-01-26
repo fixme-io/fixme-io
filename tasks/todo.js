@@ -15,7 +15,8 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 			completed : false,
 			dueDate : null,
 			comments : [],
-			priority : "Medium"
+			priority : "Medium",
+			createdOn: new Date().toLocaleDateString() + '(' + new Date().toLocaleTimeString() + ')'
 		});
 		$scope.task = '';
 	}
