@@ -33,7 +33,8 @@
 				</tr>
 			</thead>
 			<tr ng-repeat="innerItem in tasks[index].comments">
-				<td>{{ innerItem }}</td>
+				<td>{{innerItem.comment}}</td>
+				<td>{{innerItem.date}}</td>
 			</tr>
 		</table>
 	</div>
