@@ -15,10 +15,22 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 			completed : false,
 			dueDate : null,
 			comments : [],
-			priority : "Medium",
-			createdOn: new Date().toLocaleDateString() + '(' + new Date().toLocaleTimeString() + ')'
+			priority : {
+				title : "Medium",
+				id : 2
+			},
+			createdOn : new Date().toLocaleDateString() + '('
+					+ new Date().toLocaleTimeString() + ')'
 		});
 		$scope.task = '';
+	}
+
+	$scope.setId = function(priority) {
+		if (priority.title == 'High') {
+			priority.id = 1;
+		} else if (priority.title == 'Low'){
+			priority.id = 3;
+		}
 	}
 
 	$scope.remainingTasks = function() {
@@ -64,12 +76,18 @@ app.controller("EditCtrl", function($scope, $routeParams) {
 		$scope.tasks[$scope.index].title = $scope.title;
 
 		$scope.tasks[$scope.index].dueDate = $scope.dueDate;
-		
+
 		if ($scope.comment != undefined && $scope.comment != '') {
-			$scope.tasks[$scope.index].comments.push({comment:$scope.comment, date:new Date().toLocaleDateString() + '(' + new Date().toLocaleTimeString() + ')'});
+			$scope.tasks[$scope.index].comments.push({
+				comment : $scope.comment,
+				date : new Date().toLocaleDateString() + '('
+						+ new Date().toLocaleTimeString() + ')'
+			});
 		}
 		$scope.comment = '';
-		
-		$scope.tasks[$scope.index].lastChangedOn = new Date().toLocaleDateString() + '(' + new Date().toLocaleTimeString() + ')'; 
+
+		$scope.tasks[$scope.index].lastChangedOn = new Date()
+				.toLocaleDateString()
+				+ '(' + new Date().toLocaleTimeString() + ')';
 	}
 });

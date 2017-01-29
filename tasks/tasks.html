@@ -29,11 +29,11 @@
             <th>Last changed on</th>
 		</tr>
 	</thead>
-	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '')">
+	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | orderBy: 'priority.id'">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><input type="checkbox" ng-model="x.completed" /></td>
-		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority">
+		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority.title" ng-change="setId(x.priority)">
 				<option>High</option>
 				<option>Medium</option>
 				<option>Low</option>
