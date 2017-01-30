@@ -38,7 +38,7 @@
 				<option>Medium</option>
 				<option>Low</option>
 		</select></td>
-        <td>{{x.createdOn}}</td>
+        <td>{{x.createdOn.toLocaleDateString() + '(' + x.createdOn.toLocaleTimeString() + ')'}} </td>
         <td>{{x.dueDate | date: "yyyy-MM-dd"}}</td>
         <td>{{x.lastChangedOn}}</td>
 		<td><a href="#edit/{{tasks.indexOf(x)}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>

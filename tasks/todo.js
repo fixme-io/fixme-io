@@ -19,8 +19,7 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 				title : "Medium",
 				id : 2
 			},
-			createdOn : new Date().toLocaleDateString() + '('
-					+ new Date().toLocaleTimeString() + ')'
+			createdOn : new Date()
 		});
 		$scope.task = '';
 	}
