@@ -46,3 +46,8 @@
 #addComment {
 	float: right;
 }
+
+.media-object {
+	width: 25px;
+	height: 25px;
+}
