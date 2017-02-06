@@ -1,4 +1,4 @@
-var app = angular.module('myApp', [ "ngRoute" ]);
+var app = angular.module('myApp', [ "ngRoute", "ngStorage" ]);
 
 app.controller('MainCtrl', function($scope) {
 
@@ -6,10 +6,14 @@ app.controller('MainCtrl', function($scope) {
 
 });
 
-app.controller('TasksCtrl', function($scope, $routeParams) {
+app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
+
 	$scope.tasksId = $routeParams.ID;
 
+	$scope.tasks = $localStorage.tasks;
+
 	$scope.add = function() {
+
 		$scope.tasks.push({
 			title : $scope.task,
 			completed : false,
@@ -21,13 +25,17 @@ app.controller('TasksCtrl', function($scope, $routeParams) {
 			},
 			createdOn : new Date()
 		});
+
 		$scope.task = '';
+
+		$localStorage.tasks = $scope.tasks;
+
 	}
 
 	$scope.setId = function(priority) {
 		if (priority.title == 'High') {
 			priority.id = 1;
-		} else if (priority.title == 'Low'){
+		} else if (priority.title == 'Low') {
 			priority.id = 3;
 		}
 	}
@@ -66,7 +74,9 @@ app.config(function($routeProvider) {
 	});
 });
 
-app.controller("EditCtrl", function($scope, $routeParams) {
+app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
+	$scope.tasks = $localStorage.tasks;
+
 	$scope.index = $routeParams.ID;
 	$scope.title = $scope.tasks[$scope.index].title;
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
@@ -85,8 +95,7 @@ app.controller("EditCtrl", function($scope, $routeParams) {
 		}
 		$scope.comment = '';
 
-		$scope.tasks[$scope.index].lastChangedOn = new Date()
-				.toLocaleDateString()
-				+ '(' + new Date().toLocaleTimeString() + ')';
+		$scope.tasks[$scope.index].lastChangedOn = new Date();
 	}
+
 });
