@@ -8,12 +8,13 @@ app.controller('MainCtrl', function($scope) {
 
 app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 
+//	$localStorage.$reset();
 	$scope.tasksId = $routeParams.ID;
-
-	$scope.tasks = $localStorage.tasks;
-
+	
+	$scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
+	
 	$scope.add = function() {
-
+		
 		$scope.tasks.push({
 			title : $scope.task,
 			completed : false,
@@ -25,7 +26,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 			},
 			createdOn : new Date()
 		});
-
+		
 		$scope.task = '';
 
 		$localStorage.tasks = $scope.tasks;
