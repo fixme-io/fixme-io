@@ -23,11 +23,11 @@
 		<div class="col-lg-6">
 			<div class="input-group">
 				<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
-				</span> <input class="form-control" placeholder=" MM/DD/YYY" type="date" ng-model="dueDate">
+				</span><input type="text" class="form-control" id="dueDate" ng-model="dueDate">
 			</div>
 		</div>
 	</div>
-
+	
 	<div id="comments">
 		<label>Comments</label>
 		<div class="media" ng-repeat="innerItem in tasks[index].comments">

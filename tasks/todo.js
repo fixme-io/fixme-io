@@ -8,13 +8,13 @@ app.controller('MainCtrl', function($scope) {
 
 app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 
-//	$localStorage.$reset();
+//	 $localStorage.$reset();
 	$scope.tasksId = $routeParams.ID;
-	
+
 	$scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
-	
+
 	$scope.add = function() {
-		
+
 		$scope.tasks.push({
 			title : $scope.task,
 			completed : false,
@@ -26,7 +26,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 			},
 			createdOn : new Date()
 		});
-		
+
 		$scope.task = '';
 
 		$localStorage.tasks = $scope.tasks;
@@ -83,9 +83,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
 	$scope.update = function() {
+		
 		$scope.tasks[$scope.index].title = $scope.title;
-
-		$scope.tasks[$scope.index].dueDate = $scope.dueDate;
+		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
 
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
@@ -98,5 +98,14 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 		$scope.tasks[$scope.index].lastChangedOn = new Date();
 	}
+
+	$('#dueDate').daterangepicker({
+		singleDatePicker : true,
+		timePicker : true,
+		timePickerIncrement : 30,
+		locale : {
+			format : 'MM/DD/YYYY h:mm A'
+		}
+	});
 
 });
