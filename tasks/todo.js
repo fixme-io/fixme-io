@@ -8,7 +8,7 @@ app.controller('MainCtrl', function($scope) {
 
 app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 
-//	 $localStorage.$reset();
+	// $localStorage.$reset();
 	$scope.tasksId = $routeParams.ID;
 
 	$scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
@@ -82,8 +82,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	$scope.title = $scope.tasks[$scope.index].title;
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
+	$('#saveComment').hide();
+
 	$scope.update = function() {
-		
+
 		$scope.tasks[$scope.index].title = $scope.title;
 		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
 
@@ -91,12 +93,14 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$scope.tasks[$scope.index].comments.push({
 				comment : $scope.comment,
 				date : new Date().toLocaleDateString() + '('
-						+ new Date().toLocaleTimeString() + ')'
+						+ new Date().toLocaleTimeString() + ')',
+				edited : false
 			});
 		}
 		$scope.comment = '';
 
 		$scope.tasks[$scope.index].lastChangedOn = new Date();
+
 	}
 
 	$('#dueDate').daterangepicker({
@@ -107,5 +111,36 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			format : 'MM/DD/YYYY h:mm A'
 		}
 	});
+	
+	$scope.editComment = function(index, comment) {
+		$(".media").each(function(index) {
+			$(this).attr("id", index);
+		});
+
+		$('.media').hide();
+		$('.action').hide();
+		$('#' + index).show('slow');
+
+		$scope.comment = comment;
+
+		$('#addComment').hide();
+		$('#saveComment').show();
+
+		$scope.updateEditedComment = function() {
+			$('.media').show();
+			$scope.tasks[$scope.index].comments[index].comment = $scope.comment;
+			$scope.comment = '';
+
+			$('.action').show();
+			$('#addComment').show();
+			$('#saveComment').hide();
+			$scope.tasks[$scope.index].comments[index].edited = true;
+		}
+	}
+
+	$scope.deleteComment = function(index) {
+		$scope.tasks[$scope.index].comments.splice(index, 1);
+	}
 
 });
+

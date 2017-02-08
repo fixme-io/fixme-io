@@ -27,7 +27,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="comments">
 		<label>Comments</label>
 		<div class="media" ng-repeat="innerItem in tasks[index].comments">
@@ -35,18 +35,31 @@
 				<a href="#"> <img class="media-object" src="http://www.scrapebox.com/wp-content/uploads/site/comments.png" alt="" border=0>
 				</a>
 			</div>
-			<div class="media-body">
-				{{innerItem.comment}}
-			</div>
-			{{innerItem.date}}
-		</div>
+			<a href="javascript:void(0)"> </a>
+			<div class="media-body">{{innerItem.comment}}</div>
+			<div>
+				{{innerItem.date}} <a href="" ng-show="innerItem.edited">Edited</a>
+				<div class="action">
+					<button type="button" class="btn btn-success btn-xs"
+						ng-click="editComment(tasks[index].comments.indexOf(innerItem), innerItem.comment)">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</button>
 
+					<button type="button" class="btn btn-danger btn-xs" ng-click="deleteComment(tasks[index].comments.indexOf(innerItem))">
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
+	<br />
 
 	<div class="input-group">
 		<input class="form-control" type="text" placeholder="Write a comment..." name="comment" ng-model="comment" required> <span
 			class="input-group-addon" style="background-color: #337ab7"> <a href="javascript:void(0)"> <i id="addComment"
 				class="glyphicon glyphicon-plus" style="color: white" ng-click="update()"></i>
+		</a> <a href="javascript:void(0)"> <i id="saveComment" class="glyphicon glyphicon-ok" style="color: white"
+				ng-click="updateEditedComment()"></i>
 		</a>
 		</span>
 	</div>
