@@ -53,13 +53,22 @@
 	</div>
 	<br />
 
-	<div class="input-group">
-		<input class="form-control" type="text" placeholder="Write a comment..." name="comment" ng-model="comment" required> <span
-			class="input-group-addon" style="background-color: #337ab7"> <a href="javascript:void(0)"> <i id="addComment"
-				class="glyphicon glyphicon-plus" style="color: white" ng-click="update()"></i>
-		</a> <a href="javascript:void(0)"> <i id="saveComment" class="glyphicon glyphicon-ok" style="color: white"
-				ng-click="updateEditedComment()"></i>
-		</a>
-		</span>
+    <div class="input-group" id="addComment">
+        <input class="form-control" ng-keyup="$event.keyCode == 13 && class == update()" type="text" placeholder="Write a comment..." name="comment" ng-model="comment" required> 
+        <span class="input-group-addon" style="background-color: #337ab7"> 
+            <a href="javascript:void(0)"> 
+                <i class="glyphicon glyphicon-plus" style="color: white" ng-click="update()"></i>
+            </a> 
+        </span>
+    </div>
+    
+    <div class="input-group" id="saveComment">
+        <input class="form-control" type="text" ng-model="editComm" required> 
+        <span class="input-group-addon" style="background-color: #337ab7">
+            <a href="javascript:void(0)"> 
+                <i class="glyphicon glyphicon-ok" style="color: white" ng-click="updateEditedComment()"></i>
+            </a>
+        </span>
 	</div>
+	
 </form>

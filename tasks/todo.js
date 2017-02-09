@@ -118,15 +118,15 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('.action').hide();
 		$('#' + index).show('slow');
 
-		$scope.comment = comment;
+		$scope.editComm = comment;
 
 		$('#addComment').hide();
 		$('#saveComment').show();
 
 		$scope.updateEditedComment = function() {
 			$('.media').show();
-			$scope.tasks[$scope.index].comments[index].comment = $scope.comment;
-			$scope.comment = '';
+			$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
+			$scope.editComm = '';
 
 			$('.action').show();
 			$('#addComment').show();
