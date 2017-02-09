@@ -4,10 +4,6 @@
 			<button type="button" class="btn btn-primary btn-circle">
 				<i class="glyphicon glyphicon-arrow-left"></i>
 			</button>
-		</a> <a href="#/" id="save">
-			<button type="button" class="btn btn-primary btn-circle" ng-disabled="myForm.title.$invalid" ng-click="update()">
-				<i class="glyphicon glyphicon-ok"></i>
-			</button>
 		</a>
 	</div>
 
@@ -27,7 +23,11 @@
 			</div>
 		</div>
 	</div>
-
+	
+    <a href="#/">
+        <button id="save" type="button" class="btn btn-warning" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
+    </a>
+        
 	<div id="comments">
 		<label>Comments</label>
 		<div class="media" ng-repeat="innerItem in tasks[index].comments">
