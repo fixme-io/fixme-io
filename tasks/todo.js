@@ -92,8 +92,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
 				comment : $scope.comment,
-				date : new Date().toLocaleDateString() + '('
-						+ new Date().toLocaleTimeString() + ')',
+				date : new Date(),
 				edited : false
 			});
 		}
@@ -105,10 +104,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 	$('#dueDate').daterangepicker({
 		singleDatePicker : true,
-		timePicker : true,
-		timePickerIncrement : 30,
 		locale : {
-			format : 'MM/DD/YYYY h:mm A'
+			format : 'DD/MM/YYYY'
 		}
 	});
 	
