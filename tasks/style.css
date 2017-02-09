@@ -50,6 +50,7 @@
 .media-object {
 	width: 25px;
 	height: 25px;
+	filter:grayscale(100%) brightness(130%);
 }
 
 .action {
