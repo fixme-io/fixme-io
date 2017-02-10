@@ -62,13 +62,11 @@
         </span>
     </div>
     
-    <div class="input-group" id="saveComment">
-        <input class="form-control" type="text" ng-model="editComm" required> 
-        <span class="input-group-addon" style="background-color: #337ab7">
-            <a href="javascript:void(0)"> 
-                <i class="glyphicon glyphicon-ok" style="color: white" ng-click="updateEditedComment()"></i>
-            </a>
-        </span>
+    <div id="saveComment">
+        <input class="form-control" type="text" ng-model="editComm" required>
+            <br/>
+            <button type="button" class="btn btn-primary" ng-click="updateEditedComment()">Save</button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
 	</div>
 	
 </form>

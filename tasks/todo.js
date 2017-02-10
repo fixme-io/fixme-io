@@ -110,6 +110,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	});
 	
 	$scope.editComment = function(index, comment) {
+		
 		$(".media").each(function(index) {
 			$(this).attr("id", index);
 		});
@@ -124,16 +125,24 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#saveComment').show();
 
 		$scope.updateEditedComment = function() {
-			$('.media').show('slow');
-			$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
-
-			$('.action').show();
-			$('#addComment').show();
-			$('#saveComment').hide();
 			
 			if($scope.editComm != comment){
 				$scope.tasks[$scope.index].comments[index].edited = true;
+				$('.media').show('slow');
+				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
+				
+				$('.action').show();
+				$('#addComment').show();
+				$('#saveComment').hide();
+				$scope.editComm = '';
 			}
+		}
+		
+		$scope.cancel= function(){
+			$('.media').show('slow');
+			$('.action').show();
+			$('#addComment').show();
+			$('#saveComment').hide();
 			$scope.editComm = '';
 		}
 	}
