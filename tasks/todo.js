@@ -85,7 +85,6 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 	angular.element(document).ready(function() {
 		$scope.hideComments();
-		$('#hide').hide();
 	});
 	
 	$('#saveComment').hide();
@@ -165,6 +164,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		for(var i = $scope.tasks[$scope.index].comments.length-5; i < $scope.tasks[$scope.index].comments.length; i++){
 			$('#' + i).show();
 		}
+		if($scope.tasks[$scope.index].comments.length <= 5){
+			$('#hide').hide();
+			$('#more').hide();
+		}		
 	}
 	
 	$scope.moreComments = function(){
@@ -174,11 +177,17 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	}
 	
 	$scope.hideComments = function(){
-						$('.media').hide();
-		$('#more').show();
-		$('#hide').hide();
-		for(var i = $scope.tasks[$scope.index].comments.length-5; i < $scope.tasks[$scope.index].comments.length; i++){
-			$('#' + i).show();
+		if($scope.tasks[$scope.index].comments.length > 5){
+			$('.media').hide();
+			$('#more').show();
+			$('#hide').hide();
+			for(var i = $scope.tasks[$scope.index].comments.length-5; i < $scope.tasks[$scope.index].comments.length; i++){
+				$('#' + i).show();
+			}
+		}else{
+			$('#hide').hide();
+			$('#more').hide();
+
 		}
 	}
 
