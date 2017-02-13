@@ -25,7 +25,7 @@
 	</div>
 	
     <a href="#/">
-        <button id="save" type="button" class="btn btn-warning" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
+        <button id="save" type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
     </a>
         
 	<div id="comments">
@@ -38,7 +38,7 @@
 			<div>
 				{{innerItem.date | date: "dd/MM/yyyy"}} <a href="" ng-show="innerItem.edited">Edited</a>
 				<div class="action">
-					<button type="button" class="btn btn-success btn-xs"
+					<button type="button" class="btn btn-xs"
 						ng-click="editComment($index)">
 						<span class="glyphicon glyphicon-pencil"></span>
 					</button>
