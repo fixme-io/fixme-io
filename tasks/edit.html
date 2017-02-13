@@ -29,7 +29,8 @@
     </a>
         
 	<div id="comments">
-		<label>Comments</label>
+		<label>Comments:</label>
+		{{tasks[index].comments.length}}
 		<div class="media" ng-repeat="innerItem in tasks[index].comments" id="{{$index}}">
 			<div class="pull-left">
 				<img class="media-object" src="http://www.scrapebox.com/wp-content/uploads/site/comments.png" alt="" border=0>
