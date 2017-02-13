@@ -30,21 +30,20 @@
         
 	<div id="comments">
 		<label>Comments</label>
-		<div class="media" ng-repeat="innerItem in tasks[index].comments">
+		<div class="media" ng-repeat="innerItem in tasks[index].comments" id="{{$index}}">
 			<div class="pull-left">
 				<img class="media-object" src="http://www.scrapebox.com/wp-content/uploads/site/comments.png" alt="" border=0>
 			</div>
-			<a href="javascript:void(0)"> </a>
 			<div class="media-body">{{innerItem.comment}}</div>
 			<div>
 				{{innerItem.date | date: "dd/MM/yyyy"}} <a href="" ng-show="innerItem.edited">Edited</a>
 				<div class="action">
 					<button type="button" class="btn btn-success btn-xs"
-						ng-click="editComment(tasks[index].comments.indexOf(innerItem), innerItem.comment)">
+						ng-click="editComment($index)">
 						<span class="glyphicon glyphicon-pencil"></span>
 					</button>
 
-					<button type="button" class="btn btn-danger btn-xs" ng-click="deleteComment(tasks[index].comments.indexOf(innerItem))">
+					<button type="button" class="btn btn-danger btn-xs" ng-click="deleteComment($index)">
 						<span class="glyphicon glyphicon-trash"></span>
 					</button>
 				</div>
@@ -53,6 +52,9 @@
 	</div>
 	<br />
 
+	<a href="javascript:void(0)" ng-click="moreComments()" id="more">More comments</a>
+	<a href="javascript:void(0)" ng-click="hideComments()" id="hide">Hide comments</a>
+	
     <div class="input-group" id="addComment">
         <input class="form-control" ng-keyup="$event.keyCode == 13 && class == update()" type="text" placeholder="Write a comment..." name="comment" ng-model="comment" required> 
         <span class="input-group-addon" style="background-color: #337ab7"> 

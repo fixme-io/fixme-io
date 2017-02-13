@@ -43,10 +43,6 @@
 	border-radius: 15px;
 }
 
-#addComment {
-	float: right;
-}
-
 .media-object {
 	width: 25px;
 	height: 25px;
@@ -58,5 +54,6 @@
 }
 
 #addComment{
-	margin-bottom:20px;
+    margin-bottom:20px;
+    margin-top:20px;
 }

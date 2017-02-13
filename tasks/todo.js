@@ -76,19 +76,25 @@ app.config(function($routeProvider) {
 });
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
+	
 	$scope.tasks = $localStorage.tasks;
 
 	$scope.index = $routeParams.ID;
 	$scope.title = $scope.tasks[$scope.index].title;
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
+	angular.element(document).ready(function() {
+		$scope.hideComments();
+		$('#hide').hide();
+	});
+	
 	$('#saveComment').hide();
 
 	$scope.update = function() {
 
 		$scope.tasks[$scope.index].title = $scope.title;
 		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
-
+		
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
 				comment : $scope.comment,
@@ -96,6 +102,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				edited : false
 			});
 		}
+		
+		$scope.hideComments();
+		
 		$scope.comment = '';
 
 		$scope.tasks[$scope.index].lastChangedOn = new Date();
@@ -109,24 +118,22 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		}
 	});
 	
-	$scope.editComment = function(index, comment) {
+	$scope.editComment = function(index) {
 		
-		$(".media").each(function(index) {
-			$(this).attr("id", index);
-		});
-
 		$('.media').hide();
 		$('.action').hide();
 		$('#' + index).show('slow');
 
-		$scope.editComm = comment;
+		$scope.editComm = $scope.tasks[$scope.index].comments[index].comment;
 
 		$('#addComment').hide();
 		$('#saveComment').show();
-
+		$('#more').hide();
+		$('#hide').hide();
+		
 		$scope.updateEditedComment = function() {
 			
-			if($scope.editComm != comment){
+			if($scope.editComm != $scope.tasks[$scope.index].comments[index].comment){
 				$scope.tasks[$scope.index].comments[index].edited = true;
 				$('.media').show('slow');
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
@@ -135,7 +142,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$('#addComment').show();
 				$('#saveComment').hide();
 				$scope.editComm = '';
+				$('#more').hide();
+				$('#hide').show();
 			}
+			
 		}
 		
 		$scope.cancel= function(){
@@ -144,12 +154,32 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$('#addComment').show();
 			$('#saveComment').hide();
 			$scope.editComm = '';
+			$('#more').hide();
+			$('#hide').show();
 		}
 	}
 
 	$scope.deleteComment = function(index) {
 		$scope.tasks[$scope.index].comments.splice(index, 1);
+
+		for(var i = $scope.tasks[$scope.index].comments.length-5; i < $scope.tasks[$scope.index].comments.length; i++){
+			$('#' + i).show();
+		}
+	}
+	
+	$scope.moreComments = function(){
+		$('.media').show('slow');
+		$('#more').hide();
+		$('#hide').show();
+	}
+	
+	$scope.hideComments = function(){
+						$('.media').hide();
+		$('#more').show();
+		$('#hide').hide();
+		for(var i = $scope.tasks[$scope.index].comments.length-5; i < $scope.tasks[$scope.index].comments.length; i++){
+			$('#' + i).show();
+		}
 	}
 
 });
-
