@@ -141,8 +141,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$('#addComment').show();
 				$('#saveComment').hide();
 				$scope.editComm = '';
-				$('#more').hide();
-				$('#hide').show();
+				if($scope.tasks[$scope.index].comments.length > 5){
+					$('#more').hide();
+					$('#hide').show();
+				}
 			}
 			
 		}
@@ -153,8 +155,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$('#addComment').show();
 			$('#saveComment').hide();
 			$scope.editComm = '';
-			$('#more').hide();
-			$('#hide').show();
+			if($scope.tasks[$scope.index].comments.length > 5){
+				$('#more').hide();
+				$('#hide').show();
+			}
 		}
 	}
 
