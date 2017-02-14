@@ -76,6 +76,7 @@ app.config(function($routeProvider) {
 });
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
+	var prevIndex;
 	
 	$scope.tasks = $localStorage.tasks;
 
@@ -118,7 +119,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	});
 	
 	$scope.editComment = function(index) {
-		
+		if(prevIndex!=null){
+			$('#' + prevIndex).css("background-color", "white" );
+		}
+			
 		$('.media').hide();
 		$('.action').hide();
 		$('#' + index).show('slow');
@@ -136,6 +140,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$scope.tasks[$scope.index].comments[index].edited = true;
 				$('.media').show('slow');
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
+				
+				$('#' + index).css("background-color", "#fff4f4" );
+				prevIndex = index;
 				
 				$('.action').show();
 				$('#addComment').show();
