@@ -2,7 +2,8 @@
 
 	<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
 		<div class="col-xs-4">
-			<input ng-keyup="$event.keyCode == 13 && add()" class="form-control" type="text" name="title" ng-model="task" placeholder="Enter new task" required> <span
+			<input ng-keyup="$event.keyCode == 13 && add()" class="form-control" type="text" name="title" ng-model="task"
+				placeholder="Enter new task" required> <span
 				ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
 		</div>
 		<button type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="add()">Add</button>
@@ -15,6 +16,14 @@
 	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All tasks</a></li>
 	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks</a></li>
 	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks</a></li>
+	<li id="liSearch" class="col-md-4 col-md-offset-5">
+		<form action="" class="search-form">
+			<div id="divSearch" class="form-group has-feedback">
+				<input type="text" class="form-control" name="search" id="search" placeholder="Search" ng-model="userSearch.title"> <span
+					class="glyphicon glyphicon-search form-control-feedback"></span>
+			</div>
+		</form>
+	</li>
 </ul>
 
 <table class="table table-striped" ng-show="tasks.length != 0">
@@ -23,13 +32,14 @@
 			<th>#</th>
 			<th>Title</th>
 			<th>Done</th>
-            <th>Priority</th>
-            <th>Created on</th>
-            <th>Due date</th>
-            <th>Last changed on</th>
+			<th>Priority</th>
+			<th>Created on</th>
+			<th>Due date</th>
+			<th>Last changed on</th>
 		</tr>
 	</thead>
-	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | orderBy: 'priority.id'">
+
+	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | orderBy: 'priority.id' | filter:userSearch">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><input type="checkbox" ng-model="x.completed" /></td>
@@ -38,9 +48,9 @@
 				<option>Medium</option>
 				<option>Low</option>
 		</select></td>
-        <td>{{x.createdOn | date: "dd/MM/yyyy"}} </td>
-        <td>{{x.dueDate}}</td>
-        <td>{{x.lastChangedOn | date: "dd/MM/yyyy"}}</td>
+		<td>{{x.createdOn | date: "dd/MM/yyyy"}}</td>
+		<td>{{x.dueDate}}</td>
+		<td>{{x.lastChangedOn | date: "dd/MM/yyyy"}}</td>
 		<td><a href="#edit/{{tasks.indexOf(x)}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
 		</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove(tasks.indexOf(x))"></i></a></td>
 	</tr>

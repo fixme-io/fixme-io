@@ -46,14 +46,65 @@
 .media-object {
 	width: 25px;
 	height: 25px;
-	filter:grayscale(100%) brightness(130%);
+	filter: grayscale(100%) brightness(130%);
 }
 
 .action {
 	float: right;
 }
 
-#addComment{
-    margin-bottom:20px;
-    margin-top:20px;
+#addComment {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+#wrap {
+	display: inline-block;
+	position: relative;
+	height: 30px;
+	float: right;
+	padding: 0;
+	position: relative;
+	float: right;
+}
+
+#search {
+	font-size: 15px;
+	display: inline-block;
+	font-family: "Lato";
+	font-weight: 100;
+	border: none;
+	outline: none;
+	color: #555;
+	padding: 3px;
+    padding-right: 33px;
+	width: 0px;
+	position: absolute;
+	margin-top: 0;
+	right: 0;
+	background: #efefef;
+	transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+	cursor: pointer;
+	border-bottom: 1px solid #919191;
+	height:33px;
+}
+
+#search:focus:hover {
+	border-bottom: 1px solid #919191;
+}
+
+#search:focus {
+	width: 250px;
+	z-index: 1;
+	border-bottom: 1px solid #aeaeae;
+	cursor: text;
+}
+
+#liSearch {
+	float: right;
+}
+
+#divSearch {
+	margin-bottom: 5px;
+	margin-right: 46px;
 }
