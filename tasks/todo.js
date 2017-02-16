@@ -77,6 +77,9 @@ app.config(function($routeProvider) {
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	var prevIndex;
+	angular.element(document).ready(function() {
+		$('.well').hide();
+	});
 	
 	$scope.tasks = $localStorage.tasks;
 
@@ -94,21 +97,22 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 		$scope.tasks[$scope.index].title = $scope.title;
 		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
-		
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
 				comment : $scope.comment,
 				date : new Date(),
-				edited : false
+				edited : false,
+				editedComments:[]
 			});
 		}
-		
 		$scope.hideComments();
 		
 		$scope.comment = '';
 
 		$scope.tasks[$scope.index].lastChangedOn = new Date();
-
+		angular.element(document).ready(function() {
+			$('.well').hide();
+		});
 	}
 
 	$('#dueDate').daterangepicker({
@@ -122,7 +126,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		if(prevIndex!=null){
 			$('#' + prevIndex).css("background-color", "white" );
 		}
-			
+		
+		$('#form').hide();
 		$('.media').hide();
 		$('.action').hide();
 		$('#' + index).show('slow');
@@ -140,6 +145,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$scope.tasks[$scope.index].comments[index].edited = true;
 				$('.media').show('slow');
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
+				$scope.tasks[$scope.index].comments[index].editedComments.push({title:$scope.editComm,editedDate:new Date(),infoEdited:false});
+				
 				
 				$('#' + index).css("background-color", "#fff4f4" );
 				prevIndex = index;
@@ -201,5 +208,26 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 		}
 	}
+	
+	$scope.editCommentInfo = function(i){
+		$scope.tasks[$scope.index].comments[i].editedComments.infoEdited = true;
+		$('.media').hide();
+		$('#well' + i).show();
+		$('#hide').hide();
+		$('#more').hide();
+		$('#labelComments').html('Edited comments: ');
+		$('#nbComments').html($scope.tasks[$scope.index].comments[i].editedComments.length);
+		$('#addComment').hide();
+	}
+	
+	$scope.back = function(i){
+		$('.media').show('slow');
+		$('#well' + i).hide();
+		$('#labelComments').html('Comments: ');
+		$('#nbComments').html($scope.tasks[$scope.index].comments.length);
+		$('#addComment').show();
+		$('#hide').show();
 
+	}
+	
 });

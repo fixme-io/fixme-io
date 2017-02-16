@@ -23,24 +23,22 @@
 			</div>
 		</div>
 	</div>
-	
-    <a href="#/">
-        <button id="save" type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
-    </a>
-        
+
+	<a href="#/">
+		<button id="save" type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
+	</a>
+
 	<div id="comments">
-		<label>Comments:</label>
-		{{tasks[index].comments.length}}
+		<label id="labelComments">Comments: </label> <label id="nbComments">{{tasks[index].comments.length}}</label>
 		<div class="media" ng-repeat="innerItem in tasks[index].comments" id="{{$index}}">
 			<div class="pull-left">
 				<img class="media-object" src="http://www.scrapebox.com/wp-content/uploads/site/comments.png" alt="" border=0>
 			</div>
 			<div class="media-body">{{innerItem.comment}}</div>
 			<div>
-				{{innerItem.date | date: "dd/MM/yyyy"}} <a href="" ng-show="innerItem.edited">Edited</a>
+				{{innerItem.date | date: "dd/MM/yyyy"}} <a href="" ng-show="innerItem.edited" ng-click="editCommentInfo($index)">Edited</a>
 				<div class="action">
-					<button type="button" class="btn btn-xs"
-						ng-click="editComment($index)">
+					<button type="button" class="btn btn-xs" ng-click="editComment($index)">
 						<span class="glyphicon glyphicon-pencil"></span>
 					</button>
 
@@ -50,26 +48,31 @@
 				</div>
 			</div>
 		</div>
+		<br />
+		<div class="well" ng-repeat="innerItem in tasks[index].comments" id="well{{$index}}">
+			<div ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
+				<div class="media-body">{{innerItem.title}}</div>
+				<div>{{innerItem.editedDate | date: "dd/MM/yyyy"}}</div>
+				<hr>
+			</div>
+			<a href="javascript:void(0)"><i style="color: #4747b9; font-size: 1.5em;" ng-click="back($index)"
+				class="glyphicon glyphicon-arrow-left"></i></a>
+		</div>
 	</div>
-	<br />
+	<a href="javascript:void(0)" ng-click="moreComments()" id="more">More comments</a> <a href="javascript:void(0)" ng-click="hideComments()"
+		id="hide">Hide comments</a>
 
-	<a href="javascript:void(0)" ng-click="moreComments()" id="more">More comments</a>
-	<a href="javascript:void(0)" ng-click="hideComments()" id="hide">Hide comments</a>
-	
-    <div class="input-group" id="addComment">
-        <input class="form-control" ng-keyup="$event.keyCode == 13 && class == update()" type="text" placeholder="Write a comment..." name="comment" ng-model="comment" required> 
-        <span class="input-group-addon" style="background-color: #337ab7"> 
-            <a href="javascript:void(0)"> 
-                <i class="glyphicon glyphicon-plus" style="color: white" ng-click="update()"></i>
-            </a> 
-        </span>
-    </div>
-    
-    <div id="saveComment">
-        <input class="form-control" type="text" ng-model="editComm" required>
-            <br/>
-            <button type="button" class="btn btn-primary" ng-click="updateEditedComment()">Save</button>
-            <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<div class="input-group" id="addComment">
+		<input class="form-control" ng-keyup="$event.keyCode == 13 && class == update()" type="text" placeholder="Write a comment..."
+			name="comment" ng-model="comment" required> <span class="input-group-addon" style="background-color: #337ab7"> <a
+			href="javascript:void(0)"> <i class="glyphicon glyphicon-plus" style="color: white" ng-click="update()"></i>
+		</a>
+		</span>
 	</div>
-	
+
+	<div id="saveComment">
+		<input class="form-control" type="text" ng-model="editComm" required> <br />
+		<button type="button" class="btn btn-primary" ng-click="updateEditedComment()">Save</button>
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	</div>
 </form>

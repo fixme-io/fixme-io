@@ -77,7 +77,7 @@
 	outline: none;
 	color: #555;
 	padding: 3px;
-    padding-right: 33px;
+	padding-right: 33px;
 	width: 0px;
 	position: absolute;
 	margin-top: 0;
@@ -86,7 +86,7 @@
 	transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
 	cursor: pointer;
 	border-bottom: 1px solid #919191;
-	height:33px;
+	height: 33px;
 }
 
 #search:focus:hover {
