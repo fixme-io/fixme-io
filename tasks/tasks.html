@@ -19,7 +19,7 @@
 	<li id="liSearch" class="col-md-4 col-md-offset-5">
 		<form action="" class="search-form">
 			<div id="divSearch" class="form-group has-feedback">
-				<input type="text" class="form-control" name="search" id="search" placeholder="Search" ng-model="userSearch.title"> <span
+				<input type="text" class="form-control" name="search" id="search" placeholder="Search" ng-model="userSearch"> <span
 					class="glyphicon glyphicon-search form-control-feedback"></span>
 			</div>
 		</form>
@@ -28,18 +28,18 @@
 
 <table class="table table-striped" ng-show="tasks.length != 0">
 	<thead>
-		<tr>
+		<tr id="tasks">
 			<th>#</th>
-			<th>Title</th>
-			<th>Done</th>
-			<th>Priority</th>
-			<th>Created on</th>
-			<th>Due date</th>
-			<th>Last changed on</th>
+			<th ng-click="title()">Title</th>
+			<th ng-click="done()">Done</th>
+			<th ng-click="priority()">Priority</th>
+			<th ng-click="createdOn()">Created on</th>
+			<th ng-click="dueDate()">Due date</th>
+			<th ng-click="lastChangeOn()">Last changed on</th>
 		</tr>
 	</thead>
 
-	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | orderBy: 'priority.id' | filter:userSearch">
+	<tr ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | filter:userSearch | orderBy: filter">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><input type="checkbox" ng-model="x.completed" /></td>

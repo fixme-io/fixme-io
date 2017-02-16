@@ -56,7 +56,28 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 	$scope.remove = function(index) {
 		$scope.tasks.splice(index, 1);
 	}
-
+	
+	$('#tasks').css( 'cursor', 'pointer' );
+	
+	$scope.title=function(){
+		$scope.filter="title";
+	}
+	$scope.done=function(){
+		$scope.filter='completed';
+	}
+	$scope.priority=function(){
+		$scope.filter="priority.id";
+	}
+	$scope.createdOn=function(){
+		$scope.filter="createdOn";
+	}
+	$scope.dueDate=function(){
+		$scope.filter="dueDate";
+	}
+	$scope.lastChangeOn=function(){
+		$scope.filter="lastChangeOn";
+	}
+	
 });
 
 app.config(function($routeProvider) {
@@ -227,7 +248,6 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 		$('#addComment').show();
 		$('#hide').show();
-
 	}
-	
+		
 });
