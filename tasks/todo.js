@@ -59,23 +59,8 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 	
 	$('#tasks').css( 'cursor', 'pointer' );
 	
-	$scope.title=function(){
-		$scope.filter="title";
-	}
-	$scope.done=function(){
-		$scope.filter='completed';
-	}
-	$scope.priority=function(){
-		$scope.filter="priority.id";
-	}
-	$scope.createdOn=function(){
-		$scope.filter="createdOn";
-	}
-	$scope.dueDate=function(){
-		$scope.filter="dueDate";
-	}
-	$scope.lastChangeOn=function(){
-		$scope.filter="lastChangeOn";
+	$scope.sortBy=function(filter){
+		$scope.filter=filter;
 	}
 	
 });
@@ -100,7 +85,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	angular.element(document).ready(function() {
 		$('.well').hide();
 	});
-	
+	if($scope.comments == null){
+		$('.timeline-icon').hide();
+	}
+
 	$scope.tasks = $localStorage.tasks;
 
 	$scope.index = $routeParams.ID;
@@ -133,6 +121,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		angular.element(document).ready(function() {
 			$('.well').hide();
 		});
+		$('.timeline-icon').show();
+
 	}
 
 	$('#dueDate').daterangepicker({
@@ -220,7 +210,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		if($scope.tasks[$scope.index].comments.length <= 5){
 			$('#hide').hide();
 			$('#more').hide();
-		}		
+		}
+		if($scope.tasks[$scope.index].comments.length == 0){
+			$('.timeline-icon').hide();
+		}
 	}
 	
 	$scope.moreComments = function(){
