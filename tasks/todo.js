@@ -85,10 +85,6 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	angular.element(document).ready(function() {
 		$('.well').hide();
 	});
-	if($scope.comments == null){
-		$('.timeline-icon').hide();
-	}
-
 	$scope.tasks = $localStorage.tasks;
 
 	$scope.index = $routeParams.ID;
@@ -98,6 +94,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	angular.element(document).ready(function() {
 		$scope.hideComments();
 	});
+	
+	if($scope.tasks[$scope.index].comments.length == 0){
+		$('.timeline-icon').hide();
+	}
 	
 	$('#saveComment').hide();
 
