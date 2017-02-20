@@ -97,7 +97,6 @@ app.config(function($routeProvider) {
 });
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
-	var prevIndex;
 	angular.element(document).ready(function() {
 		$('.well').hide();
 	});
@@ -144,9 +143,14 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	});
 	
 	$scope.editComment = function(index) {
-		if(prevIndex!=null){
-			$('#' + prevIndex).css("background-color", "white" );
-		}
+		$('.timeline-icon').hide();
+
+	    if( $( '#pseudo' ).length ) {
+	        $( '#pseudo' ).remove();
+	    } else {
+	        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
+	        document.head.insertAdjacentHTML( 'beforeEnd', css );
+	    };
 		
 		$('#form').hide();
 		$('.media').hide();
@@ -168,10 +172,6 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
 				$scope.tasks[$scope.index].comments[index].editedComments.push({title:$scope.editComm,editedDate:new Date(),infoEdited:false});
 				
-				
-				$('#' + index).css("background-color", "#fff4f4" );
-				prevIndex = index;
-				
 				$('.action').show();
 				$('#addComment').show();
 				$('#saveComment').hide();
@@ -180,6 +180,13 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 					$('#more').hide();
 					$('#hide').show();
 				}
+			    if( $( '#pseudo' ).length ) {
+			        $( '#pseudo' ).remove();
+			    } else {
+			        document.head.insertAdjacentHTML( 'beforeEnd', '');
+			    };
+				$('.timeline-icon').show();
+
 			}
 			
 		}
@@ -194,6 +201,13 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$('#more').hide();
 				$('#hide').show();
 			}
+		    if( $( '#pseudo' ).length ) {
+		        $( '#pseudo' ).remove();
+		    } else {
+		        document.head.insertAdjacentHTML( 'beforeEnd', '');
+		    };
+			$('.timeline-icon').show();
+
 		}
 	}
 
@@ -239,6 +253,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#labelComments').html('Edited comments: ');
 		$('#nbComments').html($scope.tasks[$scope.index].comments[i].editedComments.length);
 		$('#addComment').hide();
+		$('.timeline-icon').hide();
+
 	}
 	
 	$scope.back = function(i){
@@ -248,6 +264,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 		$('#addComment').show();
 		$('#hide').show();
+		$('.timeline-icon').show();
+
 	}
 		
 });
