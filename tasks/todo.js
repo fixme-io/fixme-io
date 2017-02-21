@@ -59,11 +59,22 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 	
 	$('#tasks').css( 'cursor', 'pointer' );
 	
-	$scope.sortBy=function(filter){
+	var prevId;
+	$scope.sortBy=function(filter,id){
+		if(prevId!=null){
+			$('tr td:nth-child(' + prevId + ')').css('background','white');
+			$('tr th:nth-child(' + prevId + ')').css('color','black');
+		}
+		
 		$scope.filter=filter;
+		
+		prevId=id;
+		$('tr td:nth-child(' + id + ')').css('background','#f2f2f4');
+		$('tr th:nth-child(' + id + ')').css('color','gray');
 	}
-	
+
 });
+  
 
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
@@ -121,7 +132,24 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		angular.element(document).ready(function() {
 			$('.well').hide();
 		});
-		$('.timeline-icon').show();
+		
+		if($scope.tasks[$scope.index].comments.length != 1){
+			$('.timeline-icon').show();
+		    if( $( '#pseudo' ).length ) {
+		        $( '#pseudo' ).remove();
+		    } else {
+		        document.head.insertAdjacentHTML( 'beforeEnd', '' );
+		    };
+
+		}else{
+		    if( $( '#pseudo' ).length ) {
+		        $( '#pseudo' ).remove();
+		    } else {
+		        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
+		        document.head.insertAdjacentHTML( 'beforeEnd', css );
+		    };
+		}
+		
 
 	}
 
@@ -135,12 +163,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	$scope.editComment = function(index) {
 		$('.timeline-icon').hide();
 
-	    if( $( '#pseudo' ).length ) {
-	        $( '#pseudo' ).remove();
-	    } else {
 	        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
 	        document.head.insertAdjacentHTML( 'beforeEnd', css );
-	    };
 		
 		$('#form').hide();
 		$('.media').hide();
@@ -211,8 +235,23 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$('#hide').hide();
 			$('#more').hide();
 		}
-		if($scope.tasks[$scope.index].comments.length == 0){
+		if($scope.tasks[$scope.index].comments.length == 0 ||$scope.tasks[$scope.index].comments.length == 1){
 			$('.timeline-icon').hide();
+		    if( $( '#pseudo' ).length ) {
+		        $( '#pseudo' ).remove();
+		    } else {
+		        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
+		        document.head.insertAdjacentHTML( 'beforeEnd', css );
+		    };
+
+		}else{
+			$('.timeline-icon').show();
+		    if( $( '#pseudo' ).length ) {
+		        $( '#pseudo' ).remove();
+		    } else {
+		        document.head.insertAdjacentHTML( 'beforeEnd', '');
+		    };
+			
 		}
 	}
 	
