@@ -72,6 +72,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 		$('tr td:nth-child(' + id + ')').css('background','#f2f2f4');
 		$('tr th:nth-child(' + id + ')').css('color','gray');
 	}
+	
+	$scope.escape=function(){
+		$scope.userSearch='';
+	}
 
 });
   
