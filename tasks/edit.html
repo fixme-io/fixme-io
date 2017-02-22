@@ -38,8 +38,8 @@
 
 						<div class="timeline-label">
 							<div class="media-body">{{innerItem.comment}}</div>
-							<div>
-								{{innerItem.date | date: "dd/MM/yyyy"}} <a href="" ng-show="innerItem.edited" ng-click="editCommentInfo($index)">Edited</a>
+							<div class="timeago">
+								<time class="timeago" datetime="{{innerItem.date}}">{{innerItem.date | date: "dd/MM/yyyy"}}</time> <a href="" ng-show="innerItem.edited" ng-click="editCommentInfo($index)">Edited</a>
 								<div class="action">
 									<button type="button" class="btn btn-xs" ng-click="editComment($index)">
 										<span class="glyphicon glyphicon-pencil"></span>
@@ -69,7 +69,7 @@
 		<div class="well" ng-repeat="innerItem in tasks[index].comments" id="well{{$index}}">
 			<div ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
 				<div class="media-body">{{innerItem.title}}</div>
-				<div>{{innerItem.editedDate | date: "dd/MM/yyyy"}}</div>
+				<div><time class="timeago" datetime="{{innerItem.editedDate}}">{{innerItem.editedDate | date: "dd/MM/yyyy"}}</time></div>
 				<hr>
 			</div>
 			<a href="javascript:void(0)"><i style="color: #4747b9; font-size: 1.5em;" ng-click="back($index)"

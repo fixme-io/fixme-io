@@ -7,12 +7,15 @@ app.controller('MainCtrl', function($scope) {
 });
 
 app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
-
+	
+	angular.element(document).ready(function() {
+		jQuery(".timeago").timeago();
+	});
+	
 	// $localStorage.$reset();
 	$scope.tasksId = $routeParams.ID;
-
 	$scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
-
+	
 	$scope.add = function() {
 
 		$scope.tasks.push({
@@ -24,13 +27,17 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 				title : "Medium",
 				id : 2
 			},
-			createdOn : new Date()
+			createdOn : new Date()  
 		});
 
 		$scope.task = '';
 
 		$localStorage.tasks = $scope.tasks;
-
+		
+		angular.element(document).ready(function() {
+			jQuery(".timeago").timeago();
+		});
+		
 	}
 
 	$scope.setId = function(priority) {
@@ -98,10 +105,14 @@ app.config(function($routeProvider) {
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	angular.element(document).ready(function() {
+		jQuery(".timeago").timeago();
+	});
+	
+	angular.element(document).ready(function() {
 		$('.well').hide();
 	});
+	
 	$scope.tasks = $localStorage.tasks;
-
 	$scope.index = $routeParams.ID;
 	$scope.title = $scope.tasks[$scope.index].title;
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
@@ -120,6 +131,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 		$scope.tasks[$scope.index].title = $scope.title;
 		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
+		
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
 				comment : $scope.comment,
@@ -128,11 +140,12 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				editedComments:[]
 			});
 		}
-		$scope.hideComments();
 		
+		$scope.hideComments();
 		$scope.comment = '';
 
 		$scope.tasks[$scope.index].lastChangedOn = new Date();
+		
 		angular.element(document).ready(function() {
 			$('.well').hide();
 		});
@@ -154,7 +167,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		    };
 		}
 		
-
+		angular.element(document).ready(function() {
+			jQuery(".timeago").timeago();
+		});
 	}
 
 	$('#dueDate').daterangepicker({
@@ -166,9 +181,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	
 	$scope.editComment = function(index) {
 		$('.timeline-icon').hide();
-
-	        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
-	        document.head.insertAdjacentHTML( 'beforeEnd', css );
+	    var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
+	    document.head.insertAdjacentHTML( 'beforeEnd', css );
 		
 		$('#form').hide();
 		$('.media').hide();
@@ -186,14 +200,16 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			
 			if($scope.editComm != $scope.tasks[$scope.index].comments[index].comment){
 				$scope.tasks[$scope.index].comments[index].edited = true;
-				$('.media').show('slow');
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
 				$scope.tasks[$scope.index].comments[index].editedComments.push({title:$scope.editComm,editedDate:new Date(),infoEdited:false});
 				
+				$('.media').show('slow');
 				$('.action').show();
 				$('#addComment').show();
 				$('#saveComment').hide();
+				
 				$scope.editComm = '';
+				
 				if($scope.tasks[$scope.index].comments.length > 5){
 					$('#more').hide();
 					$('#hide').show();
@@ -204,6 +220,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			        document.head.insertAdjacentHTML( 'beforeEnd', '');
 			    };
 				$('.timeline-icon').show();
+				
+				angular.element(document).ready(function() {
+					jQuery(".timeago").timeago();
+				});
 
 			}
 			
@@ -215,17 +235,19 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$('#addComment').show();
 			$('#saveComment').hide();
 			$scope.editComm = '';
+			
 			if($scope.tasks[$scope.index].comments.length > 5){
 				$('#more').hide();
 				$('#hide').show();
 			}
+			
 		    if( $( '#pseudo' ).length ) {
 		        $( '#pseudo' ).remove();
 		    } else {
 		        document.head.insertAdjacentHTML( 'beforeEnd', '');
 		    };
+		    
 			$('.timeline-icon').show();
-
 		}
 	}
 
@@ -235,27 +257,33 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		for(var i = $scope.tasks[$scope.index].comments.length-5; i < $scope.tasks[$scope.index].comments.length; i++){
 			$('#' + i).show();
 		}
+		
 		if($scope.tasks[$scope.index].comments.length <= 5){
 			$('#hide').hide();
 			$('#more').hide();
 		}
+		
 		if($scope.tasks[$scope.index].comments.length == 0 ||$scope.tasks[$scope.index].comments.length == 1){
+			
 			$('.timeline-icon').hide();
+			
 		    if( $( '#pseudo' ).length ) {
 		        $( '#pseudo' ).remove();
 		    } else {
 		        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
 		        document.head.insertAdjacentHTML( 'beforeEnd', css );
-		    };
-
+		    }
+		    
 		}else{
+			
 			$('.timeline-icon').show();
+			
 		    if( $( '#pseudo' ).length ) {
 		        $( '#pseudo' ).remove();
 		    } else {
 		        document.head.insertAdjacentHTML( 'beforeEnd', '');
 		    };
-			
+		    
 		}
 	}
 	
@@ -276,7 +304,6 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		}else{
 			$('#hide').hide();
 			$('#more').hide();
-
 		}
 	}
 	
