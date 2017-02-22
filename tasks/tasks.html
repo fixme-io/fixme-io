@@ -35,7 +35,7 @@
 			<th ng-click="sortBy('priority.id',4)">Priority</th>
 			<th ng-click="sortBy('createdOn',5)">Created on</th>
 			<th ng-click="sortBy('dueDate',6)">Due date</th>
-			<th ng-click="sortBy('lastChangeOn',7)">Last changed on</th>
+			<th ng-click="sortBy('lastChangedOn',7)">Last changed on</th>
 		</tr>
 	</thead>
 
@@ -49,8 +49,8 @@
 				<option>Low</option>
 		</select></td>
 		<td><time class="timeago" datetime="{{x.createdOn}}">{{x.createdOn | date: "dd/MM/yyyy"}}</time></td>
-		<td class="timeago">{{x.dueDate}}</td>
-		<td class="timeago">{{x.lastChangedOn | date: "dd/MM/yyyy"}}</td>
+		<td>{{x.dueDate}}</td>
+		<td><time class="timeago" datetime="{{x.lastChangedOn}}">{{x.lastChangedOn | date: "dd/MM/yyyy"}}</time></td>
 		<td><a href="#edit/{{tasks.indexOf(x)}}"> <i class="glyphicon glyphicon-edit" style="color: green">&nbsp</i>
 		</a> <a href="javascript:void(0)"><i class="glyphicon glyphicon-trash" style="color: red" ng-click="remove(tasks.indexOf(x))"></i></a></td>
 	</tr>
