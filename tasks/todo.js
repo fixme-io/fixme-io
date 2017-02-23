@@ -27,7 +27,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 				title : "Medium",
 				id : 2
 			},
-			createdOn : new Date()  
+			createdOn : moment().format()   
 		});
 
 		$scope.task = '';
@@ -135,7 +135,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
 				comment : $scope.comment,
-				date : new Date(),
+				date : moment().format(),
 				edited : false,
 				editedComments:[]
 			});
@@ -144,7 +144,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$scope.hideComments();
 		$scope.comment = '';
 
-		$scope.tasks[$scope.index].lastChangedOn = new Date();
+		$scope.tasks[$scope.index].lastChangedOn = moment().format();
 		
 		angular.element(document).ready(function() {
 			$('.well').hide();
@@ -201,7 +201,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			if($scope.editComm != $scope.tasks[$scope.index].comments[index].comment){
 				$scope.tasks[$scope.index].comments[index].edited = true;
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
-				$scope.tasks[$scope.index].comments[index].editedComments.push({title:$scope.editComm,editedDate:new Date(),infoEdited:false});
+				$scope.tasks[$scope.index].comments[index].editedComments.push({title:$scope.editComm,editedDate:moment().format(),infoEdited:false});
 				
 				$('.media').show('slow');
 				$('.action').show();
