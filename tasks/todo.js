@@ -104,13 +104,6 @@ app.config(function($routeProvider) {
 });
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
-	angular.element(document).ready(function() {
-		jQuery(".timeago").timeago();
-	});
-	
-	angular.element(document).ready(function() {
-		$('.well').hide();
-	});
 	
 	$scope.tasks = $localStorage.tasks;
 	$scope.index = $routeParams.ID;
@@ -118,14 +111,12 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
 	angular.element(document).ready(function() {
+		jQuery(".timeago").timeago();
+		$('.well').hide();
 		$scope.hideComments();
+		$scope.showAndHide();	
+		$('#saveComment').hide();
 	});
-	
-	if($scope.tasks[$scope.index].comments.length == 0){
-		$('.timeline-icon').hide();
-	}
-	
-	$('#saveComment').hide();
 
 	$scope.update = function() {
 
@@ -141,6 +132,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			});
 		}
 		
+		$scope.showAndHide();
 		$scope.hideComments();
 		$scope.comment = '';
 
@@ -148,28 +140,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		
 		angular.element(document).ready(function() {
 			$('.well').hide();
-		});
-		
-		if($scope.tasks[$scope.index].comments.length != 1){
-			$('.timeline-icon').show();
-		    if( $( '#pseudo' ).length ) {
-		        $( '#pseudo' ).remove();
-		    } else {
-		        document.head.insertAdjacentHTML( 'beforeEnd', '' );
-		    };
-
-		}else{
-		    if( $( '#pseudo' ).length ) {
-		        $( '#pseudo' ).remove();
-		    } else {
-		        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
-		        document.head.insertAdjacentHTML( 'beforeEnd', css );
-		    };
-		}
-		
-		angular.element(document).ready(function() {
 			jQuery(".timeago").timeago();
 		});
+		$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 	}
 
 	$('#dueDate').daterangepicker({
@@ -180,10 +153,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	});
 	
 	$scope.editComment = function(index) {
+		$('.timeline-centered').addClass('foo');
 		$('.timeline-icon').hide();
-	    var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
-	    document.head.insertAdjacentHTML( 'beforeEnd', css );
-		
 		$('#form').hide();
 		$('.media').hide();
 		$('.action').hide();
@@ -195,6 +166,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#saveComment').show();
 		$('#more').hide();
 		$('#hide').hide();
+		$('#labelComments').html('');
+		$('#nbComments').html('');
 		
 		$scope.updateEditedComment = function() {
 			
@@ -202,6 +175,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$scope.tasks[$scope.index].comments[index].edited = true;
 				$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
 				$scope.tasks[$scope.index].comments[index].editedComments.push({title:$scope.editComm,editedDate:moment().format(),infoEdited:false});
+
+				$scope.showAndHide();
 				
 				$('.media').show('slow');
 				$('.action').show();
@@ -214,21 +189,15 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 					$('#more').hide();
 					$('#hide').show();
 				}
-			    if( $( '#pseudo' ).length ) {
-			        $( '#pseudo' ).remove();
-			    } else {
-			        document.head.insertAdjacentHTML( 'beforeEnd', '');
-			    };
-				$('.timeline-icon').show();
 				
 				angular.element(document).ready(function() {
 					jQuery(".timeago").timeago();
 				});
-
+				$('#labelComments').html('Comments: ');
+				$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 			}
-			
 		}
-		
+	}	
 		$scope.cancel= function(){
 			$('.media').show('slow');
 			$('.action').show();
@@ -241,15 +210,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$('#hide').show();
 			}
 			
-		    if( $( '#pseudo' ).length ) {
-		        $( '#pseudo' ).remove();
-		    } else {
-		        document.head.insertAdjacentHTML( 'beforeEnd', '');
-		    };
-		    
-			$('.timeline-icon').show();
+			$scope.showAndHide();
+			$('#labelComments').html('Comments: ');
+			$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 		}
-	}
 
 	$scope.deleteComment = function(index) {
 		$scope.tasks[$scope.index].comments.splice(index, 1);
@@ -261,36 +225,21 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		if($scope.tasks[$scope.index].comments.length <= 5){
 			$('#hide').hide();
 			$('#more').hide();
+		}else{
+			$('#more').show();
 		}
 		
-		if($scope.tasks[$scope.index].comments.length == 0 ||$scope.tasks[$scope.index].comments.length == 1){
-			
-			$('.timeline-icon').hide();
-			
-		    if( $( '#pseudo' ).length ) {
-		        $( '#pseudo' ).remove();
-		    } else {
-		        var css = '<style id="pseudo">.timeline-centered::before{display: none !important;}</style>';
-		        document.head.insertAdjacentHTML( 'beforeEnd', css );
-		    }
-		    
-		}else{
-			
-			$('.timeline-icon').show();
-			
-		    if( $( '#pseudo' ).length ) {
-		        $( '#pseudo' ).remove();
-		    } else {
-		        document.head.insertAdjacentHTML( 'beforeEnd', '');
-		    };
-		    
-		}
+		$scope.showAndHide();
+		
+		$('#labelComments').html('Comments: ');
+		$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 	}
 	
 	$scope.moreComments = function(){
 		$('.media').show('slow');
 		$('#more').hide();
 		$('#hide').show();
+		$scope.showAndHide();
 	}
 	
 	$scope.hideComments = function(){
@@ -305,6 +254,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$('#hide').hide();
 			$('#more').hide();
 		}
+		$scope.showAndHide();
 	}
 	
 	$scope.editCommentInfo = function(i){
@@ -316,8 +266,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#labelComments').html('Edited comments: ');
 		$('#nbComments').html($scope.tasks[$scope.index].comments[i].editedComments.length);
 		$('#addComment').hide();
-		$('.timeline-icon').hide();
 
+		$('.timeline-centered').addClass('foo');
+		$('.timeline-icon').hide();
 	}
 	
 	$scope.back = function(i){
@@ -326,9 +277,27 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$('#labelComments').html('Comments: ');
 		$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 		$('#addComment').show();
-		$('#hide').show();
-		$('.timeline-icon').show();
-
-	}
 		
+		if($scope.tasks[$scope.index].comments.length == 0 || $scope.tasks[$scope.index].comments.length==1){
+			$('#hide').hide();
+			$('#more').hide();
+		}
+		
+		if($scope.tasks[$scope.index].comments.length >5){
+			$('#hide').show();
+		}
+		
+		$scope.showAndHide();
+	}
+	
+	$scope.showAndHide = function(){
+		if($scope.tasks[$scope.index].comments.length == 0 || $scope.tasks[$scope.index].comments.length==1){
+			$('.timeline-centered').addClass('foo');
+			$('.timeline-icon').hide();
+
+		}else{
+			$('.timeline-centered').removeClass('foo');
+			$('.timeline-icon').show();
+		}
+	}
 });

@@ -130,6 +130,10 @@
 	margin-left: 30px;
 }
 
+.timeline-centered.foo:before {
+	display: none;
+}
+
 .timeline-centered .timeline-entry {
 	position: relative;
 	/*width: 50%;
@@ -155,8 +159,7 @@
 	display: table;
 }
 
-.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon
-	{
+.timeline-icon {
 	background: #fff;
 	color: #737881;
 	display: block;
