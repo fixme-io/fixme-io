@@ -39,7 +39,7 @@
 		</tr>
 	</thead>
 
-	<tr ng-keyup="$event.keyCode == 13 && goToEdit(tasks.indexOf(x))" tabIndex="0" key-navigation ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') |  orderBy: filter">
+	<tr ng-keyup="$event.keyCode == 13 && goToEdit(tasks.indexOf(x))" tabIndex="0" ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | filter:userSearch |  orderBy: filter">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><input type="checkbox" ng-model="x.completed" /></td>
