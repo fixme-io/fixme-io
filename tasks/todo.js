@@ -83,6 +83,22 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 	$scope.escape=function(){
 		$scope.userSearch='';
 	}
+	
+	document.onkeydown = function (evt) {
+	    evt = evt || window.event;
+	    switch (evt.keyCode) {
+	        case 38:
+	            document.activeElement.previousElementSibling.focus();
+	            break;
+	        case 40:
+	            document.activeElement.nextElementSibling.focus();
+	            break;
+	    }
+	};
+	
+	$scope.goToEdit = function(index){
+		window.location.href = '#edit/' + index;
+	}
 
 });
   
