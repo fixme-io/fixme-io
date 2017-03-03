@@ -206,3 +206,8 @@
 	top: 10px;
 	margin-left: -9px;
 }
+
+.selected {
+    background-color:#f2f2f4;
+    font-weight:bold;
+}

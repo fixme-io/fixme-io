@@ -1,4 +1,5 @@
 var app = angular.module('myApp', [ "ngRoute", "ngStorage" ]);
+var selected;
 
 app.controller('MainCtrl', function($scope) {
 
@@ -6,7 +7,7 @@ app.controller('MainCtrl', function($scope) {
 
 });
 
-app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
+app.controller('TasksCtrl', function($scope, $routeParams, $localStorage, $document) {
 	
 	angular.element(document).ready(function() {
 		jQuery(".timeago").timeago();
@@ -83,25 +84,51 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage) {
 	$scope.escape=function(){
 		$scope.userSearch='';
 	}
-	
-	document.onkeydown = function (evt) {
-	    evt = evt || window.event;
-	    switch (evt.keyCode) {
-	        case 38:
-	            document.activeElement.previousElementSibling.focus();
-	            break;
-	        case 40:
-	            document.activeElement.nextElementSibling.focus();
-	            break;
-	    }
-	};
-	
-	$scope.goToEdit = function(index){
-		window.location.href = '#edit/' + index;
-	}
 
+	$scope.selectedRow = selected;
+	
+	$scope.setClickedRow = function(index){
+		$scope.selectedRow = index;
+	}
+	
 });
-  
+
+app.directive('arrowSelector',['$document',function($document){
+	return{
+		restrict:'A',
+		link:function($scope,elem,attrs,ctrl){
+			var elemFocus = false;             
+			elem.on('mouseenter',function(){
+				elemFocus = true;
+			});
+			
+			$document.bind('keydown',function(e){
+				if(elemFocus){
+					if(e.keyCode == 38){
+						if($scope.selectedRow == 0){
+							return;
+						}
+						$scope.selectedRow--;
+						$scope.$apply();
+						e.preventDefault();
+					}
+					if(e.keyCode == 40){
+						if($scope.selectedRow == $scope.tasks.length - 1){
+							return;
+						}
+						$scope.selectedRow++;
+						$scope.$apply();
+						e.preventDefault();
+					}
+					if(e.keyCode == 13){
+						window.location.href = '#edit/' + $scope.selectedRow;
+						selected = $scope.selectedRow;
+					}
+				}
+			});
+		}
+	};
+}]);
 
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
@@ -213,7 +240,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 				$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 			}
 		}
-	}	
+		
 		$scope.cancel= function(){
 			$('.media').show('slow');
 			$('.action').show();
@@ -230,7 +257,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 			$('#labelComments').html('Comments: ');
 			$('#nbComments').html($scope.tasks[$scope.index].comments.length);
 		}
-
+	}
+	
 	$scope.deleteComment = function(index) {
 		$scope.tasks[$scope.index].comments.splice(index, 1);
 
