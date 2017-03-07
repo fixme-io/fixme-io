@@ -23,9 +23,19 @@
 			</div>
 		</div>
 	</div>
+
+	<br /> <label>Details</label>
+	<div class="row">
+		<div class="col-lg-6">
+			<textarea class="form-control" rows="5"></textarea>
+		</div>
+	</div>
+
+
 	<a href="#/">
 		<button id="save" type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
 	</a>
+
 	<div id="comments">
 		<label id="labelComments">Comments: </label> <label id="nbComments">{{tasks[index].comments.length}}</label>
 		<div class="timeline-centered">
@@ -39,7 +49,8 @@
 						<div class="timeline-label">
 							<div class="media-body">{{innerItem.comment}}</div>
 							<div class="timeago">
-								<time class="timeago" datetime="{{innerItem.date}}"></time> <a href="" ng-show="innerItem.edited" ng-click="editCommentInfo($index)">Edited</a>
+								<time class="timeago" datetime="{{innerItem.date}}"></time>
+								<a href="" ng-show="innerItem.edited" ng-click="editCommentInfo($index)">Edited</a>
 								<div class="action">
 									<button type="button" class="btn btn-xs" ng-click="editComment($index)">
 										<span class="glyphicon glyphicon-pencil"></span>
@@ -57,7 +68,7 @@
 
 			<article class="timeline-entry begin">
 				<div class="timeline-entry-inner">
-					<div class="timeline-icon" -moz-transform:rotate(-90deg);">
+					<div class="timeline-icon"-moz-transform:rotate(-90deg);">
 						<a href="javascript:void(0)" ng-click="moreComments()" id="more">More</a> <a href="javascript:void(0)" ng-click="hideComments()"
 							id="hide">Hide</a>
 					</div>
@@ -69,7 +80,9 @@
 		<div class="well" ng-repeat="innerItem in tasks[index].comments" id="well{{$index}}">
 			<div ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
 				<div class="media-body">{{innerItem.title}}</div>
-				<div><time class="timeago" datetime="{{innerItem.editedDate}}"></time></div>
+				<div>
+					<time class="timeago" datetime="{{innerItem.editedDate}}"></time>
+				</div>
 				<hr>
 			</div>
 			<a href="javascript:void(0)"><i style="color: #4747b9; font-size: 1.5em;" ng-click="back($index)"
