@@ -68,16 +68,16 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage, $docum
 	$('#tasks').css( 'cursor', 'pointer' );
 	
 	var prevId;
+	
 	$scope.sortBy=function(filter,id){
+
 		if(prevId!=null){
-			$('tr td:nth-child(' + prevId + ')').css('background','white');
 			$('tr th:nth-child(' + prevId + ')').css('color','black');
 		}
 		
 		$scope.filter=filter;
 		
 		prevId=id;
-		$('tr td:nth-child(' + id + ')').css('background','#f2f2f4');
 		$('tr th:nth-child(' + id + ')').css('color','gray');
 	}
 	
@@ -100,8 +100,8 @@ app.directive('arrowSelector',['$document',function($document){
 			var elemFocus = false;             
 			elem.on('mouseenter',function(){
 				elemFocus = true;
-			});
-			
+				$(this).css( 'cursor', 'pointer' )
+		});
 			$document.bind('keydown',function(e){
 				if(elemFocus){
 					if(e.keyCode == 38){
