@@ -151,6 +151,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 	$scope.tasks = $localStorage.tasks;
 	$scope.index = $routeParams.ID;
 	$scope.title = $scope.tasks[$scope.index].title;
+	$scope.details = $scope.tasks[$scope.index].details;
 	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
 	angular.element(document).ready(function() {
@@ -165,6 +166,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
 		$scope.tasks[$scope.index].title = $scope.title;
 		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
+		$scope.tasks[$scope.index].details = $scope.details;
 		
 		if ($scope.comment != undefined && $scope.comment != '') {
 			$scope.tasks[$scope.index].comments.push({
