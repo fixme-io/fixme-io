@@ -6,35 +6,28 @@
 			</button>
 		</a>
 	</div>
-
-	<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
-		<div class="col-lg-6">
-			<label>Title</label> <input class="form-control" name="title" type="text" ng-model="title" required> <span
-				ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
-		</div>
-	</div>
-
-	<label>Due date</label>
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="input-group">
-				<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
-				</span><input type="text" class="form-control" id="dueDate" ng-model="dueDate">
+	
+	<div class="formsInputs">
+		<div class="titleInput">
+			<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
+				<label>Title</label> <input class="form-control" name="title" type="text" ng-model="title" required> <span
+					ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
 			</div>
 		</div>
-	</div>
 
-	<br /> <label>Details</label>
-	<div class="row">
-		<div class="col-lg-6">
-			<textarea class="form-control" rows="5" ng-model="details"></textarea>
+		<label>Due date</label>
+		<div class="input-group">
+			<span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i>
+			</span><input type="text" class="form-control" id="dueDate" ng-model="dueDate">
 		</div>
+
+		<br /> <label>Details</label>
+		<textarea class="form-control" rows="5" ng-model="details"></textarea>
+
+		<a href="#/">
+			<button id="save" type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
+		</a>
 	</div>
-
-
-	<a href="#/">
-		<button id="save" type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="update()">Save</button>
-	</a>
 
 	<div id="comments">
 		<label id="labelComments">Comments: </label> <label id="nbComments">{{tasks[index].comments.length}}</label>
