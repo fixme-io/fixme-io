@@ -1,17 +1,17 @@
 <table id="tableInfo" class="table table-striped">
 
-		<tr>
-			<th>Total tasks</th>
-			<td>{{ tasks.length }}</td>
-		</tr>
-		<tr>
-			<th>Remaining tasks</th>
-			<td>{{remainingTasks()}}</td>
-		</tr>
-		<tr>
-			<th>Completed tasks</th>
-			<td>{{tasks.length - remainingTasks()}}</td>
-
-		</tr>
+	<tr>
+		<th>Total tasks</th>
+		<td>{{ tasks.length }}</td>
+	</tr>
+	<tr>
+		<th>Remaining tasks</th>
+		<td>{{remainingTasks()}}</td>
+	</tr>
+	<tr>
+		<th>Completed tasks</th>
+		<td>{{tasks.length - remainingTasks()}}</td>
+	</tr>
 
 </table>
+<div zingchart zc-height="568px" zc-json="overviewTasks" zc-width="100%" zc-height="568px"></div>

@@ -1,4 +1,4 @@
-var app = angular.module('myApp', [ "ngRoute", "ngStorage" ]);
+var app = angular.module('myApp', [ "ngRoute", "ngStorage", "zingchart-angularjs"]);
 var selected;
 
 app.controller('MainCtrl', function($scope) {
@@ -91,7 +91,54 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage, $docum
 		$scope.selectedRow = index;
 	}
 	
-});
+	if($scope.remainingTasks()!=0){
+		var remaining = $scope.remainingTasks();
+	}
+	if($scope.tasks.length-$scope.remainingTasks()!=0){
+		var completed = $scope.tasks.length-$scope.remainingTasks();
+	}
+	
+	$scope.overviewTasks = {
+		 	type: "pie", 
+		 	width:"550px",
+		 	height:"350px",
+		 	plot: {
+		 	  valueBox: {
+		 	    placement: 'out',
+		 	    text: '%t\n%npv%',
+		 	    fontFamily: "Open Sans"
+		 	  },
+		 	  tooltip:{
+		 	    fontSize: '18',
+		 	    fontFamily: "Open Sans",
+		 	    padding: "5 10",
+		 	    text: "%npv%"
+		 	  },
+		 	  animation:{
+		      effect: 2, 
+		      method: 5,
+		      speed: 500,
+		      sequence: 1
+		    }
+		 	},
+		 	source: {
+		 	  fontColor: "#8e99a9",
+		 	  fontFamily: "Open Sans"
+		 	},
+		 	plotarea: {
+		 	  margin: "20 0 0 0"  
+		 	},
+	        series: [{
+	            text: "Remaining tasks",
+	            values: [remaining],
+	            backgroundColor: "#d63939"
+	        }, {
+	            text: "Completed tasks",
+	            values: [completed],
+	            backgroundColor: "#299262"
+	        }]
+	    };
+	});
 
 app.directive('arrowSelector',['$document',function($document){
 	return{
