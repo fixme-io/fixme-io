@@ -28,7 +28,9 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage, $docum
 				title : "Medium",
 				id : 2
 			},
-			createdOn : moment().format()   
+			createdOn : moment().format(),
+			assignee:"Me",
+			reporter:"Me"
 		});
 
 		$scope.task = '';
@@ -89,6 +91,14 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage, $docum
 	
 	$scope.setClickedRow = function(index){
 		$scope.selectedRow = index;
+	}
+	
+	$scope.completedTasks = function(index){
+		if($scope.tasks[index].completed){
+			$scope.tasks[index].resolvedOn = moment().format();
+		}else{
+			$scope.tasks[index].resolvedOn = '';
+		}
 	}
 	
 	if($scope.remainingTasks()!=0){
@@ -207,6 +217,42 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 		$scope.hideComments();
 		$scope.showAndHide();	
 		$('#saveComment').hide();
+	});
+
+	if($scope.tasks[$scope.index].completed){
+    	$scope.tasks[$scope.index].status = 'Closed';
+	}else{
+    	$scope.tasks[$scope.index].status = 'In progress';
+	}
+
+	$('#assignee').on('click', function() {
+	    var $this = $(this);
+	    var $input = $('<input>', {
+	        value: $this.text(),
+	        type: 'text',
+	        blur: function() {
+	           $this.text(this.value);
+	        },
+	        keyup: function(e) {
+	        	if (e.which === 13) $input.blur();
+	        	$scope.tasks[$scope.index].assignee = this.value;
+	        }
+	    }).appendTo( $this.empty() ).focus();
+	});
+	
+	$('#reporter').on('click', function() {
+	    var $this = $(this);
+	    var $input = $('<input>', {
+	        value: $this.text(),
+	        type: 'text',
+	        blur: function() {
+	           $this.text(this.value);
+	        },
+	        keyup: function(e) {
+	        	if (e.which === 13) $input.blur();
+	        	$scope.tasks[$scope.index].reporter = this.value;
+	        }
+	    }).appendTo( $this.empty() ).focus();
 	});
 
 	$scope.update = function() {
