@@ -5,7 +5,7 @@ var selected;
 app.controller('MainCtrl', function($scope) {
 
 	$scope.tasks = [];
-	
+
 });
 
 app.directive('focus', function($timeout) {
@@ -36,6 +36,8 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 	$scope.tasksId = $routeParams.ID;
 	$scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
 
+	$scope.selectedRow = 0;
+
 	$scope.add = function() {
 
 		$scope.tasks.push({
@@ -49,7 +51,8 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 			},
 			createdOn : moment().format(),
 			assignee : "Me",
-			reporter : "Me"
+			reporter : "Me",
+			selectedRow : $scope.selectedRow
 		});
 
 		$scope.task = '';
@@ -61,7 +64,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 		});
 
 	}
-
+	
 	$scope.setId = function(priority) {
 		if (priority.title == 'High') {
 			priority.id = 1;
@@ -106,10 +109,9 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 		$scope.userSearch = '';
 	}
 
-	$scope.selectedRow = selected;
-
 	$scope.setClickedRow = function(index) {
-		$scope.selectedRow = index;
+		$scope.selectedRow = $scope.tasks[index].selectedRow;
+		$scope.tasks[index].selectedRow = index;
 	}
 
 	$scope.completedTasks = function(index) {
@@ -168,7 +170,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 		} ]
 	};
 });
-
+																																																																																																																																																																																										
 app.directive('arrowSelector', [ '$document', function($document) {
 	return {
 		restrict : 'A',
@@ -205,6 +207,8 @@ app.directive('arrowSelector', [ '$document', function($document) {
 		}
 	};
 } ]);
+
+
 
 app.config(function($routeProvider) {
 	$routeProvider.when("/", {
