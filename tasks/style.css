@@ -39,6 +39,10 @@
 	border-radius: 15px;
 }
 
+.media {
+	width: 100%;
+}
+
 .action {
 	float: right;
 }
@@ -193,7 +197,7 @@
 }
 
 .formsInputs {
-	width: 100%;
+	width: 40%%;
 }
 
 .titleInput {
@@ -203,11 +207,13 @@
 
 #rightTable {
 	margin-left: 650px;
-	margin-top: -577px;
+	margin-top: -335px;
+	width: 500px;
 }
 
 .tasksDetails {
 	width: 90%; /* Configure it fit in your design  */
+	height:40px;
 	margin: 0 auto; /* Centering Stuff */
 	padding: 20px;
 	border: 1px solid #eee;
