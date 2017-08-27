@@ -97,8 +97,11 @@
 									<span class="glyphicon glyphicon-pencil"></span>
 								</button>
 
-								<button type="button" class="btn btn-xs"
-									ng-click="deleteComment($index)">
+								<button type="button" class="btn btn-xs" sweetalert
+									sweet-options="{{sweet.option}}"
+									sweet-confirm-option="{{sweet.confirm}}"
+									sweet-cancel-option="{{sweet.cancel}}"
+									sweet-on-confirm="deleteComment($index)">
 									<span class="glyphicon glyphicon-trash"></span>
 								</button>
 							</div>

@@ -430,6 +430,30 @@ app
 									$scope.tasks[$scope.index].comments.length);
 						}
 					}
+					
+					$scope.sweet = {};
+					$scope.sweet.option = {
+						title : "Are you sure?",
+						text : "You will not be able to recover this comment!",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "Yes, delete it!",
+						cancelButtonText : "No, cancel!",
+						closeOnConfirm : false,
+						closeOnCancel : false
+					}
+					$scope.sweet.confirm = {
+						title : 'Deleted!',
+						text : 'Your comment has been deleted.',
+						type : 'success'
+					};
+
+					$scope.sweet.cancel = {
+						title : 'Cancelled!',
+						text : 'Your comment is safe',
+						type : 'error'
+					}
 
 					$scope.deleteComment = function(index) {
 						$scope.tasks[$scope.index].comments.splice(index, 1);
