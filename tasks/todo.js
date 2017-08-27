@@ -1,5 +1,5 @@
 var app = angular.module('myApp', [ "ngRoute", "ngStorage",
-		"zingchart-angularjs" ]);
+		"zingchart-angularjs", 'ng-sweet-alert' ]);
 var selected;
 
 app.controller('MainCtrl', function($scope) {
@@ -86,6 +86,30 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 		}
 
 		return remaining;
+	}
+
+	$scope.sweet = {};
+	$scope.sweet.option = {
+		title : "Are you sure?",
+		text : "You will not be able to recover this task!",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#DD6B55",
+		confirmButtonText : "Yes, delete it!",
+		cancelButtonText : "No, cancel!",
+		closeOnConfirm : false,
+		closeOnCancel : false
+	}
+	$scope.sweet.confirm = {
+		title : 'Deleted!',
+		text : 'Your task has been deleted.',
+		type : 'success'
+	};
+
+	$scope.sweet.cancel = {
+		title : 'Cancelled!',
+		text : 'Your task is safe',
+		type : 'error'
 	}
 
 	$scope.remove = function(index) {
