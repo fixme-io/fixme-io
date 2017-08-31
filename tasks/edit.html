@@ -92,18 +92,15 @@
 							<a href="" ng-show="innerItem.edited"
 								ng-click="editCommentInfo($index)">Edited</a>
 							<div class="action">
-								<button type="button" class="btn btn-xs"
-									ng-click="editComment($index)">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-
-								<button type="button" class="btn btn-xs" sweetalert
+								<a href="javascript:void(0)"><span
+									class="glyphicon glyphicon-pencil"
+									ng-click="editComment($index)"></span></a>&nbsp<a
+									href="javascript:void(0)"> <span
+									class="glyphicon glyphicon-trash" sweetalert
 									sweet-options="{{sweet.option}}"
 									sweet-confirm-option="{{sweet.confirm}}"
 									sweet-cancel-option="{{sweet.cancel}}"
-									sweet-on-confirm="deleteComment($index)">
-									<span class="glyphicon glyphicon-trash"></span>
-								</button>
+									sweet-on-confirm="deleteComment($index)"></span></a>
 							</div>
 						</div>
 					</div>
@@ -137,25 +134,25 @@
 			class="glyphicon glyphicon-arrow-left"></i></a>
 	</div>
 
-
 	<div class="input-group" id="addComment">
-		<input class="form-control"
+		<textarea class="form-control"
 			ng-keyup="$event.keyCode == 13 && class == update()" type="text"
 			placeholder="Write a comment..." name="comment" ng-model="comment"
-			required> <span class="input-group-addon"
-			style="background-color: #337ab7"> <a
-			href="javascript:void(0)"> <i class="glyphicon glyphicon-plus"
-				style="color: white" ng-click="update()"></i>
-		</a>
+			required></textarea>
+		<span class="input-group-btn"> <span>
+				<button id="addCommentBtn" type="button" class="btn btn-default"
+					ng-disabled="myForm.title.$invalid" ng-click="update()">Add
+					comment</button>
+		</span>
 		</span>
 	</div>
-</div>
 
 
-<div id="saveComment">
-	<input class="form-control" type="text" ng-model="editComm" required>
-	<br />
-	<button type="button" class="btn btn-primary"
-		ng-click="updateEditedComment()">Save</button>
-	<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	<div id="saveComment">
+		<input class="form-control" type="text" ng-model="editComm" required>
+		<br />
+		<button type="button" class="btn btn-primary"
+			ng-click="updateEditedComment()">Save</button>
+		<button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+	</div>
 </div>

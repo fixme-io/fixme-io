@@ -213,7 +213,7 @@
 
 .tasksDetails {
 	width: 90%; /* Configure it fit in your design  */
-	height:40px;
+	height: 40px;
 	margin: 0 auto; /* Centering Stuff */
 	padding: 20px;
 	border: 1px solid #eee;
@@ -241,4 +241,8 @@
 	padding: 0px 0px 2px 0px;
 	border-radius: 50px;
 	border-radius: 50px;
+}
+
+#addCommentBtn {
+	margin-left: 35px;
 }
