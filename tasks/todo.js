@@ -1,11 +1,30 @@
-var app = angular.module('myApp', [ "ngRoute", "ngStorage",
-		"zingchart-angularjs", 'ng-sweet-alert' ]);
+var app = angular.module('myApp', [ "ngRoute", "ngStorage",'ng-sweet-alert', 'easypiechart' ]);
 var selected;
 
 app.controller('MainCtrl', function($scope) {
 
 	$scope.tasks = [];
 	$scope.selectedRow = 0;
+
+});
+
+app.controller('chartCtrl', function($scope) {
+	$scope.allTasks = $scope.remainingTasks() + $scope.tasks.length
+			- $scope.remainingTasks();
+	$scope.percent = 100 / $scope.allTasks;
+	$scope.remainingTasksPercent = $scope.remainingTasks() * $scope.percent;
+	$scope.completedTasksPercent = 100 - $scope.remainingTasksPercent;
+	$scope.anotherOptions = {
+		animate : {
+			duration : 1000,
+			enabled : true
+		},
+		barColor : '#299262',
+		scaleColor : false,
+		lineWidth : 55,
+		trackColor : '#d63939',
+		lineCap : 'circle'
+	};
 
 });
 
@@ -157,46 +176,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 		var completed = $scope.tasks.length - $scope.remainingTasks();
 	}
 
-	$scope.overviewTasks = {
-		type : "pie",
-		width : "550px",
-		height : "350px",
-		plot : {
-			valueBox : {
-				placement : 'out',
-				text : '%t\n%npv%',
-				fontFamily : "Open Sans"
-			},
-			tooltip : {
-				fontSize : '18',
-				fontFamily : "Open Sans",
-				padding : "5 10",
-				text : "%npv%"
-			},
-			animation : {
-				effect : 2,
-				method : 5,
-				speed : 500,
-				sequence : 1
-			}
-		},
-		source : {
-			fontColor : "#8e99a9",
-			fontFamily : "Open Sans"
-		},
-		plotarea : {
-			margin : "20 0 0 0"
-		},
-		series : [ {
-			text : "Remaining tasks",
-			values : [ remaining ],
-			backgroundColor : "#d63939"
-		}, {
-			text : "Completed tasks",
-			values : [ completed ],
-			backgroundColor : "#299262"
-		} ]
-	};
 });
 
 app.directive('arrowSelector', [ '$document', function($document) {
@@ -430,7 +409,7 @@ app
 									$scope.tasks[$scope.index].comments.length);
 						}
 					}
-					
+
 					$scope.sweet = {};
 					$scope.sweet.option = {
 						title : "Are you sure?",
