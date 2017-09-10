@@ -117,19 +117,14 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     confirmButtonText: "Yes, delete it!",
     cancelButtonText: "No, cancel!",
     closeOnConfirm: false,
-    closeOnCancel: false
+    closeOnCancel: true
   }
   $scope.sweet.confirm = {
     title: 'Deleted!',
-    text: 'Your task has been deleted.',
-    type: 'success'
+    showConfirmButton: false,
+    timer: 1000,
+    type: 'success',
   };
-
-  $scope.sweet.cancel = {
-    title: 'Cancelled!',
-    text: 'Your task is safe',
-    type: 'error'
-  }
 
   $scope.remove = function(index) {
     $scope.tasks.splice(index, 1);
@@ -398,19 +393,15 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     confirmButtonText: "Yes, delete it!",
     cancelButtonText: "No, cancel!",
     closeOnConfirm: false,
-    closeOnCancel: false
+    closeOnCancel: true
   }
+
   $scope.sweet.confirm = {
     title: 'Deleted!',
-    text: 'Your comment has been deleted.',
-    type: 'success'
+    showConfirmButton: false,
+    timer: 1000,
+    type: 'success',
   };
-
-  $scope.sweet.cancel = {
-    title: 'Cancelled!',
-    text: 'Your comment is safe',
-    type: 'error'
-  }
 
   $scope.deleteComment = function(index) {
     $scope.taskComments().splice(index, 1);
