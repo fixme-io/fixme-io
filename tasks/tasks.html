@@ -1,15 +1,10 @@
 <form name="myForm" class="form-horizontal">
 
-	<div
-		ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
+	<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
 		<div class="col-xs-4">
-			<input focus="true" ng-keyup="$event.keyCode == 13 && add()"
-				class="form-control" type="text" name="title" ng-model="task"
-				placeholder="Enter new task" required> <span
-				ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
+			<input focus="true" ng-keyup="$event.keyCode == 13 && add()" class="form-control" type="text" name="title" ng-model="task" placeholder="Enter new task" required> <span ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
 		</div>
-		<button type="button" class="btn btn-primary"
-			ng-disabled="myForm.title.$invalid" ng-click="add()">Add</button>
+		<button type="button" class="btn btn-primary" ng-disabled="myForm.title.$invalid" ng-click="add()">Add</button>
 	</div>
 
 </form>
@@ -18,24 +13,18 @@
 <ul ng-show="tasks.length != 0" class="nav nav-pills">
 	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All
 			tasks</a></li>
-	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a
-		href="#/completed">Completed tasks</a></li>
-	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a
-		href="#/remaining">Remaining tasks</a></li>
+	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks</a></li>
+	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks</a></li>
 	<li id="liSearch" class="col-md-4 col-md-offset-5">
 		<form action="" class="search-form">
 			<div id="divSearch" class="form-group has-feedback">
-				<input type="text" ng-keyup="$event.keyCode == 27 && escape()"
-					class="form-control" name="search" id="search" placeholder="Search"
-					ng-model="userSearch"> <span
-					class="glyphicon glyphicon-search form-control-feedback"></span>
+				<input type="text" ng-keyup="$event.keyCode == 27 && escape()" class="form-control" name="search" id="search" placeholder="Search" ng-model="userSearch"> <span class="glyphicon glyphicon-search form-control-feedback"></span>
 			</div>
 		</form>
 	</li>
 </ul>
 
-<table id="table" class="table" ng-show="tasks.length != 0"
-	arrow-selector>
+<table id="table" class="table" ng-show="tasks.length != 0" arrow-selector>
 	<thead>
 		<tr id="tasks">
 			<th>#</th>
@@ -48,15 +37,11 @@
 		</tr>
 	</thead>
 
-	<tr ng-class="{'selected':$index == selectedRow}"
-		ng-click="setClickedRow($index)"
-		ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | filter:userSearch |  orderBy: filter">
+	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | filter:userSearch |  orderBy: filter">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
-		<td><input type="checkbox" ng-model="x.completed"
-			ng-click="completedTasks(tasks.indexOf(x))" /></td>
-		<td><select class="btn btn-default btn-xs dropdown-toggle"
-			ng-model="x.priority.title" ng-change="setId(x.priority)">
+		<td><input type="checkbox" ng-model="x.completed" ng-click="completedTasks(tasks.indexOf(x))" /></td>
+		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority.title" ng-change="setId(x.priority)">
 				<option>High</option>
 				<option>Medium</option>
 				<option>Low</option>
