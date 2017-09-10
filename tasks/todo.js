@@ -231,298 +231,278 @@ app.config(function($routeProvider) {
 	});
 });
 
-app
-		.controller(
-				"EditCtrl",
-				function($scope, $routeParams, $localStorage) {
+app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
-					$scope.tasks = $localStorage.tasks;
-					$scope.index = $routeParams.ID;
-					$scope.title = $scope.tasks[$scope.index].title;
-					$scope.details = $scope.tasks[$scope.index].details;
-					$scope.dueDate = $scope.tasks[$scope.index].dueDate;
+	$scope.tasks = $localStorage.tasks;
+	$scope.index = $routeParams.ID;
+	$scope.title = $scope.tasks[$scope.index].title;
+	$scope.details = $scope.tasks[$scope.index].details;
+	$scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
-					angular.element(document).ready(function() {
-						jQuery(".timeago").timeago();
-						$('.well').hide();
-						$scope.hideComments();
-						$scope.showAndHide();
-						$('#saveComment').hide();
-					});
+	angular.element(document).ready(function() {
+		jQuery(".timeago").timeago();
+		$('.well').hide();
+		$scope.hideComments();
+		$scope.showAndHide();
+		$('#saveComment').hide();
+	});
 
-					if ($scope.tasks[$scope.index].completed) {
-						$scope.tasks[$scope.index].status = 'Closed';
-					} else {
-						$scope.tasks[$scope.index].status = 'In progress';
-					}
+	if ($scope.tasks[$scope.index].completed) {
+		$scope.tasks[$scope.index].status = 'Closed';
+	} else {
+		$scope.tasks[$scope.index].status = 'In progress';
+	}
 
-					$('#assignee')
-							.on(
-									'click',
-									function() {
-										var $this = $(this);
-										var $input = $(
-												'<input>',
-												{
-													value : $this.text(),
-													type : 'text',
-													blur : function() {
-														$this.text(this.value);
-													},
-													keyup : function(e) {
-														if (e.which === 13)
-															$input.blur();
-														$scope.tasks[$scope.index].assignee = this.value;
-													}
-												}).appendTo($this.empty())
-												.focus();
-									});
+	$('#assignee').on('click', function() {
+		var $this = $(this);
+		var $input = $('<input>', {
+			value : $this.text(),
+			type : 'text',
+			blur : function() {
+				$this.text(this.value);
+			},
+			keyup : function(e) {
+				if (e.which === 13)
+					$input.blur();
+				$scope.tasks[$scope.index].assignee = this.value;
+			}
+		}).appendTo($this.empty()).focus();
+	});
 
-					$('#reporter')
-							.on(
-									'click',
-									function() {
-										var $this = $(this);
-										var $input = $(
-												'<input>',
-												{
-													value : $this.text(),
-													type : 'text',
-													blur : function() {
-														$this.text(this.value);
-													},
-													keyup : function(e) {
-														if (e.which === 13)
-															$input.blur();
-														$scope.tasks[$scope.index].reporter = this.value;
-													}
-												}).appendTo($this.empty())
-												.focus();
-									});
+	$('#reporter').on('click', function() {
+		var $this = $(this);
+		var $input = $('<input>', {
+			value : $this.text(),
+			type : 'text',
+			blur : function() {
+				$this.text(this.value);
+			},
+			keyup : function(e) {
+				if (e.which === 13)
+					$input.blur();
+				$scope.tasks[$scope.index].reporter = this.value;
+			}
+		}).appendTo($this.empty()).focus();
+	});
 
-					$scope.update = function() {
+	$scope.update = function() {
 
-						$scope.tasks[$scope.index].title = $scope.title;
-						$scope.tasks[$scope.index].dueDate = $('#dueDate')
-								.val();
-						$scope.tasks[$scope.index].details = $scope.details;
+		$scope.tasks[$scope.index].title = $scope.title;
+		$scope.tasks[$scope.index].dueDate = $('#dueDate').val();
+		$scope.tasks[$scope.index].details = $scope.details;
 
-						if ($scope.comment != undefined && $scope.comment != '') {
-							$scope.tasks[$scope.index].comments.push({
-								comment : $scope.comment,
-								date : moment().format(),
-								edited : false,
-								editedComments : []
-							});
-						}
+		if ($scope.comment != undefined && $scope.comment != '') {
+			$scope.taskComments().push({
+				comment : $scope.comment,
+				date : moment().format(),
+				edited : false,
+				editedComments : []
+			});
+		}
 
-						$scope.showAndHide();
-						$scope.hideComments();
-						$scope.comment = '';
+		$scope.showAndHide();
+		$scope.hideComments();
+		$scope.comment = '';
 
-						$scope.tasks[$scope.index].lastChangedOn = moment()
-								.format();
+		$scope.tasks[$scope.index].lastChangedOn = moment().format();
 
-						angular.element(document).ready(function() {
-							$('.well').hide();
-							jQuery(".timeago").timeago();
-						});
-						$('#nbComments').html(
-								$scope.tasks[$scope.index].comments.length);
-					}
+		angular.element(document).ready(function() {
+			$('.well').hide();
+			jQuery(".timeago").timeago();
+		});
+		$('#nbComments').html($scope.taskComments().length);
+	}
 
-					$('#dueDate').daterangepicker({
-						singleDatePicker : true,
-						locale : {
-							format : 'DD/MM/YYYY'
-						}
-					});
+	$('#dueDate').daterangepicker({
+		singleDatePicker : true,
+		locale : {
+			format : 'DD/MM/YYYY'
+		}
+	});
 
-					$scope.editComment = function(index) {
-						$('.timeline-centered').addClass('foo');
-						$('.timeline-icon').hide();
-						$('#form').hide();
-						$('.media').hide();
-						$('.action').hide();
-						$('#' + index).show('slow');
+	$scope.editComment = function(index) {
+		$('.timeline-centered').addClass('foo');
+		$('.timeline-icon').hide();
+		$('#form').hide();
+		$('.media').hide();
+		$('.action').hide();
+		$('#' + index).show('slow');
 
-						$scope.editComm = $scope.tasks[$scope.index].comments[index].comment;
+		$scope.editComm = $scope.taskComments()[index].comment;
 
-						$('#addComment').hide();
-						$('#saveComment').show();
-						$('#more').hide();
-						$('#hide').hide();
-						$('#labelComments').html('');
-						$('#nbComments').html('');
+		$('#addComment').hide();
+		$('#saveComment').show();
+		$('#more').hide();
+		$('#hide').hide();
+		$('#labelComments').html('');
+		$('#nbComments').html('');
 
-						$scope.updateEditedComment = function() {
-
-							if ($scope.editComm != $scope.tasks[$scope.index].comments[index].comment) {
-								$scope.tasks[$scope.index].comments[index].edited = true;
-								$scope.tasks[$scope.index].comments[index].comment = $scope.editComm;
-								$scope.tasks[$scope.index].comments[index].editedComments
-										.push({
-											title : $scope.editComm,
-											editedDate : moment().format(),
-											infoEdited : false
-										});
-
-								$scope.showAndHide();
-
-								$('.media').show('slow');
-								$('.action').show();
-								$('#addComment').show();
-								$('#saveComment').hide();
-
-								$scope.editComm = '';
-
-								if ($scope.tasks[$scope.index].comments.length > 5) {
-									$('#more').hide();
-									$('#hide').show();
-								}
-
-								angular.element(document).ready(function() {
-									jQuery(".timeago").timeago();
-								});
-								$('#labelComments').html('Comments: ');
-								$('#nbComments')
-										.html(
-												$scope.tasks[$scope.index].comments.length);
-							}
-						}
-
-						$scope.cancel = function() {
-							$('.media').show('slow');
-							$('.action').show();
-							$('#addComment').show();
-							$('#saveComment').hide();
-							$scope.editComm = '';
-
-							if ($scope.tasks[$scope.index].comments.length > 5) {
-								$('#more').hide();
-								$('#hide').show();
-							}
-
-							$scope.showAndHide();
-							$('#labelComments').html('Comments: ');
-							$('#nbComments').html(
-									$scope.tasks[$scope.index].comments.length);
-						}
-					}
-
-					$scope.sweet = {};
-					$scope.sweet.option = {
-						title : "Are you sure?",
-						text : "You will not be able to recover this comment!",
-						type : "warning",
-						showCancelButton : true,
-						confirmButtonColor : "#DD6B55",
-						confirmButtonText : "Yes, delete it!",
-						cancelButtonText : "No, cancel!",
-						closeOnConfirm : false,
-						closeOnCancel : false
-					}
-					$scope.sweet.confirm = {
-						title : 'Deleted!',
-						text : 'Your comment has been deleted.',
-						type : 'success'
-					};
-
-					$scope.sweet.cancel = {
-						title : 'Cancelled!',
-						text : 'Your comment is safe',
-						type : 'error'
-					}
-
-					$scope.deleteComment = function(index) {
-						$scope.tasks[$scope.index].comments.splice(index, 1);
-
-						for (var i = $scope.tasks[$scope.index].comments.length - 5; i < $scope.tasks[$scope.index].comments.length; i++) {
-							$('#' + i).show();
-						}
-
-						if ($scope.tasks[$scope.index].comments.length <= 5) {
-							$('#hide').hide();
-							$('#more').hide();
-						} else {
-							$('#more').show();
-						}
-
-						$scope.showAndHide();
-
-						$('#labelComments').html('Comments: ');
-						$('#nbComments').html(
-								$scope.tasks[$scope.index].comments.length);
-					}
-
-					$scope.moreComments = function() {
-						$('.media').show('slow');
-						$('#more').hide();
-						$('#hide').show();
-						$scope.showAndHide();
-					}
-
-					$scope.hideComments = function() {
-						if ($scope.tasks[$scope.index].comments.length > 5) {
-							$('.media').hide();
-							$('#more').show();
-							$('#hide').hide();
-							for (var i = $scope.tasks[$scope.index].comments.length - 5; i < $scope.tasks[$scope.index].comments.length; i++) {
-								$('#' + i).show();
-							}
-						} else {
-							$('#hide').hide();
-							$('#more').hide();
-						}
-						$scope.showAndHide();
-					}
-
-					$scope.editCommentInfo = function(i) {
-						$scope.tasks[$scope.index].comments[i].editedComments.infoEdited = true;
-						$('.media').hide();
-						$('#well' + i).show();
-						$('#hide').hide();
-						$('#more').hide();
-						$('#labelComments').html('Edited comments: ');
-						$('#nbComments')
-								.html(
-										$scope.tasks[$scope.index].comments[i].editedComments.length);
-						$('#addComment').hide();
-
-						$('.timeline-centered').addClass('foo');
-						$('.timeline-icon').hide();
-					}
-
-					$scope.back = function(i) {
-						$('.media').show('slow');
-						$('#well' + i).hide();
-						$('#labelComments').html('Comments: ');
-						$('#nbComments').html(
-								$scope.tasks[$scope.index].comments.length);
-						$('#addComment').show();
-
-						if ($scope.tasks[$scope.index].comments.length == 0
-								|| $scope.tasks[$scope.index].comments.length == 1) {
-							$('#hide').hide();
-							$('#more').hide();
-						}
-
-						if ($scope.tasks[$scope.index].comments.length > 5) {
-							$('#hide').show();
-						}
-
-						$scope.showAndHide();
-					}
-
-					$scope.showAndHide = function() {
-						if ($scope.tasks[$scope.index].comments.length == 0
-								|| $scope.tasks[$scope.index].comments.length == 1) {
-							$('.timeline-centered').addClass('foo');
-							$('.timeline-icon').hide();
-
-						} else {
-							$('.timeline-centered').removeClass('foo');
-							$('.timeline-icon').show();
-						}
-					}
+		$scope.updateEditedComment = function() {
+			var comments = $scope.taskComments();
+			if ($scope.editComm != comments[index].comment) {
+				comments[index].edited = true;
+				comments[index].comment = $scope.editComm;
+				comments[index].editedComments.push({
+					title : $scope.editComm,
+					editedDate : moment().format(),
+					infoEdited : false
 				});
+
+				$scope.showAndHide();
+
+				$('.media').show('slow');
+				$('.action').show();
+				$('#addComment').show();
+				$('#saveComment').hide();
+
+				$scope.editComm = '';
+
+				if (comments.length > 5) {
+					$('#more').hide();
+					$('#hide').show();
+				}
+
+				angular.element(document).ready(function() {
+					jQuery(".timeago").timeago();
+				});
+				$('#labelComments').html('Comments: ');
+				$('#nbComments').html(comments.length);
+			}
+		}
+
+		$scope.cancel = function() {
+			$('.media').show('slow');
+			$('.action').show();
+			$('#addComment').show();
+			$('#saveComment').hide();
+			$scope.editComm = '';
+
+			if ($scope.taskComments().length > 5) {
+				$('#more').hide();
+				$('#hide').show();
+			}
+
+			$scope.showAndHide();
+			$('#labelComments').html('Comments: ');
+			$('#nbComments').html($scope.taskComments().length);
+		}
+	}
+
+	$scope.sweet = {};
+	$scope.sweet.option = {
+		title : "Are you sure?",
+		text : "You will not be able to recover this comment!",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#DD6B55",
+		confirmButtonText : "Yes, delete it!",
+		cancelButtonText : "No, cancel!",
+		closeOnConfirm : false,
+		closeOnCancel : false
+	}
+	$scope.sweet.confirm = {
+		title : 'Deleted!',
+		text : 'Your comment has been deleted.',
+		type : 'success'
+	};
+
+	$scope.sweet.cancel = {
+		title : 'Cancelled!',
+		text : 'Your comment is safe',
+		type : 'error'
+	}
+
+	$scope.deleteComment = function(index) {
+		$scope.taskComments().splice(index, 1);
+
+		for (var i = $scope.taskComments().length - 5; i < $scope
+				.taskComments().length; i++) {
+			$('#' + i).show();
+		}
+
+		if ($scope.taskComments().length <= 5) {
+			$('#hide').hide();
+			$('#more').hide();
+		} else {
+			$('#more').show();
+		}
+
+		$scope.showAndHide();
+
+		$('#labelComments').html('Comments: ');
+		$('#nbComments').html($scope.taskComments().length);
+	}
+
+	$scope.moreComments = function() {
+		$('.media').show('slow');
+		$('#more').hide();
+		$('#hide').show();
+		$scope.showAndHide();
+	}
+
+	$scope.hideComments = function() {
+		if ($scope.taskComments().length > 5) {
+			$('.media').hide();
+			$('#more').show();
+			$('#hide').hide();
+			for (var i = $scope.taskComments().length - 5; i < $scope
+					.taskComments().length; i++) {
+				$('#' + i).show();
+			}
+		} else {
+			$('#hide').hide();
+			$('#more').hide();
+		}
+		$scope.showAndHide();
+	}
+
+	$scope.editCommentInfo = function(i) {
+		$scope.taskComments()[i].editedComments.infoEdited = true;
+		$('.media').hide();
+		$('#well' + i).show();
+		$('#hide').hide();
+		$('#more').hide();
+		$('#labelComments').html('Edited comments: ');
+		$('#nbComments').html($scope.taskComments()[i].editedComments.length);
+		$('#addComment').hide();
+
+		$('.timeline-centered').addClass('foo');
+		$('.timeline-icon').hide();
+	}
+
+	$scope.back = function(i) {
+		$('.media').show('slow');
+		$('#well' + i).hide();
+		$('#labelComments').html('Comments: ');
+		$('#nbComments').html($scope.taskComments().length);
+		$('#addComment').show();
+
+		if ($scope.taskComments().length == 0
+				|| $scope.taskComments().length == 1) {
+			$('#hide').hide();
+			$('#more').hide();
+		}
+
+		if ($scope.taskComments().length > 5) {
+			$('#hide').show();
+		}
+
+		$scope.showAndHide();
+	}
+
+	$scope.showAndHide = function() {
+		if ($scope.taskComments().length == 0
+				|| $scope.taskComments().length == 1) {
+			$('.timeline-centered').addClass('foo');
+			$('.timeline-icon').hide();
+
+		} else {
+			$('.timeline-centered').removeClass('foo');
+			$('.timeline-icon').show();
+		}
+	}
+
+	$scope.taskComments = function() {
+		return $scope.tasks[$scope.index].comments;
+	}
+});
