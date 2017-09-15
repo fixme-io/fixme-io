@@ -45,6 +45,16 @@ app.directive('focus', function($timeout) {
   };
 });
 
+app.directive('trash', function() {
+  return {
+    templateUrl: "trash.html",
+    link: function(scope, element, attrs) {
+      scope.iconClass = attrs['class'] || 'defaultIcon';
+      scope.action = attrs.action || '';
+    }
+  }
+});
+
 app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   $document) {
 
@@ -403,7 +413,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     type: 'success',
   };
 
-  $scope.deleteComment = function(index) {
+  $scope.remove = function(index) {
     $scope.taskComments().splice(index, 1);
 
     for (var i = $scope.taskComments().length - 5; i < $scope

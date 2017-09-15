@@ -262,3 +262,11 @@
 #pie {
   margin-top: 50px;
 }
+
+.commentsIcon {
+  color: grey;
+}
+
+.defaultIcon {
+  color: red;
+}

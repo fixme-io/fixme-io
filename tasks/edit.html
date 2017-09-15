@@ -92,14 +92,10 @@
 							<a href="" ng-show="innerItem.edited"
 								ng-click="editCommentInfo($index)">Edited</a>
 							<div class="action">
-								<a href="javascript:void(0)"><span
-									class="glyphicon glyphicon-pencil"
-									ng-click="editComment($index)"></span></a>&nbsp<a
-									href="javascript:void(0)"> <span
-									class="glyphicon glyphicon-trash" sweetalert
-									sweet-options="{{sweet.option}}"
-									sweet-confirm-option="{{sweet.confirm}}"
-									sweet-on-confirm="deleteComment($index)"></span></a>
+								<a href="javascript:void(0)"><i
+ 									class="glyphicon glyphicon-pencil" style="color:grey"
+ 									ng-click="editComment($index)">&nbsp</i></a>
+								<trash class="commentsIcon" action="remove($index)"></trash>
 							</div>
 						</div>
 					</div>
