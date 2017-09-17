@@ -244,9 +244,28 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   $scope.details = $scope.tasks[$scope.index].details;
   $scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
+  if($scope.tasks[$scope.index].comments.length > 5){
+    $scope.moreComments = true;
+  }
+
+  if ($scope.tasks[$scope.index].comments.length == 0 ||
+    $scope.tasks[$scope.index].comments.length == 1) {
+
+    $scope.fooClass = 'timeline-centered foo';
+    $scope.timelineIcon = false;
+
+  } else {
+
+    $scope.fooClass = 'timeline-centered';
+    $scope.timelineIcon = true;
+
+  }
+
+  $scope.labelComments = 'Comments: ';
+  $scope.nbComments = $scope.tasks[$scope.index].comments.length;
+
   angular.element(document).ready(function() {
     jQuery(".timeago").timeago();
-    $('.well').hide();
     $scope.hideComments();
     $scope.showAndHide();
     $('#saveComment').hide();
@@ -312,10 +331,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     $scope.tasks[$scope.index].lastChangedOn = moment().format();
 
     angular.element(document).ready(function() {
-      $('.well').hide();
       jQuery(".timeago").timeago();
     });
-    $('#nbComments').html($scope.taskComments().length);
+
+    $scope.nbComments = $scope.taskComments().length;
   }
 
   $('#dueDate').daterangepicker({
@@ -326,8 +345,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   });
 
   $scope.editComment = function(index) {
-    $('.timeline-centered').addClass('foo');
-    $('.timeline-icon').hide();
+
+    $scope.fooClass = 'timeline-centered foo';
+    $scope.timelineIcon = false;
+
     $('#form').hide();
     $('.media').hide();
     $('.action').hide();
@@ -337,10 +358,11 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
     $('#addComment').hide();
     $('#saveComment').show();
-    $('#more').hide();
-    $('#hide').hide();
-    $('#labelComments').html('');
-    $('#nbComments').html('');
+
+    $scope.moreComments = false;
+    $scope.lessComments = false;
+    $scope.labelComments = '';
+    $scope.nbComments = '';
 
     $scope.updateEditedComment = function() {
       var comments = $scope.taskComments();
@@ -363,15 +385,16 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
         $scope.editComm = '';
 
         if (comments.length > 5) {
-          $('#more').hide();
-          $('#hide').show();
+          $scope.moreComments = false;
+          $scope.lessComments = true;
         }
 
         angular.element(document).ready(function() {
           jQuery(".timeago").timeago();
         });
-        $('#labelComments').html('Comments: ');
-        $('#nbComments').html(comments.length);
+
+        $scope.labelComments = 'Comments: ';
+        $scope.nbComments = comments.length;
       }
     }
 
@@ -383,13 +406,14 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
       $scope.editComm = '';
 
       if ($scope.taskComments().length > 5) {
-        $('#more').hide();
-        $('#hide').show();
+        $scope.moreComments = false;
+        $scope.lessComments = true;
       }
 
       $scope.showAndHide();
-      $('#labelComments').html('Comments: ');
-      $('#nbComments').html($scope.taskComments().length);
+
+      $scope.labelComments = 'Comments: ';
+      $scope.nbComments = $scope.taskComments().length;
     }
   }
 
@@ -422,37 +446,37 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     }
 
     if ($scope.taskComments().length <= 5) {
-      $('#hide').hide();
-      $('#more').hide();
+      $scope.lessComments = false;
+      $scope.moreComments = false;
     } else {
-      $('#more').show();
+      $scope.moreComments = true;
     }
 
     $scope.showAndHide();
 
-    $('#labelComments').html('Comments: ');
-    $('#nbComments').html($scope.taskComments().length);
+    $scope.labelComments = 'Comments: ';
+    $scope.nbComments = $scope.taskComments().length;
   }
 
-  $scope.moreComments = function() {
+  $scope.showComments = function() {
     $('.media').show('slow');
-    $('#more').hide();
-    $('#hide').show();
+    $scope.moreComments = false;
+    $scope.lessComments = true;
     $scope.showAndHide();
   }
 
   $scope.hideComments = function() {
     if ($scope.taskComments().length > 5) {
       $('.media').hide();
-      $('#more').show();
-      $('#hide').hide();
+      $scope.moreComments = true;
+      $scope.lessComments = false;
       for (var i = $scope.taskComments().length - 5; i < $scope
         .taskComments().length; i++) {
         $('#' + i).show();
       }
     } else {
-      $('#hide').hide();
-      $('#more').hide();
+      $scope.lessComments = false;
+      $scope.moreComments = false;
     }
     $scope.showAndHide();
   }
@@ -460,50 +484,53 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   $scope.editCommentInfo = function(i) {
     $scope.taskComments()[i].editedComments.infoEdited = true;
     $('.media').hide();
-    $('#well' + i).show();
-    $('#hide').hide();
-    $('#more').hide();
-    $('#labelComments').html('Edited comments: ');
-    $('#nbComments').html($scope.taskComments()[i].editedComments.length);
+    $scope.lessComments = false;
+    $scope.moreComments = false;
+    $scope.labelComments = 'Edited comments: ';
+    $scope.nbComments = $scope.taskComments()[i].editedComments.length;
+
     $('#addComment').hide();
 
-    $('.timeline-centered').addClass('foo');
-    $('.timeline-icon').hide();
+    $scope.fooClass = 'timeline-centered foo';
+    $scope.timelineIcon = false;
   }
 
   $scope.back = function(i) {
     $('.media').show('slow');
-    $('#well' + i).hide();
-    $('#labelComments').html('Comments: ');
-    $('#nbComments').html($scope.taskComments().length);
+    $scope.taskComments()[i].editedComments.infoEdited = false;
+    $scope.labelComments = 'Comments: ';
+    $scope.nbComments = $scope.taskComments().length;
     $('#addComment').show();
 
     if ($scope.taskComments().length == 0 ||
       $scope.taskComments().length == 1) {
-      $('#hide').hide();
-      $('#more').hide();
+      $scope.lessComments = false;
+      $scope.moreComments = false;
     }
 
     if ($scope.taskComments().length > 5) {
-      $('#hide').show();
+      $scope.lessComments = true;
     }
-
     $scope.showAndHide();
   }
 
   $scope.showAndHide = function() {
     if ($scope.taskComments().length == 0 ||
       $scope.taskComments().length == 1) {
-      $('.timeline-centered').addClass('foo');
-      $('.timeline-icon').hide();
+
+      $scope.fooClass = 'timeline-centered foo';
+      $scope.timelineIcon = false;
 
     } else {
-      $('.timeline-centered').removeClass('foo');
-      $('.timeline-icon').show();
+
+      $scope.fooClass = 'timeline-centered';
+      $scope.timelineIcon = true;
+
     }
   }
 
   $scope.taskComments = function() {
     return $scope.tasks[$scope.index].comments;
   }
+
 });

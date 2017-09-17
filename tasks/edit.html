@@ -73,8 +73,8 @@
 
 </form>
 <div id="comments">
-	<label id="labelComments">Comments: </label> <label id="nbComments">{{tasks[index].comments.length}}</label>
-	<div class="timeline-centered">
+	<label id="labelComments" ng-bind="labelComments"></label> <span class="label label-info" id="nbComments" ng-bind="nbComments"></span>
+	<div ng-class="fooClass">
 		<article class="timeline-entry">
 			<div class="timeline-entry-inner">
 				<div class="media" ng-repeat="innerItem in tasks[index].comments"
@@ -105,17 +105,16 @@
 
 		<article class="timeline-entry begin">
 			<div class="timeline-entry-inner">
-				<div class="timeline-icon"-moz-transform:rotate(-90deg);">
-					<a href="javascript:void(0)" ng-click="moreComments()" id="more">More</a>
-					<a href="javascript:void(0)" ng-click="hideComments()" id="hide">Hide</a>
+				<div ng-show="timelineIcon" class="timeline-icon -moz-transform:rotate(-90deg);">
+					<a href="javascript:void(0)" ng-click="showComments()" id="more" ng-show="moreComments">More</a>
+					<a href="javascript:void(0)" ng-click="hideComments()" id="hide" ng-show="lessComments">Hide</a>
 				</div>
 			</div>
 		</article>
 	</div>
-
 	<br />
 	<div class="well" ng-repeat="innerItem in tasks[index].comments"
-		id="well{{$index}}">
+		id="well{{$index}}" ng-show="tasks[index].comments[$index].editedComments.infoEdited">
 		<div
 			ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
 			<div class="media-body">{{innerItem.title}}</div>
