@@ -74,7 +74,7 @@
 </form>
 <div id="comments">
 	<label id="labelComments" ng-bind="labelComments"></label> <span class="label label-info" id="nbComments" ng-bind="nbComments"></span>
-	<div ng-class="fooClass">
+	<div ng-class="timeline">
 		<article class="timeline-entry">
 			<div class="timeline-entry-inner">
 				<div class="media" ng-repeat="innerItem in tasks[index].comments"
@@ -91,7 +91,7 @@
 							<time class="timeago" datetime="{{innerItem.date}}"></time>
 							<a href="" ng-show="innerItem.edited"
 								ng-click="editCommentInfo($index)">Edited</a>
-							<div class="action" ng-show="actionClass">
+							<div class="action" ng-show="commentsBtn">
 								<a href="javascript:void(0)"><i
  									class="glyphicon glyphicon-pencil" style="color:grey"
  									ng-click="editComment($index)">&nbsp</i></a>
@@ -107,7 +107,7 @@
 			<div class="timeline-entry-inner">
 				<div ng-show="timelineIcon" class="timeline-icon -moz-transform:rotate(-90deg);">
 					<a href="javascript:void(0)" ng-click="showComments()" id="more" ng-show="moreComments">More</a>
-					<a href="javascript:void(0)" ng-click="hideComments()" id="hide" ng-show="lessComments">Hide</a>
+					<a href="javascript:void(0)" ng-click="hideComments()" id="hide" ng-show="lessComments">Less</a>
 				</div>
 			</div>
 		</article>

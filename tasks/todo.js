@@ -251,18 +251,18 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   if ($scope.tasks[$scope.index].comments.length == 0 ||
     $scope.tasks[$scope.index].comments.length == 1) {
 
-    $scope.fooClass = 'timeline-centered foo';
+    $scope.timeline = 'timeline-centered timeline';
     $scope.timelineIcon = false;
 
   } else {
 
-    $scope.fooClass = 'timeline-centered';
+    $scope.timeline = 'timeline-centered';
     $scope.timelineIcon = true;
 
   }
 
   $scope.addComment = true;
-  $scope.actionClass = true;
+  $scope.commentsBtn = true;
   $scope.labelComments = 'Comments: ';
   $scope.nbComments = $scope.tasks[$scope.index].comments.length;
 
@@ -348,9 +348,9 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
   $scope.editComment = function(index) {
 
-    $scope.fooClass = 'timeline-centered foo';
+    $scope.timeline = 'timeline-centered timeline';
     $scope.timelineIcon = false;
-    $scope.actionClass = false;
+    $scope.commentsBtn = false;
     $scope.editComm = $scope.taskComments()[index].comment;
     $scope.addComment = false;
     $scope.saveComment = true;
@@ -375,7 +375,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
         $scope.showAndHide();
 
-        $scope.actionClass = true;
+        $scope.commentsBtn = true;
         $scope.addComment = true;
         $scope.saveComment = false;
         $scope.editComm = '';
@@ -399,7 +399,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     $scope.cancel = function() {
       $('.media').show('slow');
 
-      $scope.actionClass = true;
+      $scope.commentsBtn = true;
       $scope.addComment = true;
       $scope.saveComment = false;
       $scope.editComm = '';
@@ -494,7 +494,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     $scope.labelComments = 'Edited comments: ';
     $scope.nbComments = $scope.taskComments()[i].editedComments.length;
     $scope.addComment = false;
-    $scope.fooClass = 'timeline-centered foo';
+    $scope.timeline = 'timeline-centered timeline';
     $scope.timelineIcon = false;
   }
 
@@ -523,12 +523,12 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     if ($scope.taskComments().length == 0 ||
       $scope.taskComments().length == 1) {
 
-      $scope.fooClass = 'timeline-centered foo';
+      $scope.timeline = 'timeline-centered timeline';
       $scope.timelineIcon = false;
 
     } else {
 
-      $scope.fooClass = 'timeline-centered';
+      $scope.timeline = 'timeline-centered';
       $scope.timelineIcon = true;
 
     }
