@@ -244,7 +244,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   $scope.details = $scope.tasks[$scope.index].details;
   $scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
-  if($scope.tasks[$scope.index].comments.length > 5){
+  if ($scope.tasks[$scope.index].comments.length > 5) {
     $scope.moreComments = true;
   }
 
@@ -261,6 +261,8 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
   }
 
+  $scope.addComment = true;
+  $scope.actionClass = true;
   $scope.labelComments = 'Comments: ';
   $scope.nbComments = $scope.tasks[$scope.index].comments.length;
 
@@ -268,7 +270,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     jQuery(".timeago").timeago();
     $scope.hideComments();
     $scope.showAndHide();
-    $('#saveComment').hide();
+    $scope.saveComment = false;
   });
 
   if ($scope.tasks[$scope.index].completed) {
@@ -348,21 +350,17 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
     $scope.fooClass = 'timeline-centered foo';
     $scope.timelineIcon = false;
-
-    $('#form').hide();
-    $('.media').hide();
-    $('.action').hide();
-    $('#' + index).show('slow');
-
+    $scope.actionClass = false;
     $scope.editComm = $scope.taskComments()[index].comment;
-
-    $('#addComment').hide();
-    $('#saveComment').show();
-
+    $scope.addComment = false;
+    $scope.saveComment = true;
     $scope.moreComments = false;
     $scope.lessComments = false;
     $scope.labelComments = '';
     $scope.nbComments = '';
+
+    $('.media').hide();
+    $('#' + index).show('slow');
 
     $scope.updateEditedComment = function() {
       var comments = $scope.taskComments();
@@ -377,12 +375,12 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
         $scope.showAndHide();
 
-        $('.media').show('slow');
-        $('.action').show();
-        $('#addComment').show();
-        $('#saveComment').hide();
-
+        $scope.actionClass = true;
+        $scope.addComment = true;
+        $scope.saveComment = false;
         $scope.editComm = '';
+
+        $('.media').show('slow');
 
         if (comments.length > 5) {
           $scope.moreComments = false;
@@ -400,9 +398,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
     $scope.cancel = function() {
       $('.media').show('slow');
-      $('.action').show();
-      $('#addComment').show();
-      $('#saveComment').hide();
+
+      $scope.actionClass = true;
+      $scope.addComment = true;
+      $scope.saveComment = false;
       $scope.editComm = '';
 
       if ($scope.taskComments().length > 5) {
@@ -460,16 +459,20 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
   $scope.showComments = function() {
     $('.media').show('slow');
+
     $scope.moreComments = false;
     $scope.lessComments = true;
+
     $scope.showAndHide();
   }
 
   $scope.hideComments = function() {
     if ($scope.taskComments().length > 5) {
       $('.media').hide();
+
       $scope.moreComments = true;
       $scope.lessComments = false;
+
       for (var i = $scope.taskComments().length - 5; i < $scope
         .taskComments().length; i++) {
         $('#' + i).show();
@@ -478,29 +481,30 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
       $scope.lessComments = false;
       $scope.moreComments = false;
     }
+
     $scope.showAndHide();
   }
 
   $scope.editCommentInfo = function(i) {
-    $scope.taskComments()[i].editedComments.infoEdited = true;
     $('.media').hide();
+
+    $scope.taskComments()[i].editedComments.infoEdited = true;
     $scope.lessComments = false;
     $scope.moreComments = false;
     $scope.labelComments = 'Edited comments: ';
     $scope.nbComments = $scope.taskComments()[i].editedComments.length;
-
-    $('#addComment').hide();
-
+    $scope.addComment = false;
     $scope.fooClass = 'timeline-centered foo';
     $scope.timelineIcon = false;
   }
 
   $scope.back = function(i) {
     $('.media').show('slow');
+
     $scope.taskComments()[i].editedComments.infoEdited = false;
     $scope.labelComments = 'Comments: ';
     $scope.nbComments = $scope.taskComments().length;
-    $('#addComment').show();
+    $scope.addComment = true;
 
     if ($scope.taskComments().length == 0 ||
       $scope.taskComments().length == 1) {
@@ -511,6 +515,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     if ($scope.taskComments().length > 5) {
       $scope.lessComments = true;
     }
+
     $scope.showAndHide();
   }
 

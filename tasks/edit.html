@@ -91,7 +91,7 @@
 							<time class="timeago" datetime="{{innerItem.date}}"></time>
 							<a href="" ng-show="innerItem.edited"
 								ng-click="editCommentInfo($index)">Edited</a>
-							<div class="action">
+							<div class="action" ng-show="actionClass">
 								<a href="javascript:void(0)"><i
  									class="glyphicon glyphicon-pencil" style="color:grey"
  									ng-click="editComment($index)">&nbsp</i></a>
@@ -128,7 +128,7 @@
 			class="glyphicon glyphicon-arrow-left"></i></a>
 	</div>
 
-	<div class="input-group" id="addComment">
+	<div class="input-group" id="addComment" ng-show="addComment">
 		<textarea class="form-control"
 			ng-keyup="$event.keyCode == 13 && class == update()" type="text"
 			placeholder="Write a comment..." name="comment" ng-model="comment"
@@ -142,7 +142,7 @@
 	</div>
 
 
-	<div id="saveComment">
+	<div id="saveComment" ng-show="saveComment">
 		<input class="form-control" type="text" ng-model="editComm" required>
 		<br />
 		<button type="button" class="btn btn-primary"
