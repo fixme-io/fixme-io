@@ -89,7 +89,7 @@
 						<div class="media-body">{{innerItem.comment}}</div>
 						<div class="timeago">
 							<time class="timeago" datetime="{{innerItem.date}}"></time>
-							<a href="" ng-show="innerItem.edited"
+							<a href="" ng-show="innerItem.edited && !currentlyEditing"
 								ng-click="editCommentInfo($index)">Edited</a>
 							<div class="action" ng-show="commentsBtn">
 								<a href="javascript:void(0)"><i

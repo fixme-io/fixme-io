@@ -265,6 +265,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   $scope.commentsBtn = true;
   $scope.labelComments = 'Comments: ';
   $scope.nbComments = $scope.tasks[$scope.index].comments.length;
+  $scope.currentlyEditing = false;
 
   angular.element(document).ready(function() {
     jQuery(".timeago").timeago();
@@ -358,6 +359,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     $scope.lessComments = false;
     $scope.labelComments = '';
     $scope.nbComments = '';
+    $scope.currentlyEditing = true;
 
     $('.media').hide();
     $('#' + index).show('slow');
@@ -379,6 +381,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
         $scope.addComment = true;
         $scope.saveComment = false;
         $scope.editComm = '';
+        $scope.currentlyEditing = false;
 
         $('.media').show('slow');
 
@@ -403,6 +406,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
       $scope.addComment = true;
       $scope.saveComment = false;
       $scope.editComm = '';
+      $scope.currentlyEditing = false;
 
       if ($scope.taskComments().length > 5) {
         $scope.moreComments = false;
@@ -447,7 +451,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     if ($scope.taskComments().length <= 5) {
       $scope.lessComments = false;
       $scope.moreComments = false;
-    } 
+    }
 
     $scope.showAndHide();
 
