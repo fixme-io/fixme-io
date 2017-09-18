@@ -447,9 +447,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     if ($scope.taskComments().length <= 5) {
       $scope.lessComments = false;
       $scope.moreComments = false;
-    } else {
-      $scope.moreComments = true;
-    }
+    } 
 
     $scope.showAndHide();
 
