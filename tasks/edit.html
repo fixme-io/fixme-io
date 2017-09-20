@@ -113,19 +113,17 @@
 		</article>
 	</div>
 	<br />
-	<div class="well" ng-repeat="innerItem in tasks[index].comments"
+
+	<div ng-repeat="innerItem in tasks[index].comments"
 		id="well{{$index}}" ng-show="tasks[index].comments[$index].editedComments.infoEdited">
-		<div
-			ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
+		<div ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
 			<div class="media-body">{{innerItem.title}}</div>
 			<div>
 				<time class="timeago" datetime="{{innerItem.editedDate}}"></time>
 			</div>
 			<hr>
 		</div>
-		<a href="javascript:void(0)"><i
-			style="color: #4747b9; font-size: 1.5em;" ng-click="back($index)"
-			class="glyphicon glyphicon-arrow-left"></i></a>
+		<a href="javascript:void(0)" ng-click="back($index)">Back</a>
 	</div>
 
 	<div class="input-group" id="addComment" ng-show="addComment">
