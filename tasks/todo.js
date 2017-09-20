@@ -19,10 +19,10 @@ app.controller('chartCtrl', function($scope) {
       duration: 1000,
       enabled: true
     },
-    barColor: '#E26C75',
+    barColor: '#63A58B',
     scaleColor: false,
     lineWidth: 55,
-    trackColor: '#63A58B',
+    trackColor: '#E26C75', 
     lineCap: 'circle'
   };
 
