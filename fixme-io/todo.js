@@ -22,10 +22,9 @@ app.controller('chartCtrl', function($scope) {
     barColor: '#63A58B',
     scaleColor: false,
     lineWidth: 55,
-    trackColor: '#E26C75', 
+    trackColor: '#E26C75',
     lineCap: 'circle'
   };
-
 });
 
 app.directive('focus', function($timeout) {
@@ -107,7 +106,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 
   $scope.remainingTasks = function() {
     var remaining = 0;
-
     for (var i = 0; i < $scope.tasks.length; i++) {
       if (!$scope.tasks[i].completed) {
         remaining++;
@@ -172,13 +170,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     } else {
       $scope.tasks[index].resolvedOn = '';
     }
-  }
-
-  if ($scope.remainingTasks() != 0) {
-    var remaining = $scope.remainingTasks();
-  }
-  if ($scope.tasks.length - $scope.remainingTasks() != 0) {
-    var completed = $scope.tasks.length - $scope.remainingTasks();
   }
 
 });
@@ -338,6 +329,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     });
 
     $scope.nbComments = $scope.taskComments().length;
+
   }
 
   $('#dueDate').daterangepicker({

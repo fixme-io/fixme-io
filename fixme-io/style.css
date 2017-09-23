@@ -270,3 +270,8 @@
 .defaultIcon {
   color: red;
 }
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: black;
+    background-color: #eef1f3;
+}
