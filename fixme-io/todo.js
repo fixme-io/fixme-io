@@ -172,6 +172,27 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     }
   }
 
+  $scope.findTasks = function(){
+      var completed = [];
+      var remaining = [];
+
+      for (var i = 0; i < $scope.tasks.length; i++) {
+        if ($scope.tasks[i].completed) {
+          completed.push($scope.tasks[i]);
+        }else{
+          remaining.push($scope.tasks[i]);
+        }
+      }
+
+      if($scope.tasksId == undefined ){
+        return $scope.tasks;
+      }else if ($scope.tasksId == 'completed') {
+        return completed;
+      }else {
+        return remaining;
+      }
+  }
+
 });
 
 app.directive('arrowSelector', ['$document', function($document) {

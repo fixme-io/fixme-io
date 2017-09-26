@@ -37,7 +37,7 @@
 		</tr>
 	</thead>
 
-	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in tasks | filter : (tasksId != null ? tasksId == 'completed' : '') | filter:userSearch |  orderBy: filter">
+	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks() | filter:userSearch |  orderBy: filter">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td><input type="checkbox" ng-model="x.completed" ng-click="completedTasks(tasks.indexOf(x))" /></td>
