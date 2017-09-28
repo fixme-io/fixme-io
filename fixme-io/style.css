@@ -272,7 +272,9 @@
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
     color: black;
-    background-color: #eef1f3;
+    background-color: #efeff1;
+    border-bottom: 1px solid #c0c0c0;
+    border-left: 2px solid #c0c0c0;
 }
 
 #saveComment{
