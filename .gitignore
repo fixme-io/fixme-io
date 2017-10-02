@@ -1,0 +1,12 @@
+*/.settings
+.settings
+
+*/.project
+.project
+
+.idea/*
+
+*.iml
+
+*/.metadata
+.metadata

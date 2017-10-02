@@ -1,0 +1,24 @@
+<table id="tableInfo" class="table table-striped">
+
+	<tr>
+		<th>Total tasks</th>
+		<td>{{ tasks.length }}</td>
+	</tr>
+	<tr>
+		<th>Remaining tasks</th>
+		<td>{{remainingTasks()}}</td>
+	</tr>
+	<tr>
+		<th>Completed tasks</th>
+		<td>{{tasks.length - remainingTasks()}}</td>
+	</tr>
+
+</table>
+
+<div id="pie" ng-controller="chartCtrl">
+	<span class="chart" easypiechart percent="completedTasksPercent" options="anotherOptions"> <span class="percent"></span>
+	</span>
+	<div id="tasksInfo">
+		<span id="remainingTasks">&nbsp</span> Remaining tasks <span id="completedTasks">&nbsp</span> Completed tasks
+	</div>
+</div>
