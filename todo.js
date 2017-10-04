@@ -61,9 +61,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     jQuery(".timeago").timeago();
   });
 
-  // $localStorage.$reset();
   $scope.tasksId = $routeParams.ID;
   $scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
+
+  // $localStorage.$reset();
 
   $scope.add = function() {
 
@@ -90,6 +91,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       jQuery(".timeago").timeago();
     });
 
+  }
+
+  $scope.exportTasks = function() {
+    return JSON.stringify($scope.tasks);
   }
 
   if (selected != null) {
@@ -172,25 +177,25 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     }
   }
 
-  $scope.findTasks = function(){
-      var completed = [];
-      var remaining = [];
+  $scope.findTasks = function() {
+    var completed = [];
+    var remaining = [];
 
-      for (var i = 0; i < $scope.tasks.length; i++) {
-        if ($scope.tasks[i].completed) {
-          completed.push($scope.tasks[i]);
-        }else{
-          remaining.push($scope.tasks[i]);
-        }
+    for (var i = 0; i < $scope.tasks.length; i++) {
+      if ($scope.tasks[i].completed) {
+        completed.push($scope.tasks[i]);
+      } else {
+        remaining.push($scope.tasks[i]);
       }
+    }
 
-      if($scope.tasksId == undefined ){
-        return $scope.tasks;
-      }else if ($scope.tasksId == 'completed') {
-        return completed;
-      }else {
-        return remaining;
-      }
+    if ($scope.tasksId == undefined) {
+      return $scope.tasks;
+    } else if ($scope.tasksId == 'completed') {
+      return completed;
+    } else {
+      return remaining;
+    }
   }
 
 });
@@ -241,6 +246,9 @@ app.config(function($routeProvider) {
     controller: "EditCtrl"
   }).when("/info", {
     templateUrl: "info.html",
+    controller: "TasksCtrl"
+  }).when("/export", {
+    templateUrl: "export.html",
     controller: "TasksCtrl"
   }).when("/:ID", {
     templateUrl: "tasks.html",
