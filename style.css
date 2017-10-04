@@ -317,3 +317,9 @@
 .checkbox label {
   margin-bottom: -70px;
 }
+
+#exportTasks{
+  width:100%;
+  height:50%;
+  margin-top: 20px;
+}
