@@ -94,7 +94,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.exportTasks = function() {
-    $scope.savedTasks = JSON.stringify($scope.tasks);
+    return JSON.stringify($scope.tasks);
   }
 
   if (selected != null) {
