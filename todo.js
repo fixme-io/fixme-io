@@ -97,6 +97,11 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     return JSON.stringify($scope.tasks);
   }
 
+  $scope.importTasks = function(){
+    $scope.tasks = JSON.parse($scope.exportTasks());
+    return JSON.stringify($scope.tasks);
+  }
+
   if (selected != null) {
     $scope.selectedRow = $scope.tasks[selected].selectedRow;
   }
@@ -249,6 +254,9 @@ app.config(function($routeProvider) {
     controller: "TasksCtrl"
   }).when("/export", {
     templateUrl: "export.html",
+    controller: "TasksCtrl"
+  }).when("/import", {
+    templateUrl: "import.html",
     controller: "TasksCtrl"
   }).when("/:ID", {
     templateUrl: "tasks.html",
