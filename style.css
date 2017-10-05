@@ -7,8 +7,8 @@
   padding-left: 15px;
 }
 
-#info {
-  background-color: #060606;
+.navbar-inverse .navbar-brand {
+    color: white;
 }
 
 #tableInfo {
@@ -328,4 +328,8 @@
   width:100%;
   height:50%;
   margin-top: 20px;
+}
+
+.navbar-nav li a:focus{
+  border-left: 1px solid black;
 }
