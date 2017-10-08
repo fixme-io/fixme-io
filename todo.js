@@ -98,8 +98,13 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.importTasks = function(){
-    $scope.tasks = JSON.parse($scope.exportTasks());
-    return JSON.stringify($scope.tasks);
+    $scope.importedTasks = JSON.parse($scope.import);
+
+    for(var i = 0; i < $scope.importedTasks.length; i++){
+      $scope.tasks.push($scope.importedTasks[i]);
+    }
+
+    window.location.href = '#';
   }
 
   if (selected != null) {
