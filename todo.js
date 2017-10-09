@@ -73,10 +73,8 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       completed: false,
       dueDate: null,
       comments: [],
-      priority: {
-        title: "Medium",
-        id: 2
-      },
+      priority: "Medium",
+      priorityId: 2,
       createdOn: moment().format(),
       assignee: "Me",
       reporter: "Me",
@@ -111,11 +109,14 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     $scope.selectedRow = $scope.tasks[selected].selectedRow;
   }
 
-  $scope.setId = function(priority) {
-    if (priority.title == 'High') {
-      priority.id = 1;
-    } else if (priority.title == 'Low') {
-      priority.id = 3;
+  $scope.setId = function(task) {
+
+    if (task.priority == 'High') {
+      task.priorityId = 1;
+    } else if (task.priority == 'Low') {
+      task.priorityId = 3;
+    }else{
+      task.priorityId = 2;
     }
   }
 
