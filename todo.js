@@ -262,6 +262,9 @@ app.config(function($routeProvider) {
   }).when("/import", {
     templateUrl: "import.html",
     controller: "TasksCtrl"
+  }).when("/labels", {
+    templateUrl: "labels.html",
+    controller: "TasksCtrl"
   }).when("/:ID", {
     templateUrl: "tasks.html",
     controller: "TasksCtrl"
