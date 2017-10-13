@@ -5,6 +5,7 @@ app.controller('MainCtrl', function($scope) {
 
   $scope.tasks = [];
   $scope.selectedRow = 0;
+  $scope.labels = [];
 
 });
 
@@ -264,11 +265,49 @@ app.config(function($routeProvider) {
     controller: "TasksCtrl"
   }).when("/labels", {
     templateUrl: "labels.html",
-    controller: "TasksCtrl"
+    controller: "LabelCtrl"
   }).when("/:ID", {
     templateUrl: "tasks.html",
     controller: "TasksCtrl"
   });
+});
+
+app.controller("LabelCtrl", function($scope, $localStorage) {
+
+  $scope.labels = $localStorage.labels ? $localStorage.labels : [];
+
+  $scope.add = function(){
+
+    $scope.labels.push($scope.label);
+    $scope.label = '';
+    $localStorage.labels = $scope.labels;
+
+  }
+
+  $scope.remove = function(index) {
+    $scope.labels.splice(index, 1);
+  }
+
+  $scope.sweet = {};
+  $scope.sweet.option = {
+    title: "Are you sure?",
+    text: "You will not be able to recover this label!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    closeOnConfirm: false,
+    closeOnCancel: true
+  }
+  $scope.sweet.confirm = {
+    title: 'Deleted!',
+    showConfirmButton: false,
+    timer: 1000,
+    type: 'success',
+  };
+
+
 });
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
