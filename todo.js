@@ -108,7 +108,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     $scope.selectedRow = $scope.tasks[selected].selectedRow;
   }
 
-  $scope.setIndex = function(task) {
+  $scope.getPriorityOrder = function(task) {
     if (task.priority == 'High') {
       return -1;
     } else if (task.priority == 'Low') {
