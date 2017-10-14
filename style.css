@@ -333,3 +333,8 @@
 .navbar-nav li a:focus{
   border-left: 1px solid black;
 }
+
+.glyphicon-tag {
+  color: #bfbdbd;
+  font-size: 13px;
+}

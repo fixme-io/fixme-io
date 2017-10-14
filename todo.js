@@ -5,6 +5,7 @@ app.controller('MainCtrl', function($scope) {
 
   $scope.tasks = [];
   $scope.selectedRow = 0;
+  $scope.labels = [];
 
 });
 
@@ -73,10 +74,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       completed: false,
       dueDate: null,
       comments: [],
-      priority: {
-        title: "Medium",
-        id: 2
-      },
+      priority: "Medium",
       createdOn: moment().format(),
       assignee: "Me",
       reporter: "Me",
@@ -111,11 +109,13 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     $scope.selectedRow = $scope.tasks[selected].selectedRow;
   }
 
-  $scope.setId = function(priority) {
-    if (priority.title == 'High') {
-      priority.id = 1;
-    } else if (priority.title == 'Low') {
-      priority.id = 3;
+  $scope.getPriorityOrder = function(task) {
+    if (task.priority == 'High') {
+      return -1;
+    } else if (task.priority == 'Low') {
+      return 1;
+    }else{
+      return 0;
     }
   }
 
@@ -263,10 +263,51 @@ app.config(function($routeProvider) {
   }).when("/import", {
     templateUrl: "import.html",
     controller: "TasksCtrl"
+  }).when("/labels", {
+    templateUrl: "labels.html",
+    controller: "LabelCtrl"
   }).when("/:ID", {
     templateUrl: "tasks.html",
     controller: "TasksCtrl"
   });
+});
+
+app.controller("LabelCtrl", function($scope, $localStorage) {
+
+  $scope.labels = $localStorage.labels ? $localStorage.labels : [];
+
+  $scope.add = function(){
+
+    $scope.labels.push($scope.label);
+    $scope.label = '';
+    $localStorage.labels = $scope.labels;
+
+  }
+
+  $scope.remove = function(index) {
+    $scope.labels.splice(index, 1);
+  }
+
+  $scope.sweet = {};
+  $scope.sweet.option = {
+    title: "Are you sure?",
+    text: "You will not be able to recover this label!",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    closeOnConfirm: false,
+    closeOnCancel: true
+  }
+  $scope.sweet.confirm = {
+    title: 'Deleted!',
+    showConfirmButton: false,
+    timer: 1000,
+    type: 'success',
+  };
+
+
 });
 
 app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {

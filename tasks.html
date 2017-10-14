@@ -30,7 +30,7 @@
 			<th>#</th>
 			<th ng-click="sortBy('title',2)">Title</th>
 			<th ng-click="sortBy('completed',3)">Done</th>
-			<th ng-click="sortBy('priority.id',4)">Priority</th>
+			<th ng-click="sortBy(getPriorityOrder,4)">Priority</th>
 			<th ng-click="sortBy('createdOn',5)">Created on</th>
 			<th ng-click="sortBy('!dueDate',6)">Due date</th>
 			<th ng-click="sortBy('lastChangedOn',7)">Last changed on</th>
@@ -48,7 +48,7 @@
 		    </label>
 			</div>
 		</td>
-		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority.title" ng-change="setId(x.priority)">
+		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority">
 				<option>High</option>
 				<option>Medium</option>
 				<option>Low</option>

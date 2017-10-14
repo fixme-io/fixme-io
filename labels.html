@@ -1,0 +1,22 @@
+<form name="myForm" class="form-horizontal">
+
+  <div ng-class="myForm.label.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
+    <div class="col-xs-4">
+      <input focus="true" class="form-control" type="text" name="label" ng-model="label" placeholder="Enter new label" required> <span ng-class="myForm.label.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
+    </div>
+    <button type="button" class="btn btn-primary" ng-disabled="myForm.label.$invalid" ng-click="add()">Add</button>
+  </div>
+
+</form>
+<br/>
+
+<label ng-show="labels.length != 0">Labels <span class="badge">{{labels.length}}</span></label>
+<table id="table" class="table" ng-show="labels.length != 0" arrow-selector>
+
+  <tr ng-repeat="x in labels">
+    <td><i class="glyphicon glyphicon-tag">&nbsp</i>{{x}}</td>
+    <td>
+      <trash action="remove($index)"></trash>
+    </td>
+  </tr>
+</table>
