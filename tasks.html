@@ -11,10 +11,9 @@
 <br />
 
 <ul ng-show="tasks.length != 0" class="nav nav-pills">
-	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All
-			tasks</a></li>
-	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks</a></li>
-	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks</a></li>
+	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All tasks <span class="badge">{{tasks.length}}</span></a></li>
+	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks <span class="badge">{{tasks.length - remainingTasks()}}</span></a></li>
+	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks <span class="badge">{{remainingTasks()}}</span></a></li>
 	<li id="liSearch" class="col-md-4 col-md-offset-5">
 		<form action="" class="search-form">
 			<div id="divSearch" class="form-group has-feedback">

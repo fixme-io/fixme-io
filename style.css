@@ -342,3 +342,13 @@
 .sweet-alert .sa-input-error::before, .sweet-alert .sa-input-error::after {
     margin-top: -10px;
 }
+
+a {
+    color: #606163;
+    text-decoration: none;
+}
+
+.list-group-item.active>.badge, .nav-pills>.active>a>.badge {
+    color: #5c5d5f;
+    background-color: #fff;
+}
