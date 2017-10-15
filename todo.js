@@ -6,6 +6,7 @@ app.controller('MainCtrl', function($scope) {
   $scope.tasks = [];
   $scope.selectedRow = 0;
   $scope.labels = [];
+  window.location.href = '#remaining';
 
 });
 
@@ -102,7 +103,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       $scope.tasks.push($scope.importedTasks[i]);
     }
 
-    window.location.href = '#';
+    window.location.href = '#remaining';
   }
 
   if (selected != null) {
