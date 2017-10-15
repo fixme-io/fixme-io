@@ -338,3 +338,7 @@
   color: #bfbdbd;
   font-size: 13px;
 }
+
+.sweet-alert .sa-input-error::before, .sweet-alert .sa-input-error::after {
+    margin-top: -10px;
+}

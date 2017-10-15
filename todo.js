@@ -288,6 +288,28 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
     $scope.labels.splice(index, 1);
   }
 
+  $scope.edit = function(i){
+    swal({
+      title: "",
+      type: "input",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      inputPlaceholder: $scope.labels[i]
+    },
+    function(inputValue){
+      if (inputValue === false){
+        return false;
+      } else if (inputValue === "") {
+        swal.showInputError("You need to write something!");
+        return false
+      }else{
+        $scope.labels[i] = inputValue;
+        $scope.$apply();
+        swal.close();
+      }
+  });
+}
+
   $scope.sweet = {};
   $scope.sweet.option = {
     title: "Are you sure?",
