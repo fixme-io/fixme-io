@@ -16,7 +16,10 @@
   <tr ng-repeat="x in labels">
     <td><i class="glyphicon glyphicon-tag">&nbsp</i>{{x}}</td>
     <td>
-      <trash action="remove($index)"></trash>
+      <a href="javascript:void(0)"><i
+        class="glyphicon glyphicon-pencil commentsIcon"
+        ng-click="edit($index)">&nbsp</i></a>
+      <trash class="commentsIcon" action="remove($index)"></trash>
     </td>
   </tr>
 </table>

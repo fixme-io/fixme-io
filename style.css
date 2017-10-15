@@ -263,11 +263,11 @@
 }
 
 .commentsIcon {
-  color: grey;
+  color: #a5a3a3;
 }
 
 .defaultIcon {
-  color: red;
+  color: #E26C75;
 }
 
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
@@ -337,4 +337,18 @@
 .glyphicon-tag {
   color: #bfbdbd;
   font-size: 13px;
+}
+
+.sweet-alert .sa-input-error::before, .sweet-alert .sa-input-error::after {
+    margin-top: -10px;
+}
+
+a {
+    color: #606163;
+    text-decoration: none;
+}
+
+.list-group-item.active>.badge, .nav-pills>.active>a>.badge {
+    color: #5c5d5f;
+    background-color: #fff;
 }
