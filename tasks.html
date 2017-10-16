@@ -28,17 +28,28 @@
 		<tr id="tasks">
 			<th>#</th>
 			<th ng-click="sortBy('title',2)">Title</th>
-			<th ng-click="sortBy('completed',3)">Done</th>
-			<th ng-click="sortBy(getPriorityOrder,4)">Priority</th>
-			<th ng-click="sortBy('createdOn',5)">Created on</th>
-			<th ng-click="sortBy('!dueDate',6)">Due date</th>
-			<th ng-click="sortBy('lastChangedOn',7)">Last changed on</th>
+			<th>Label</th>
+			<th ng-click="sortBy('completed',4)">Done</th>
+			<th ng-click="sortBy(getPriorityOrder,5)">Priority</th>
+			<th ng-click="sortBy('createdOn',6)">Created on</th>
+			<th ng-click="sortBy('!dueDate',7)">Due date</th>
+			<th ng-click="sortBy('lastChangedOn',8)">Last changed on</th>
 		</tr>
 	</thead>
 
 	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks() | filter:userSearch |  orderBy: filter">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
+		<td>
+			<span ng-repeat="l in x.labels"> <span class="badge">{{l}}</span></span><span>&nbsp</span>
+			<span class="dropdown">
+				<button class="btn btn-default dropdown-toggle btn-xs" type="button" data-toggle="dropdown">Add label
+  			<span class="caret"></span></button>
+			<ul class="dropdown-menu">
+				<li ng-repeat="l in labels"><a href="" ng-click="addTaskLabel(tasks.indexOf(x),l)">{{l}}</a></li>
+			</ul>
+			</span>
+		</td>
 		<td>
 			<div class="checkbox">
 				<label>
