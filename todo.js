@@ -81,7 +81,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       assignee: "Me",
       reporter: "Me",
       selectedRow: $scope.selectedRow,
-      taskLabels: []
+      labels: []
     });
 
     $scope.task = '';
@@ -212,7 +212,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.setTaskLabel = function(taskIndex, label){
-    $scope.tasks[taskIndex].taskLabels.push(label);
+    $scope.tasks[taskIndex].labels.push(label);
   }
 
 });
