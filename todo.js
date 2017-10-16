@@ -218,6 +218,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     $scope.tasks[taskIndex].labels.push(label);
   }
 
+  $scope.removeTaskLabel = function(taskIndex, labelIndex){
+    $scope.tasks[taskIndex].labels.splice(labelIndex, 1);
+  }
+
 });
 
 app.directive('arrowSelector', ['$document', function($document) {
