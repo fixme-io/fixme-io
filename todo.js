@@ -68,6 +68,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 
   // $localStorage.$reset();
 
+  $scope.labels = $localStorage.labels;
   $scope.add = function() {
 
     $scope.tasks.push({
@@ -79,7 +80,8 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       createdOn: moment().format(),
       assignee: "Me",
       reporter: "Me",
-      selectedRow: $scope.selectedRow
+      selectedRow: $scope.selectedRow,
+      taskLabels: []
     });
 
     $scope.task = '';
@@ -207,6 +209,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     } else {
       return remaining;
     }
+  }
+
+  $scope.setTaskLabel = function(taskIndex, label){
+    $scope.tasks[taskIndex].taskLabels.push(label);
   }
 
 });
