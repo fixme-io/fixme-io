@@ -212,6 +212,9 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.setTaskLabel = function(taskIndex, label){
+    if($scope.tasks[taskIndex].labels == undefined){
+      $scope.tasks[taskIndex].labels = [];
+    }
     $scope.tasks[taskIndex].labels.push(label);
   }
 
