@@ -352,3 +352,13 @@ a {
     color: #5c5d5f;
     background-color: #fff;
 }
+
+#removeLabelIcon{
+  margin-left: 20px;
+  margin-right: -6px;
+  margin-top: -1px;
+}
+
+#removeLabelIcon:hover{
+  background-color: #E26C75;
+}
