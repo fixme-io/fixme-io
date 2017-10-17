@@ -211,30 +211,26 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     }
   }
 
-  $scope.addTaskLabel = function(taskIndex, label) {
-    $scope.taskLabels = $scope.tasks[taskIndex].labels;
-
-    if ($scope.taskLabels == undefined) {
-      $scope.taskLabels = [];
+  $scope.addTaskLabel = function(task, label) {
+    if (task.labels == undefined) {
+      task.labels = [];
     }
-    if ($scope.taskLabels.indexOf(label) == -1) {
-      $scope.taskLabels.push(label);
+    if (task.labels.indexOf(label) == -1) {
+      task.labels.push(label);
     }
   }
 
-  $scope.removeTaskLabel = function(taskIndex, labelIndex) {
-    $scope.tasks[taskIndex].labels.splice(labelIndex, 1);
+  $scope.removeTaskLabel = function(task, labelIndex) {
+    task.labels.splice(labelIndex, 1);
   }
 
-  $scope.refreshTaskLabels = function(taskIndex) {
-    $scope.taskLabels = $scope.tasks[taskIndex].labels;
-
-    for (var i = 0; i < $scope.taskLabels.length; i++) {
-      if ($scope.labels.indexOf($scope.taskLabels[i]) == -1) {
-        $scope.taskLabels.splice(i, 1);
+  $scope.refreshTaskLabels = function(task) {
+    for (var i = 0; i < task.labels.length; i++) {
+      if ($scope.labels.indexOf(task.labels[i]) == -1) {
+        task.labels.splice(i, 1);
       }
     }
-    return $scope.taskLabels;
+    return task.labels;
   }
 });
 

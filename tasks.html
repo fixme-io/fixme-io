@@ -42,9 +42,9 @@
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td>
-			<span ng-repeat="l in refreshTaskLabels(tasks.indexOf(x))">
+			<span ng-repeat="l in refreshTaskLabels(x)">
 				<span id="labelBadge" class="badge">{{l}}
-					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(tasks.indexOf(x), x.labels.indexOf(l))">x</span>
+					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(x, x.labels.indexOf(l))">x</span>
 			</span>
 			</span>
 			<span class="dropdown">
@@ -52,7 +52,7 @@
   				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<li ng-repeat="l in labels"><a href="" ng-click="addTaskLabel(tasks.indexOf(x),l)">{{l}}</a></li>
+				<li ng-repeat="l in labels"><a href="" ng-click="addTaskLabel(x,l)">{{l}}</a></li>
 			</ul>
 			</span>
 		</td>
