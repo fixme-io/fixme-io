@@ -42,7 +42,7 @@
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td>
-			<span ng-repeat="l in x.labels">
+			<span ng-repeat="l in refreshTaskLabels(tasks.indexOf(x))">
 				<span id="labelBadge" class="badge">{{l}}
 					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(tasks.indexOf(x), x.labels.indexOf(l))">x</span>
 			</span>

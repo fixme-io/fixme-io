@@ -233,6 +233,16 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     return true;
   }
 
+  $scope.refreshTaskLabels = function(taskIndex) {
+    $scope.taskLabels = $scope.tasks[taskIndex].labels;
+
+    for (var i = 0; i < $scope.taskLabels.length; i++) {
+      if ($scope.labels.indexOf($scope.taskLabels[i]) == -1) {
+        $scope.taskLabels.splice(i, 1);
+      }
+    }
+    return $scope.taskLabels;
+  }
 });
 
 app.directive('arrowSelector', ['$document', function($document) {
