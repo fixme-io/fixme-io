@@ -1,4 +1,6 @@
-var app = angular.module('myApp', ["ngRoute", "ngStorage", 'ng-sweet-alert', 'easypiechart']);
+var app = angular.module('myApp', ["ngRoute", "ngStorage", 'ng-sweet-alert',
+  'easypiechart'
+]);
 var selected;
 
 app.controller('MainCtrl', function($scope) {
@@ -8,11 +10,28 @@ app.controller('MainCtrl', function($scope) {
   $scope.labels = [];
   window.location.href = '#remaining';
 
+  $scope.sweet = {};
+  $scope.sweet.option = {
+    title: "Are you sure?",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#DD6B55",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "No, cancel!",
+    closeOnConfirm: false,
+    closeOnCancel: true
+  }
+  $scope.sweet.confirm = {
+    title: 'Deleted!',
+    showConfirmButton: false,
+    timer: 1000,
+    type: 'success',
+  };
+
 });
 
 app.controller('chartCtrl', function($scope) {
-  $scope.allTasks = $scope.remainingTasks() + $scope.tasks.length -
-    $scope.remainingTasks();
+  $scope.allTasks = $scope.tasks.length;
   $scope.percent = 100 / $scope.allTasks;
   $scope.remainingTasksPercent = $scope.remainingTasks() * $scope.percent;
   $scope.completedTasksPercent = 100 - $scope.remainingTasksPercent;
@@ -65,10 +84,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 
   $scope.tasksId = $routeParams.ID;
   $scope.tasks = $localStorage.tasks ? $localStorage.tasks : [];
+  $scope.labels = $localStorage.labels;
 
   // $localStorage.$reset();
 
-  $scope.labels = $localStorage.labels;
   $scope.add = function() {
 
     $scope.tasks.push({
@@ -98,10 +117,10 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     return JSON.stringify($scope.tasks);
   }
 
-  $scope.importTasks = function(){
+  $scope.importTasks = function() {
     $scope.importedTasks = JSON.parse($scope.import);
 
-    for(var i = 0; i < $scope.importedTasks.length; i++){
+    for (var i = 0; i < $scope.importedTasks.length; i++) {
       $scope.tasks.push($scope.importedTasks[i]);
     }
 
@@ -117,7 +136,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       return -1;
     } else if (task.priority == 'Low') {
       return 1;
-    }else{
+    } else {
       return 0;
     }
   }
@@ -132,25 +151,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 
     return remaining;
   }
-
-  $scope.sweet = {};
-  $scope.sweet.option = {
-    title: "Are you sure?",
-    text: "You will not be able to recover this task!",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    closeOnConfirm: false,
-    closeOnCancel: true
-  }
-  $scope.sweet.confirm = {
-    title: 'Deleted!',
-    showConfirmButton: false,
-    timer: 1000,
-    type: 'success',
-  };
 
   $scope.remove = function(index) {
     $scope.tasks.splice(index, 1);
@@ -211,28 +211,27 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     }
   }
 
-  $scope.addTaskLabel = function(taskIndex, label){
-    if($scope.tasks[taskIndex].labels == undefined){
+  $scope.addTaskLabel = function(taskIndex, label) {
+    if ($scope.tasks[taskIndex].labels == undefined) {
       $scope.tasks[taskIndex].labels = [];
     }
-    if($scope.checkTaskLabels(label, taskIndex)){
+    if ($scope.checkTaskLabels(label, taskIndex)) {
       $scope.tasks[taskIndex].labels.push(label);
     }
   }
 
-  $scope.removeTaskLabel = function(taskIndex, labelIndex){
+  $scope.removeTaskLabel = function(taskIndex, labelIndex) {
     $scope.tasks[taskIndex].labels.splice(labelIndex, 1);
   }
 
-  $scope.checkTaskLabels = function(label, taskIndex){
-    for(var i = 0; i < $scope.tasks[taskIndex].labels.length; i++ ){
-      if(label == $scope.tasks[taskIndex].labels[i]){
+  $scope.checkTaskLabels = function(label, taskIndex) {
+    for (var i = 0; i < $scope.tasks[taskIndex].labels.length; i++) {
+      if (label == $scope.tasks[taskIndex].labels[i]) {
         return false;
       }
     }
     return true;
   }
-
 
 });
 
@@ -302,17 +301,17 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
 
   $scope.labels = $localStorage.labels ? $localStorage.labels : [];
 
-  $scope.add = function(){
-    if($scope.checkLabels()){
+  $scope.add = function() {
+    if ($scope.checkLabels()) {
       $scope.labels.push($scope.label);
     }
     $scope.label = '';
     $localStorage.labels = $scope.labels;
   }
 
-  $scope.checkLabels = function(){
-    for(var i = 0; i < $scope.labels.length; i++ ){
-      if($scope.labels[i] == $scope.label){
+  $scope.checkLabels = function() {
+    for (var i = 0; i < $scope.labels.length; i++) {
+      if ($scope.labels[i] == $scope.label) {
         return false;
       }
     }
@@ -323,47 +322,27 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
     $scope.labels.splice(index, 1);
   }
 
-  $scope.edit = function(i){
+  $scope.edit = function(i) {
     swal({
-      title: "",
-      type: "input",
-      showCancelButton: true,
-      closeOnConfirm: false,
-      inputPlaceholder: $scope.labels[i]
-    },
-    function(inputValue){
-      if (inputValue === false){
-        return false;
-      } else if (inputValue === "") {
-        swal.showInputError("You need to write something!");
-        return false
-      }else{
-        $scope.labels[i] = inputValue;
-        $scope.$apply();
-        swal.close();
-      }
-  });
-}
-
-  $scope.sweet = {};
-  $scope.sweet.option = {
-    title: "Are you sure?",
-    text: "You will not be able to recover this label!",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    closeOnConfirm: false,
-    closeOnCancel: true
+        title: "",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        inputPlaceholder: $scope.labels[i]
+      },
+      function(inputValue) {
+        if (inputValue === false) {
+          return false;
+        } else if (inputValue === "") {
+          swal.showInputError("You need to write something!");
+          return false
+        } else {
+          $scope.labels[i] = inputValue;
+          $scope.$apply();
+          swal.close();
+        }
+      });
   }
-  $scope.sweet.confirm = {
-    title: 'Deleted!',
-    showConfirmButton: false,
-    timer: 1000,
-    type: 'success',
-  };
-
 
 });
 
@@ -371,31 +350,30 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
 
   $scope.tasks = $localStorage.tasks;
   $scope.index = $routeParams.ID;
-  $scope.title = $scope.tasks[$scope.index].title;
-  $scope.details = $scope.tasks[$scope.index].details;
-  $scope.dueDate = $scope.tasks[$scope.index].dueDate;
 
-  if ($scope.tasks[$scope.index].comments.length > 5) {
+  $scope.task = $scope.tasks[$scope.index];
+  $scope.totalComments = $scope.task.comments.length;
+
+  $scope.title = $scope.task.title;
+  $scope.details = $scope.task.details;
+  $scope.dueDate = $scope.task.dueDate;
+
+  if ($scope.totalComments > 5) {
     $scope.moreComments = true;
   }
 
-  if ($scope.tasks[$scope.index].comments.length == 0 ||
-    $scope.tasks[$scope.index].comments.length == 1) {
-
+  if ($scope.totalComments == 0 || $scope.totalComments == 1) {
     $scope.timeline = 'timeline-centered timeline';
     $scope.timelineIcon = false;
-
   } else {
-
     $scope.timeline = 'timeline-centered';
     $scope.timelineIcon = true;
-
   }
 
   $scope.addComment = true;
   $scope.commentsBtn = true;
   $scope.labelComments = 'Comments: ';
-  $scope.nbComments = $scope.tasks[$scope.index].comments.length;
+  $scope.nbComments = $scope.totalComments;
   $scope.currentlyEditing = false;
 
   angular.element(document).ready(function() {
@@ -405,10 +383,10 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     $scope.saveComment = false;
   });
 
-  if ($scope.tasks[$scope.index].completed) {
-    $scope.tasks[$scope.index].status = 'Closed';
+  if ($scope.task.completed) {
+    $scope.task.status = 'Closed';
   } else {
-    $scope.tasks[$scope.index].status = 'In progress';
+    $scope.task.status = 'In progress';
   }
 
   $('#assignee').on('click', function() {
@@ -422,7 +400,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
       keyup: function(e) {
         if (e.which === 13)
           $input.blur();
-        $scope.tasks[$scope.index].assignee = this.value;
+        $scope.task.assignee = this.value;
       }
     }).appendTo($this.empty()).focus();
   });
@@ -438,16 +416,16 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
       keyup: function(e) {
         if (e.which === 13)
           $input.blur();
-        $scope.tasks[$scope.index].reporter = this.value;
+        $scope.task.reporter = this.value;
       }
     }).appendTo($this.empty()).focus();
   });
 
   $scope.update = function() {
 
-    $scope.tasks[$scope.index].title = $scope.title;
-    $scope.tasks[$scope.index].dueDate = $('#dueDate').val();
-    $scope.tasks[$scope.index].details = $scope.details;
+    $scope.task.title = $scope.title;
+    $scope.task.dueDate = $('#dueDate').val();
+    $scope.task.details = $scope.details;
 
     if ($scope.comment != undefined && $scope.comment != '') {
       $scope.taskComments().push({
@@ -462,7 +440,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
     $scope.hideComments();
     $scope.comment = '';
 
-    $scope.tasks[$scope.index].lastChangedOn = moment().format();
+    $scope.task.lastChangedOn = moment().format();
 
     angular.element(document).ready(function() {
       jQuery(".timeago").timeago();
@@ -551,26 +529,6 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
       $scope.nbComments = $scope.taskComments().length;
     }
   }
-
-  $scope.sweet = {};
-  $scope.sweet.option = {
-    title: "Are you sure?",
-    text: "You will not be able to recover this comment!",
-    type: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#DD6B55",
-    confirmButtonText: "Yes, delete it!",
-    cancelButtonText: "No, cancel!",
-    closeOnConfirm: false,
-    closeOnCancel: true
-  }
-
-  $scope.sweet.confirm = {
-    title: 'Deleted!',
-    showConfirmButton: false,
-    timer: 1000,
-    type: 'success',
-  };
 
   $scope.remove = function(index) {
     $scope.taskComments().splice(index, 1);
@@ -669,7 +627,7 @@ app.controller("EditCtrl", function($scope, $routeParams, $localStorage) {
   }
 
   $scope.taskComments = function() {
-    return $scope.tasks[$scope.index].comments;
+    return $scope.task.comments;
   }
 
 });

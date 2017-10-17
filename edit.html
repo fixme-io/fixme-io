@@ -2,11 +2,8 @@
 
 	<div class="formsInputs">
 		<div class="titleInput">
-			<div
-				ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
-				<label>Title</label> <input class="form-control" name="title"
-					type="text" ng-model="title" required> <span
-					ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
+			<div ng-class="myForm.title.$invalid ? 'form-group has-error has-feedback' : 'form-group has-success has-feedback'">
+				<label>Title</label> <input class="form-control" name="title" type="text" ng-model="title" required> <span ng-class="myForm.title.$invalid ? 'glyphicon glyphicon-remove form-control-feedback' : 'glyphicon glyphicon-ok form-control-feedback'"></span>
 			</div>
 		</div>
 
@@ -14,8 +11,7 @@
 		<div class="input-group">
 			<span class="input-group-addon"> <i
 				class="glyphicon glyphicon-calendar"></i>
-			</span><input type="text" class="form-control" id="dueDate"
-				ng-model="dueDate">
+			</span><input type="text" class="form-control" id="dueDate" ng-model="dueDate">
 		</div>
 
 		<br /> <label>Details</label>
@@ -51,8 +47,7 @@
 		</tr>
 		<tr class="tasksDetails">
 			<td><i>Updated:</i></td>
-			<td><time class="timeago"
-					datetime="{{tasks[index].lastChangedOn}}"></time></td>
+			<td><time class="timeago" datetime="{{tasks[index].lastChangedOn}}"></time></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -66,31 +61,29 @@
 		</tr>
 		<tr class="tasksDetails">
 			<td><i>Status:</i></td>
-			<td><div
-					ng-class="tasks[index].completed ? 'btn icon-btn btn-success' : 'btn icon-btn btn-warning'">{{tasks[index].status}}</div></td>
+			<td>
+				<div ng-class="tasks[index].completed ? 'btn icon-btn btn-success' : 'btn icon-btn btn-warning'">{{tasks[index].status}}</div>
+			</td>
 		</tr>
 	</table>
 
 </form>
+
 <div id="comments">
 	<label id="labelComments" ng-bind="labelComments"></label> <span class="label label-info" id="nbComments" ng-bind="nbComments"></span>
 	<div ng-class="timeline">
 		<article class="timeline-entry">
 			<div class="timeline-entry-inner">
-				<div class="media" ng-repeat="innerItem in tasks[index].comments"
-					id="{{$index}}">
+				<div class="media" ng-repeat="innerItem in tasks[index].comments" id="{{$index}}">
 					<div class="pull-left">
-						<img class="media-object"
-							src="http://www.scrapebox.com/wp-content/uploads/site/comments.png"
-							alt="" border=0>
+						<img class="media-object" src="http://www.scrapebox.com/wp-content/uploads/site/comments.png" alt="" border=0>
 					</div>
 
 					<div class="timeline-label">
 						<div class="media-body">{{innerItem.comment}}</div>
 						<div class="timeago">
 							<time class="timeago" datetime="{{innerItem.date}}"></time>
-							<a href="" ng-show="innerItem.edited && !currentlyEditing"
-								ng-click="editCommentInfo($index)">Edited</a>
+							<a href="" ng-show="innerItem.edited && !currentlyEditing" ng-click="editCommentInfo($index)">Edited</a>
 							<div class="action" ng-show="commentsBtn">
 								<a href="javascript:void(0)"><i
  									class="glyphicon glyphicon-pencil commentsIcon"
@@ -114,8 +107,7 @@
 	</div>
 	<br />
 
-	<div ng-repeat="innerItem in tasks[index].comments"
-		id="well{{$index}}" ng-show="tasks[index].comments[$index].editedComments.infoEdited">
+	<div ng-repeat="innerItem in tasks[index].comments" id="well{{$index}}" ng-show="tasks[index].comments[$index].editedComments.infoEdited">
 		<div ng-repeat="innerItem in tasks[index].comments[$index].editedComments">
 			<div class="media-body">{{innerItem.title}}</div>
 			<div>
@@ -127,10 +119,7 @@
 	</div>
 
 	<div class="input-group" id="addComment" ng-show="addComment">
-		<textarea class="form-control"
-			ng-keyup="$event.keyCode == 13 && update()" type="text"
-			placeholder="Write a comment..." name="comment" ng-model="comment"
-			required></textarea>
+		<textarea class="form-control" ng-keyup="$event.keyCode == 13 && update()" type="text" placeholder="Write a comment..." name="comment" ng-model="comment" required></textarea>
 		<span class="input-group-btn"> <span>
 				<button id="addCommentBtn" type="button" class="btn btn-default"
 					ng-disabled="myForm.title.$invalid" ng-click="update()">Add
@@ -139,12 +128,10 @@
 		</span>
 	</div>
 
-
 	<div id="saveComment" ng-show="saveComment">
 		<input class="form-control" type="text" ng-model="editComm" required>
 		<br />
-		<button type="button" class="btn btn-info btn-sm"
-			ng-click="updateEditedComment()">Save</button>
+		<button type="button" class="btn btn-info btn-sm" ng-click="updateEditedComment()">Save</button>
 		<button type="button" class="btn btn-default btn-sm" ng-click="cancel()">Cancel</button>
 	</div>
 </div>
