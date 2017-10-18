@@ -23,6 +23,7 @@
 	</li>
 </ul>
 <br/>
+
 <table id="table" class="table" ng-show="tasks.length != 0" arrow-selector>
 	<thead>
 		<tr id="tasks">
@@ -41,16 +42,17 @@
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td>
-			<span ng-repeat="l in x.labels">
+			<span ng-repeat="l in refreshTaskLabels(x)">
 				<span id="labelBadge" class="badge">{{l}}
-					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(tasks.indexOf(x), x.labels.indexOf(l))">x</span>
-				</span>
+					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(x, x.labels.indexOf(l))">x</span>
+			</span>
 			</span>
 			<span class="dropdown">
 				<button class="btn btn-default dropdown-toggle btn-xs" type="button" data-toggle="dropdown">Add label
-  			<span class="caret"></span></button>
+  				<span class="caret"></span>
+			</button>
 			<ul class="dropdown-menu">
-				<li ng-repeat="l in labels"><a href="" ng-click="addTaskLabel(tasks.indexOf(x),l)">{{l}}</a></li>
+				<li ng-repeat="l in labels"><a href="" ng-click="addTaskLabel(x,l)">{{l}}</a></li>
 			</ul>
 			</span>
 		</td>
@@ -62,11 +64,13 @@
 		    </label>
 			</div>
 		</td>
-		<td><select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority">
+		<td>
+			<select class="btn btn-default btn-xs dropdown-toggle" ng-model="x.priority">
 				<option>High</option>
 				<option>Medium</option>
 				<option>Low</option>
-		</select></td>
+			</select>
+		</td>
 		<td><time class="timeago" datetime="{{x.createdOn}}"></time></td>
 		<td>{{x.dueDate}}</td>
 		<td><time class="timeago" datetime="{{x.lastChangedOn}}"></time></td>
