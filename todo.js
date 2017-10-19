@@ -114,7 +114,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.exportTasks = function() {
-    return JSON.stringify($scope.tasks);
+    return angular.toJson($scope.tasks);
   }
 
   $scope.importTasks = function() {
