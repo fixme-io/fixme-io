@@ -182,11 +182,11 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     selected = index;
   }
 
-  $scope.completedTasks = function(index) {
-    if ($scope.tasks[index].completed) {
-      $scope.tasks[index].resolvedOn = moment().format();
+  $scope.completedTasks = function(task) {
+    if (task.completed) {
+      task.resolvedOn = moment().format();
     } else {
-      $scope.tasks[index].resolvedOn = '';
+      task.resolvedOn = '';
     }
   }
 

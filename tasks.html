@@ -59,7 +59,7 @@
 		<td>
 			<div class="checkbox">
 				<label>
-		    	<input type="checkbox" ng-model="x.completed" ng-click="completedTasks(tasks.indexOf(x))">
+		    	<input type="checkbox" ng-model="x.completed" ng-change="completedTasks(x)">
 		    	<span class="cb"><i class="cb-icon glyphicon glyphicon-ok"></i></span>
 		    </label>
 			</div>
