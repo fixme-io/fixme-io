@@ -44,7 +44,7 @@
 		<td>
 			<span ng-repeat="l in refreshTaskLabels(x)">
 				<span id="labelBadge" class="badge">{{l}}
-					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(x, x.labels.indexOf(l))">x</span>
+					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(x, $index)">x</span>
 			</span>
 			</span>
 			<span class="dropdown">
