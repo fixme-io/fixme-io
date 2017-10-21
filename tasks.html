@@ -44,7 +44,7 @@
 		<td>
 			<span ng-repeat="l in refreshTaskLabels(x)">
 				<span id="labelBadge" class="badge">{{l}}
-					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(x, x.labels.indexOf(l))">x</span>
+					<span id="removeLabelIcon" class="badge" ng-click="removeTaskLabel(x, $index)">x</span>
 			</span>
 			</span>
 			<span class="dropdown">
@@ -59,7 +59,7 @@
 		<td>
 			<div class="checkbox">
 				<label>
-		    	<input type="checkbox" ng-model="x.completed" ng-click="completedTasks(tasks.indexOf(x))">
+		    	<input type="checkbox" ng-model="x.completed" ng-change="completedTasks(x)">
 		    	<span class="cb"><i class="cb-icon glyphicon glyphicon-ok"></i></span>
 		    </label>
 			</div>
