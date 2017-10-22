@@ -224,14 +224,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     task.labels.splice(labelIndex, 1);
   }
 
-  $scope.refreshTaskLabels = function(task) {
-    for (var i = 0; i < task.labels.length; i++) {
-      if ($scope.labels.indexOf(task.labels[i]) == -1) {
-        task.labels.splice(i, 1);
-      }
-    }
-    return task.labels;
-  }
 });
 
 app.directive('arrowSelector', ['$document', function($document) {
@@ -310,18 +302,26 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
   }
 
   $scope.remove = function(index) {
+    $scope.removeTaskLabels($scope.labels[index]);
     $scope.labels.splice(index, 1);
   }
 
-  $scope.renameTasksLabel = function(label, renamedLabel) {
-    for (var i = 0; i < $scope.tasks.length; i++) {
-      $scope.taskLabels = $scope.tasks[i].labels;
-
-      if ($scope.taskLabels.indexOf(label) > -1) {
-        $scope.index = $scope.taskLabels.indexOf(label);
-        $scope.taskLabels[$scope.index] = renamedLabel;
+  $scope.removeTaskLabels = function(label) {
+    angular.forEach($scope.tasks, function(task) {
+      if (task.labels.indexOf(label) > -1) {
+        $scope.index = task.labels.indexOf(label);
+        task.labels.splice($scope.index, 1);;
       }
-    }
+    });
+  }
+
+  $scope.renameTasksLabel = function(label, renamedLabel) {
+    angular.forEach($scope.tasks, function(task) {
+      if (task.labels.indexOf(label) > -1) {
+        $scope.index = task.labels.indexOf(label);
+        task.labels[$scope.index] = renamedLabel;
+      }
+    });
   }
 
   $scope.edit = function(i) {
