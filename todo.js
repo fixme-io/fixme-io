@@ -299,6 +299,7 @@ app.config(function($routeProvider) {
 app.controller("LabelCtrl", function($scope, $localStorage) {
 
   $scope.labels = $localStorage.labels ? $localStorage.labels : [];
+  $scope.tasks = $localStorage.tasks;
 
   $scope.add = function() {
     if ($scope.labels.indexOf($scope.label) == -1) {
@@ -310,6 +311,17 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
 
   $scope.remove = function(index) {
     $scope.labels.splice(index, 1);
+  }
+
+  $scope.renameTasksLabel = function(label, renamedLabel) {
+    for (var i = 0; i < $scope.tasks.length; i++) {
+      $scope.taskLabels = $scope.tasks[i].labels;
+
+      if ($scope.taskLabels.indexOf(label) > -1) {
+        $scope.index = $scope.taskLabels.indexOf(label);
+        $scope.taskLabels[$scope.index] = renamedLabel;
+      }
+    }
   }
 
   $scope.edit = function(i) {
@@ -327,6 +339,9 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
           swal.showInputError("You need to write something!");
           return false
         } else {
+
+          $scope.renameTasksLabel($scope.labels[i], inputValue);
+
           $scope.labels[i] = inputValue;
           $scope.$apply();
           swal.close();
