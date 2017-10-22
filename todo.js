@@ -124,6 +124,14 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       $scope.tasks.push($scope.importedTasks[i]);
     }
 
+    angular.forEach($scope.importedTasks, function(task) {
+      angular.forEach(task.labels, function(label) {
+        if ($scope.labels.indexOf(label) == -1) {
+          $scope.labels.push(label);
+        }
+      });
+    });
+
     window.location.href = '#remaining';
   }
 
