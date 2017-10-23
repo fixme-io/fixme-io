@@ -124,6 +124,14 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       $scope.tasks.push($scope.importedTasks[i]);
     }
 
+    angular.forEach($scope.importedTasks, function(task) {
+      angular.forEach(task.labels, function(label) {
+        if ($scope.labels.indexOf(label) == -1) {
+          $scope.labels.push(label);
+        }
+      });
+    });
+
     window.location.href = '#remaining';
   }
 
@@ -224,14 +232,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     task.labels.splice(labelIndex, 1);
   }
 
-  $scope.refreshTaskLabels = function(task) {
-    for (var i = 0; i < task.labels.length; i++) {
-      if ($scope.labels.indexOf(task.labels[i]) == -1) {
-        task.labels.splice(i, 1);
-      }
-    }
-    return task.labels;
-  }
 });
 
 app.directive('arrowSelector', ['$document', function($document) {
@@ -299,6 +299,7 @@ app.config(function($routeProvider) {
 app.controller("LabelCtrl", function($scope, $localStorage) {
 
   $scope.labels = $localStorage.labels ? $localStorage.labels : [];
+  $scope.tasks = $localStorage.tasks;
 
   $scope.add = function() {
     if ($scope.labels.indexOf($scope.label) == -1) {
@@ -309,7 +310,26 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
   }
 
   $scope.remove = function(index) {
+    $scope.removeTaskLabels($scope.labels[index]);
     $scope.labels.splice(index, 1);
+  }
+
+  $scope.removeTaskLabels = function(label) {
+    angular.forEach($scope.tasks, function(task) {
+      if (task.labels.indexOf(label) > -1) {
+        $scope.index = task.labels.indexOf(label);
+        task.labels.splice($scope.index, 1);;
+      }
+    });
+  }
+
+  $scope.renameTasksLabel = function(label, renamedLabel) {
+    angular.forEach($scope.tasks, function(task) {
+      if (task.labels.indexOf(label) > -1) {
+        $scope.index = task.labels.indexOf(label);
+        task.labels[$scope.index] = renamedLabel;
+      }
+    });
   }
 
   $scope.edit = function(i) {
@@ -327,6 +347,9 @@ app.controller("LabelCtrl", function($scope, $localStorage) {
           swal.showInputError("You need to write something!");
           return false
         } else {
+
+          $scope.renameTasksLabel($scope.labels[i], inputValue);
+
           $scope.labels[i] = inputValue;
           $scope.$apply();
           swal.close();
