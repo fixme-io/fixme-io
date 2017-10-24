@@ -180,10 +180,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     $('tr th:nth-child(' + id + ')').css('color', 'gray');
   }
 
-  $scope.escape = function() {
-    $scope.userSearch = '';
-  }
-
   $scope.setClickedRow = function(index) {
     $scope.selectedRow = $scope.tasks[index].selectedRow;
     $scope.tasks[index].selectedRow = index;
@@ -210,13 +206,27 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       }
     }
 
-    if ($scope.tasksId == undefined) {
-      return $scope.tasks;
-    } else if ($scope.tasksId == 'completed') {
-      return completed;
+    if ($scope.filteredTasks) {
+      return $scope.filteredTasks;
     } else {
-      return remaining;
+      if ($scope.tasksId == undefined) {
+        return $scope.tasks;
+      } else if ($scope.tasksId == 'completed') {
+        return completed;
+      } else {
+        return remaining;
+      }
     }
+  }
+
+  $scope.findTasksByLabel = function(label) {
+    $scope.filteredTasks = [];
+
+    angular.forEach($scope.tasks, function(task) {
+      if (task.labels.indexOf(label) > -1) {
+        $scope.filteredTasks.push(task);
+      }
+    });
   }
 
   $scope.addTaskLabel = function(task, label) {
@@ -264,6 +274,9 @@ app.directive('arrowSelector', ['$document', function($document) {
           if (e.keyCode == 13) {
             window.location.href = '#edit/' + $scope.selectedRow;
             selected = $scope.selectedRow;
+          }
+          if (e.keyCode == 27) {
+            window.location.href = '#remaining';
           }
         }
       });

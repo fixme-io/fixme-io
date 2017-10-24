@@ -84,7 +84,7 @@
 }
 
 #divSearch {
-  margin-bottom: -2px;
+  margin-bottom: -15px;
   margin-right: -15px;
 }
 
@@ -392,4 +392,16 @@ a#import:target {
 a#labels:target {
   background-color: #3e343e;
   color: white;
+}
+
+#labelFilter {
+  height: 30px;
+  margin-left: 550px;
+  margin-bottom: -16px;
+}
+
+#labelFilter button{
+  height: 32px;
+  cursor: pointer;
+  border-bottom: 1px solid #919191;
 }
