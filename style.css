@@ -395,13 +395,8 @@ a#labels:target {
 }
 
 #labelFilter {
-  height: 30px;
+  height: 31px;
   margin-left: 550px;
-  margin-bottom: -16px;
-}
-
-#labelFilter button{
-  height: 32px;
-  cursor: pointer;
+  margin-bottom: -17px;
   border-bottom: 1px solid #919191;
 }

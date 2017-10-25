@@ -3,6 +3,9 @@ var app = angular.module('myApp', ["ngRoute", "ngStorage", 'ng-sweet-alert',
 ]);
 var selected;
 
+var filteredTasksByLabel = [];
+var filterLabel = '';
+
 app.controller('MainCtrl', function($scope) {
 
   $scope.tasks = [];
@@ -198,6 +201,13 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     var completed = [];
     var remaining = [];
 
+    if (filterLabel != '' && filteredTasksByLabel != '') {
+      $scope.tasks = filteredTasksByLabel;
+      $scope.label = filterLabel;
+    } else {
+      $scope.label = '';
+    }
+
     for (var i = 0; i < $scope.tasks.length; i++) {
       if ($scope.tasks[i].completed) {
         completed.push($scope.tasks[i]);
@@ -206,25 +216,22 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       }
     }
 
-    if ($scope.filteredTasks) {
-      return $scope.filteredTasks;
+    if ($scope.tasksId == undefined) {
+      return $scope.tasks;
+    } else if ($scope.tasksId == 'completed') {
+      return completed;
     } else {
-      if ($scope.tasksId == undefined) {
-        return $scope.tasks;
-      } else if ($scope.tasksId == 'completed') {
-        return completed;
-      } else {
-        return remaining;
-      }
+      return remaining;
     }
+
   }
 
   $scope.findTasksByLabel = function(label) {
-    $scope.filteredTasks = [];
+    filterLabel = label;
 
     angular.forEach($scope.tasks, function(task) {
       if (task.labels.indexOf(label) > -1) {
-        $scope.filteredTasks.push(task);
+        filteredTasksByLabel.push(task);
       }
     });
   }
@@ -276,6 +283,8 @@ app.directive('arrowSelector', ['$document', function($document) {
             selected = $scope.selectedRow;
           }
           if (e.keyCode == 27) {
+            filteredTasksByLabel = [];
+            filterLabel = '';
             window.location.href = '#remaining';
           }
         }
