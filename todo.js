@@ -228,6 +228,8 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
 
   $scope.findTasksByLabel = function(label) {
     filterLabel = label;
+    filteredTasksByLabel = [];
+    window.location.href = '#remaining';
 
     angular.forEach($scope.tasks, function(task) {
       if (task.labels.indexOf(label) > -1) {
