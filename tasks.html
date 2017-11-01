@@ -15,7 +15,7 @@
 	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks <span class="badge">{{tasks.length - remainingTasks()}}</span></a></li>
 	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All tasks <span class="badge">{{tasks.length}}</span></a></li>
 	<li>
-		<select class="btn btn-default btn-xs dropdown-toggle" id="labelFilter" ng-change="findTasksByLabel(label)" ng-model="label">
+		<select class="btn btn-default btn-xs dropdown-toggle" id="labelFilter" ng-model="labelFilter">
 			<option value="">Filter by label</option>
 			<option ng-repeat="label in labels">{{label}}</option>
 		</select>
