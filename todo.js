@@ -2,6 +2,7 @@ var app = angular.module('myApp', ["ngRoute", "ngStorage", 'ng-sweet-alert',
   'easypiechart'
 ]);
 var selected;
+var filteredTasks = false;
 
 app.controller('MainCtrl', function($scope) {
 
@@ -76,7 +77,7 @@ app.directive('trash', function() {
 });
 
 app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
-  $document) {
+  $document, $rootScope) {
 
   angular.element(document).ready(function() {
     jQuery(".timeago").timeago();
@@ -180,10 +181,6 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     $('tr th:nth-child(' + id + ')').css('color', 'gray');
   }
 
-  $scope.escape = function() {
-    $scope.userSearch = '';
-  }
-
   $scope.setClickedRow = function(index) {
     $scope.selectedRow = $scope.tasks[index].selectedRow;
     $scope.tasks[index].selectedRow = index;
@@ -201,6 +198,23 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   $scope.findTasks = function() {
     var completed = [];
     var remaining = [];
+
+    if ($scope.labelFilter && !filteredTasks) {
+      $scope.tasks = $scope.tasks.filter(function(task) {
+        return task.labels.indexOf($scope.labelFilter) > -1;
+      });
+
+      $rootScope.labelFilter = $scope.labelFilter;
+
+      if ($scope.tasks == '') {
+        $scope.tasks = $localStorage.tasks;
+      }
+
+    } else {
+      $scope.labelFilter = '';
+      $rootScope.labelFilter = '';
+      filteredTasks = false;
+    }
 
     for (var i = 0; i < $scope.tasks.length; i++) {
       if ($scope.tasks[i].completed) {
@@ -264,6 +278,10 @@ app.directive('arrowSelector', ['$document', function($document) {
           if (e.keyCode == 13) {
             window.location.href = '#edit/' + $scope.selectedRow;
             selected = $scope.selectedRow;
+          }
+          if (e.keyCode == 27) {
+            filteredTasks = true;
+            window.location.href = '#remaining';
           }
         }
       });

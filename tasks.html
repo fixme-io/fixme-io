@@ -14,10 +14,16 @@
 	<li ng-class="tasksId == 'remaining' ? 'active' : ''"><a href="#/remaining">Remaining tasks <span class="badge">{{remainingTasks()}}</span></a></li>
 	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks <span class="badge">{{tasks.length - remainingTasks()}}</span></a></li>
 	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All tasks <span class="badge">{{tasks.length}}</span></a></li>
+	<li>
+		<select class="btn btn-default btn-xs dropdown-toggle" id="labelFilter" ng-model="labelFilter">
+			<option value="">Filter by label</option>
+			<option ng-repeat="label in labels">{{label}}</option>
+		</select>
+	</li>
 	<li id="liSearch" class="col-md-4 col-md-offset-5">
 		<form action="" class="search-form">
 			<div id="divSearch" class="form-group has-feedback">
-				<input type="text" ng-keyup="$event.keyCode == 27 && escape()" class="form-control" name="search" id="search" placeholder="Search" ng-model="userSearch"> <span class="glyphicon glyphicon-search form-control-feedback"></span>
+				<input type="text" class="form-control" name="search" id="search" placeholder="Search" ng-model="userSearch"> <span class="glyphicon glyphicon-search form-control-feedback"></span>
 			</div>
 		</form>
 	</li>
@@ -38,7 +44,7 @@
 		</tr>
 	</thead>
 
-	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks() | filter:userSearch |  orderBy: filter">
+	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks() | filter:userSearch | orderBy: filter">
 		<td>{{ $index + 1 }}</td>
 		<td><span ng-class="x.completed ? 'task-completed' : ''">{{x.title}}</span></td>
 		<td>
