@@ -15,7 +15,7 @@
 	<li ng-class="tasksId == 'completed' ? 'active' : ''"><a href="#/completed">Completed tasks <span class="badge">{{tasks.length - remainingTasks()}}</span></a></li>
 	<li ng-class="tasksId == null ? 'active' : ''"><a href="#/">All tasks <span class="badge">{{tasks.length}}</span></a></li>
 	<li>
-		<select class="btn btn-default btn-xs dropdown-toggle" id="labelFilter" ng-model="labelFilter">
+		<select ng-show="labels.length != 0" class="btn btn-default btn-xs dropdown-toggle" id="labelFilter" ng-model="labelFilter">
 			<option value="">Filter by label</option>
 			<option ng-repeat="label in labels">{{label}}</option>
 		</select>
@@ -54,9 +54,9 @@
 			</span>
 			</span>
 			<span class="dropdown">
-				<button class="btn btn-default dropdown-toggle btn-xs" type="button" data-toggle="dropdown">Add label
+				<button ng-show="labels.length != 0" class="btn btn-default dropdown-toggle btn-xs" type="button" data-toggle="dropdown">Add label
   				<span class="caret"></span>
-			</button>
+				</button>
 			<ul class="dropdown-menu">
 				<li ng-repeat="l in labels"><a href="" ng-click="addTaskLabel(x,l)">{{l}}</a></li>
 			</ul>
