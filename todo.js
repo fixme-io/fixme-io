@@ -195,6 +195,17 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     }
   }
 
+  $scope.selectedTasks = function() {
+    var totalSelected = 0;
+
+    angular.forEach($scope.tasks, function(task) {
+      if (task.selected) {
+        totalSelected++;
+      }
+    });
+    return totalSelected;
+  }
+
   $scope.findTasks = function() {
     var completed = [];
     var remaining = [];
