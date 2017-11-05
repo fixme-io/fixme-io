@@ -400,3 +400,16 @@ a#labels:target {
   margin-bottom: -17px;
   border-bottom: 1px solid #919191;
 }
+
+.selectedLabel {
+  color: #c9a5da;
+  font-weight: bold;
+}
+
+#table {
+  box-shadow: 0 10px 10px -5px rgba(1, 1, 1, .2);
+}
+
+#selectedTotal {
+  background-color: #9a799e;
+}
