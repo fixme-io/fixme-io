@@ -196,19 +196,17 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.selectedTasks = function() {
-    var totalSelected = 0;
+    var selectedTasks = [];
 
     angular.forEach($scope.tasks, function(task) {
       if (task.selected) {
-        totalSelected++;
+        selectedTasks.push(task);
       }
     });
-    return totalSelected;
+    return $scope.sortingTasks(selectedTasks);
   }
 
   $scope.findTasks = function() {
-    var completed = [];
-    var remaining = [];
 
     if ($scope.labelFilter && !filteredTasks) {
       $scope.tasks = $scope.tasks.filter(function(task) {
@@ -227,16 +225,23 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
       filteredTasks = false;
     }
 
-    for (var i = 0; i < $scope.tasks.length; i++) {
-      if ($scope.tasks[i].completed) {
-        completed.push($scope.tasks[i]);
+    return $scope.sortingTasks($scope.tasks);
+  }
+
+  $scope.sortingTasks = function(tasks) {
+    var completed = [];
+    var remaining = [];
+
+    for (var i = 0; i < tasks.length; i++) {
+      if (tasks[i].completed) {
+        completed.push(tasks[i]);
       } else {
-        remaining.push($scope.tasks[i]);
+        remaining.push(tasks[i]);
       }
     }
 
     if ($scope.tasksId == undefined) {
-      return $scope.tasks;
+      return tasks;
     } else if ($scope.tasksId == 'completed') {
       return completed;
     } else {
