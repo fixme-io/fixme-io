@@ -115,7 +115,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
   }
 
   $scope.exportTasks = function() {
-    return angular.toJson($scope.tasks);
+    return angular.toJson($scope.selectedTasks());
   }
 
   $scope.importTasks = function() {
@@ -203,7 +203,7 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
         selectedTasks.push(task);
       }
     });
-    return $scope.sortingTasks(selectedTasks);
+    return selectedTasks;
   }
 
   $scope.findTasks = function() {
