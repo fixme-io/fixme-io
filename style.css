@@ -272,41 +272,8 @@
   margin-bottom: 20px;
 }
 
-.checkbox .cb, .radio .cb {
-  position: relative;
-  display: inline-block;
-  border: 0.5px solid #e6e0e0;
-  border-radius: .25em;
-  width: 1em;
-  height: 1em;
-  margin-left: -18px;
-  margin-top: -8px;
-}
-
-.checkbox .cb .cb-icon, .radio .cb .cb-icon {
-  position: absolute;
-  font-size: .8em;
-  margin-top: 6px;
-  line-height: 0;
-}
-
-.checkbox label input[type="checkbox"], .radio label input[type="radio"] {
-  display: none;
-}
-
-.checkbox label input[type="checkbox"]+.cb>.cb-icon, .radio label input[type="radio"]+.cb>.cb-icon {
-  transform: scale(3) rotateZ(-20deg);
-  opacity: 0;
-  transition: all .3s ease-in;
-}
-
-.checkbox label input[type="checkbox"]:checked+.cb>.cb-icon, .radio label input[type="radio"]:checked+.cb>.cb-icon {
-  transform: scale(1) rotateZ(0deg);
-  opacity: 1;
-}
-
-.checkbox label {
-  margin-bottom: -70px;
+.glyphicon-ok{
+    color:grey;
 }
 
 #exportTasks {
@@ -412,4 +379,13 @@ a#labels:target {
 
 #selectedTotal {
   background-color: #9a799e;
+}
+
+.pretty.p-default input:checked~.state label:after {
+  background-color: #c9a5da!important;
+}
+
+.pretty.p-default{
+  margin-top:3px;
+  margin-right: -10px;
 }

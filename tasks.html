@@ -47,11 +47,9 @@
 
 	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks() | filter:userSearch | orderBy: filter">
 		<td>
-			<div class="checkbox">
-				<label>
-		    	<input type="checkbox" ng-model="x.selected">
-		    	<span class="cb"><i class="cb-icon glyphicon glyphicon-ok"></i></span>
-		    </label>
+			<div class="pretty p-default p-curve">
+				<input type="checkbox" ng-model="x.selected" />
+				<div class="state"><label>&nbsp</label></div>
 			</div>
 		</td>
 		<td>{{ $index + 1 }}</td>
@@ -72,11 +70,12 @@
 			</span>
 		</td>
 		<td>
-			<div class="checkbox">
-				<label>
-		    	<input type="checkbox" ng-model="x.completed" ng-change="completedTasks(x)">
-		    	<span class="cb"><i class="cb-icon glyphicon glyphicon-ok"></i></span>
-		    </label>
+			<div class="pretty p-icon p-jelly p-curve">
+				<input type="checkbox" ng-model="x.completed" ng-change="completedTasks(x)" />
+				<div class="state">
+					<i class="icon material-icons glyphicon glyphicon-ok"></i>
+					<label>&nbsp</label>
+				</div>
 			</div>
 		</td>
 		<td>
