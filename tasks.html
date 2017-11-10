@@ -45,7 +45,7 @@
 		</tr>
 	</thead>
 
-	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks() | filter:userSearch | orderBy: filter">
+	<tr ng-class="{'selected':$index == selectedRow}" ng-click="setClickedRow($index)" ng-repeat="x in findTasks(tasks) | filter:userSearch | orderBy: filter">
 		<td>
 			<div class="pretty p-default p-curve">
 				<input type="checkbox" ng-model="x.selected" />
@@ -95,4 +95,4 @@
 	</tr>
 </table>
 
-<label class="selectedLabel" ng-show="sortingTasks(selectedTasks()).length != 0">Selected <span class="badge" id="selectedTotal">{{sortingTasks(selectedTasks()).length}}</span> task(s).</label>
+<label class="selectedLabel" ng-show="findTasks(selectedTasks()).length != 0">Selected <span class="badge" id="selectedTotal">{{findTasks(selectedTasks()).length}}</span> task(s).</label>
