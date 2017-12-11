@@ -272,8 +272,8 @@
   margin-bottom: 20px;
 }
 
-.glyphicon-ok{
-    color:grey;
+.glyphicon-ok {
+  color: grey;
 }
 
 #exportTasks {
@@ -385,7 +385,18 @@ a#labels:target {
   background-color: #c9a5da!important;
 }
 
-.pretty.p-default{
-  margin-top:3px;
+.pretty.p-default {
+  margin-top: 3px;
   margin-right: -10px;
+}
+
+#trashSelTasks {
+  margin-left: 496px;
+  margin-bottom: -32px;
+  border-bottom: 1px solid #aeaeae;
+}
+
+#trashIcon {
+  height: 20px;
+  padding-top: 3px;
 }
