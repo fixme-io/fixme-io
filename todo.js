@@ -201,6 +201,37 @@ app.controller('TasksCtrl', function($scope, $routeParams, $localStorage,
     });
   }
 
+  $scope.removeSelectedTasks = function() {
+    swal({
+        title: "Are you sure? Will be deleted " + $scope.selectedTasks()
+          .length + " selected tasks!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: "No, cancel it!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          for (var i = $scope.tasks.length - 1; i >= 0; i--) {
+            if ($scope.tasks[i].selected) {
+              $scope.remove(i);
+            }
+          }
+          swal({
+            title: 'Deleted!',
+            showConfirmButton: false,
+            timer: 1000,
+            type: 'success',
+          })
+          $scope.$apply();
+          selected = null;
+        }
+      });
+  }
+
   $scope.filterByLabel = function() {
     if ($scope.labelFilter && !filteredTasks) {
       $scope.tasks = $scope.tasks.filter(function(task) {
